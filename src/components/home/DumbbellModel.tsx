@@ -1,0 +1,522 @@
+"use client";
+
+import {
+  forwardRef,
+  useEffect,
+  useMemo,
+  useRef,
+  type ForwardedRef,
+} from "react";
+import { useFrame } from "@react-three/fiber";
+import * as THREE from "three";
+
+const TIGER_YELLOW = "#FFEA00";
+const BRIGHT_YELLOW = "#FFF200";
+const PLATE_BLACK = "#090909";
+const DARK_CHROME = "#211D1E";
+
+type Side = -1 | 1;
+
+export type DumbbellModelProps = {
+  compact: boolean;
+  reducedMotion: boolean;
+};
+
+type PlateBlueprint = {
+  distance: number;
+  width: number;
+  radius: number;
+  ringRadius: number;
+};
+
+type PlateInstance = PlateBlueprint & {
+  side: Side;
+  stackIndex: number;
+};
+
+type WeightPlateProps = PlateInstance & {
+  compact: boolean;
+};
+
+type SegmentName = "a" | "b" | "c" | "d" | "e" | "f" | "g";
+
+const PLATE_BLUEPRINTS: readonly PlateBlueprint[] = [
+  { distance: 1.36, width: 0.18, radius: 0.68, ringRadius: 0.53 },
+  { distance: 1.54, width: 0.22, radius: 0.96, ringRadius: 0.78 },
+  { distance: 1.77, width: 0.24, radius: 1.05, ringRadius: 0.86 },
+  { distance: 2, width: 0.22, radius: 0.95, ringRadius: 0.77 },
+  { distance: 2.18, width: 0.14, radius: 0.72, ringRadius: 0.57 },
+];
+
+const PLATE_INSTANCES: readonly PlateInstance[] = ([-1, 1] as const).flatMap(
+  (side) =>
+    PLATE_BLUEPRINTS.map((plate, stackIndex) => ({
+      ...plate,
+      side,
+      stackIndex,
+    })),
+);
+
+const DIGIT_SEGMENTS: Readonly<Record<"2" | "5", readonly SegmentName[]>> = {
+  "2": ["a", "b", "g", "e", "d"],
+  "5": ["a", "f", "g", "c", "d"],
+};
+
+const SEGMENT_LAYOUT: Readonly<
+  Record<SegmentName, { position: [number, number, number]; vertical: boolean }>
+> = {
+  a: { position: [0, 0.105, 0], vertical: false },
+  b: { position: [0, 0.055, 0.058], vertical: true },
+  c: { position: [0, -0.055, 0.058], vertical: true },
+  d: { position: [0, -0.105, 0], vertical: false },
+  e: { position: [0, -0.055, -0.058], vertical: true },
+  f: { position: [0, 0.055, -0.058], vertical: true },
+  g: { position: [0, 0, 0], vertical: false },
+};
+
+function seededValue(index: number, salt: number): number {
+  const value = Math.sin(index * 91.317 + salt * 47.113) * 43_758.5453;
+  return value - Math.floor(value);
+}
+
+function smootherStep(value: number): number {
+  const clamped = THREE.MathUtils.clamp(value, 0, 1);
+  return clamped * clamped * clamped * (clamped * (clamped * 6 - 15) + 10);
+}
+
+function scrollPulse(progress: number): number {
+  const open = smootherStep((progress - 0.16) / 0.28);
+  const close = smootherStep((progress - 0.66) / 0.3);
+  return open * (1 - close);
+}
+
+function createKnurlTexture(): THREE.DataTexture {
+  const size = 64;
+  const data = new Uint8Array(size * size);
+
+  for (let y = 0; y < size; y += 1) {
+    for (let x = 0; x < size; x += 1) {
+      const risingGroove = (x + y) % 16 < 3;
+      const fallingGroove = (x - y + size * 2) % 16 < 3;
+      const crossed = risingGroove && fallingGroove;
+      data[y * size + x] = crossed ? 236 : risingGroove || fallingGroove ? 196 : 92;
+    }
+  }
+
+  const texture = new THREE.DataTexture(
+    data,
+    size,
+    size,
+    THREE.RedFormat,
+    THREE.UnsignedByteType,
+  );
+  texture.wrapS = THREE.RepeatWrapping;
+  texture.wrapT = THREE.RepeatWrapping;
+  texture.repeat.set(5, 3);
+  texture.minFilter = THREE.LinearMipmapLinearFilter;
+  texture.magFilter = THREE.LinearFilter;
+  texture.generateMipmaps = true;
+  texture.needsUpdate = true;
+  return texture;
+}
+
+const WeightPlate = forwardRef(function WeightPlate(
+  { width, radius, ringRadius, compact }: WeightPlateProps,
+  ref: ForwardedRef<THREE.Group>,
+) {
+  const radialSegments = compact ? 28 : 44;
+
+  return (
+    <group ref={ref}>
+      <mesh rotation={[0, 0, Math.PI / 2]} castShadow={!compact}>
+        <cylinderGeometry
+          args={[radius + 0.025, radius + 0.025, width * 0.52, radialSegments, 1]}
+        />
+        <meshStandardMaterial
+          color={TIGER_YELLOW}
+          emissive={TIGER_YELLOW}
+          emissiveIntensity={0.13}
+          metalness={0.58}
+          roughness={0.3}
+        />
+      </mesh>
+
+      <mesh rotation={[0, 0, Math.PI / 2]} castShadow={!compact} receiveShadow={!compact}>
+        <cylinderGeometry args={[radius, radius, width, radialSegments, 1]} />
+        <meshPhysicalMaterial
+          color={PLATE_BLACK}
+          metalness={0.62}
+          roughness={0.38}
+          clearcoat={0.28}
+          clearcoatRoughness={0.4}
+        />
+      </mesh>
+
+      {([-1, 1] as const).map((face) => (
+        <mesh
+          key={face}
+          position={[face * (width / 2 + 0.009), 0, 0]}
+          rotation={[0, Math.PI / 2, 0]}
+        >
+          <torusGeometry
+            args={[ringRadius, compact ? 0.022 : 0.027, 6, compact ? 28 : 40]}
+          />
+          <meshStandardMaterial
+            color={BRIGHT_YELLOW}
+            emissive={TIGER_YELLOW}
+            emissiveIntensity={0.35}
+            metalness={0.54}
+            roughness={0.25}
+          />
+        </mesh>
+      ))}
+    </group>
+  );
+});
+
+function MetalCollar({ side, compact }: { side: Side; compact: boolean }) {
+  return (
+    <group position={[side * 1.16, 0, 0]}>
+      <mesh rotation={[0, 0, Math.PI / 2]} castShadow={!compact}>
+        <cylinderGeometry args={[0.43, 0.43, 0.2, compact ? 24 : 36]} />
+        <meshPhysicalMaterial
+          color="#777874"
+          metalness={0.98}
+          roughness={0.18}
+          clearcoat={0.65}
+          clearcoatRoughness={0.14}
+        />
+      </mesh>
+      <mesh
+        position={[side * 0.101, 0, 0]}
+        rotation={[0, Math.PI / 2, 0]}
+      >
+        <torusGeometry args={[0.34, 0.035, 8, compact ? 24 : 36]} />
+        <meshStandardMaterial color="#B4B5AF" metalness={1} roughness={0.16} />
+      </mesh>
+    </group>
+  );
+}
+
+function SegmentDigit({
+  value,
+  position,
+}: {
+  value: "2" | "5";
+  position: [number, number, number];
+}) {
+  return (
+    <group position={position}>
+      {DIGIT_SEGMENTS[value].map((segment) => {
+        const layout = SEGMENT_LAYOUT[segment];
+        return (
+          <mesh key={segment} position={layout.position}>
+            <boxGeometry
+              args={layout.vertical ? [0.036, 0.09, 0.024] : [0.036, 0.024, 0.105]}
+            />
+            <meshStandardMaterial
+              color={TIGER_YELLOW}
+              emissive={TIGER_YELLOW}
+              emissiveIntensity={0.45}
+              metalness={0.45}
+              roughness={0.28}
+            />
+          </mesh>
+        );
+      })}
+    </group>
+  );
+}
+
+const EndCapDetails = forwardRef(function EndCapDetails(
+  { side }: { side: Side },
+  ref: ForwardedRef<THREE.Group>,
+) {
+  const faceX = side * 2.259;
+
+  return (
+    <group ref={ref} position={[faceX, 0, 0]}>
+      <mesh rotation={[0, Math.PI / 2, 0]}>
+        <ringGeometry args={[0.53, 0.585, 36]} />
+        <meshStandardMaterial
+          color={TIGER_YELLOW}
+          emissive={TIGER_YELLOW}
+          emissiveIntensity={0.42}
+          metalness={0.5}
+          roughness={0.28}
+          side={THREE.DoubleSide}
+        />
+      </mesh>
+
+      <group position={[side * 0.028, 0.11, 0]}>
+        <group position={[0, 0, -0.2]}>
+          <mesh position={[0, -0.045, 0]}>
+            <boxGeometry args={[0.045, 0.38, 0.07]} />
+            <meshStandardMaterial
+              color={BRIGHT_YELLOW}
+              emissive={TIGER_YELLOW}
+              emissiveIntensity={0.55}
+              metalness={0.45}
+              roughness={0.25}
+            />
+          </mesh>
+          <mesh position={[0, 0.145, 0]}>
+            <boxGeometry args={[0.045, 0.07, 0.31]} />
+            <meshStandardMaterial
+              color={BRIGHT_YELLOW}
+              emissive={TIGER_YELLOW}
+              emissiveIntensity={0.55}
+              metalness={0.45}
+              roughness={0.25}
+            />
+          </mesh>
+        </group>
+
+        <group position={[0, -0.035, 0.2]}>
+          <mesh rotation={[0, Math.PI / 2, 0]}>
+            <torusGeometry args={[0.19, 0.043, 7, 30, Math.PI * 1.72]} />
+            <meshStandardMaterial
+              color={BRIGHT_YELLOW}
+              emissive={TIGER_YELLOW}
+              emissiveIntensity={0.55}
+              metalness={0.45}
+              roughness={0.25}
+            />
+          </mesh>
+          <mesh position={[0, -0.04, 0.08]}>
+            <boxGeometry args={[0.045, 0.07, 0.18]} />
+            <meshStandardMaterial
+              color={BRIGHT_YELLOW}
+              emissive={TIGER_YELLOW}
+              emissiveIntensity={0.55}
+              metalness={0.45}
+              roughness={0.25}
+            />
+          </mesh>
+        </group>
+      </group>
+
+      <SegmentDigit value="2" position={[side * 0.03, -0.43, -0.072]} />
+      <SegmentDigit value="5" position={[side * 0.03, -0.43, 0.072]} />
+
+      {Array.from({ length: 8 }, (_, index) => {
+        const angle = (index / 8) * Math.PI * 2;
+        return (
+          <mesh
+            key={index}
+            position={[
+              side * 0.026,
+              Math.sin(angle) * 0.635,
+              Math.cos(angle) * 0.635,
+            ]}
+            rotation={[0, 0, angle]}
+          >
+            <boxGeometry args={[0.035, 0.055, 0.018]} />
+            <meshStandardMaterial
+              color={TIGER_YELLOW}
+              emissive={TIGER_YELLOW}
+              emissiveIntensity={0.28}
+              metalness={0.5}
+              roughness={0.25}
+            />
+          </mesh>
+        );
+      })}
+    </group>
+  );
+});
+
+function ChalkParticles({
+  compact,
+  particlesRef,
+}: {
+  compact: boolean;
+  particlesRef: ForwardedRef<THREE.Points>;
+}) {
+  const count = compact ? 32 : 88;
+  const positions = useMemo(() => {
+    const values = new Float32Array(count * 3);
+
+    for (let index = 0; index < count; index += 1) {
+      values[index * 3] = (seededValue(index, 1) - 0.5) * 6.1;
+      values[index * 3 + 1] = (seededValue(index, 2) - 0.5) * 3.2;
+      values[index * 3 + 2] = -1.25 + seededValue(index, 3) * 2.25;
+    }
+
+    return values;
+  }, [count]);
+
+  return (
+    <points ref={particlesRef}>
+      <bufferGeometry>
+        <bufferAttribute attach="attributes-position" args={[positions, 3]} />
+      </bufferGeometry>
+      <pointsMaterial
+        color="#E6E2D7"
+        size={compact ? 0.018 : 0.026}
+        sizeAttenuation
+        transparent
+        opacity={compact ? 0.2 : 0.3}
+        depthWrite={false}
+      />
+    </points>
+  );
+}
+
+export default function DumbbellModel({ compact, reducedMotion }: DumbbellModelProps) {
+  const rootRef = useRef<THREE.Group>(null);
+  const plateRefs = useRef<Array<THREE.Group | null>>([]);
+  const endCapDetailsRefs = useRef<Array<THREE.Group | null>>([]);
+  const particlesRef = useRef<THREE.Points>(null);
+  const scrollProgressRef = useRef(0);
+  const knurlTexture = useMemo(() => createKnurlTexture(), []);
+
+  useEffect(() => () => knurlTexture.dispose(), [knurlTexture]);
+
+  useEffect(() => {
+    const updateScrollProgress = () => {
+      const viewportHeight = Math.max(window.innerHeight, 1);
+      scrollProgressRef.current = THREE.MathUtils.clamp(
+        window.scrollY / (viewportHeight * 0.92),
+        0,
+        1.15,
+      );
+    };
+
+    updateScrollProgress();
+    window.addEventListener("scroll", updateScrollProgress, { passive: true });
+    window.addEventListener("resize", updateScrollProgress, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", updateScrollProgress);
+      window.removeEventListener("resize", updateScrollProgress);
+    };
+  }, []);
+
+  useFrame((state, frameDelta) => {
+    const root = rootRef.current;
+    if (!root) return;
+
+    if (reducedMotion) {
+      root.position.set(0, 0, 0);
+      root.rotation.set(0.08, -0.4, -0.1);
+      PLATE_INSTANCES.forEach((plate, index) => {
+        const plateGroup = plateRefs.current[index];
+        if (plateGroup) plateGroup.position.x = plate.side * plate.distance;
+      });
+      ([-1, 1] as const).forEach((side, index) => {
+        const details = endCapDetailsRefs.current[index];
+        if (details) details.position.x = side * 2.259;
+      });
+      return;
+    }
+
+    const delta = Math.min(frameDelta, 1 / 20);
+    const elapsed = state.clock.elapsedTime;
+    const scroll = scrollProgressRef.current;
+    const intro = smootherStep(elapsed / (compact ? 0.95 : 1.25));
+    const settleWeight = 1 - smootherStep((scroll - 0.62) / 0.38);
+    const pointerWeight = compact ? 0 : settleWeight;
+    const curl = Math.sin(elapsed * 0.72) * 0.085 * settleWeight * intro;
+    const targetY = -2.75 * (1 - intro) + curl - scroll * 0.06;
+    const targetZ = smootherStep(scroll / 0.92) * 0.7;
+    const targetRotationX =
+      0.08 + elapsed * 0.07 * settleWeight + scroll * 0.52 - state.pointer.y * 0.075 * pointerWeight;
+    const targetRotationY = -0.4 + scroll * 0.46 + state.pointer.x * 0.1 * pointerWeight;
+    const targetRotationZ = -0.1 + scroll * 0.2 + state.pointer.x * 0.035 * pointerWeight;
+
+    root.position.y = THREE.MathUtils.damp(root.position.y, targetY, 4.2, delta);
+    root.position.z = THREE.MathUtils.damp(root.position.z, targetZ, 4.4, delta);
+    root.rotation.x = THREE.MathUtils.damp(root.rotation.x, targetRotationX, 3.4, delta);
+    root.rotation.y = THREE.MathUtils.damp(root.rotation.y, targetRotationY, 4.2, delta);
+    root.rotation.z = THREE.MathUtils.damp(root.rotation.z, targetRotationZ, 4, delta);
+
+    const separation = scrollPulse(scroll);
+    PLATE_INSTANCES.forEach((plate, index) => {
+      const plateGroup = plateRefs.current[index];
+      if (!plateGroup) return;
+
+      const offset = separation * (0.035 + plate.stackIndex * 0.045);
+      const targetX = plate.side * (plate.distance + offset);
+      plateGroup.position.x = THREE.MathUtils.damp(plateGroup.position.x, targetX, 6.2, delta);
+    });
+
+    ([-1, 1] as const).forEach((side, index) => {
+      const details = endCapDetailsRefs.current[index];
+      if (!details) return;
+      const endCapOffset = separation * (0.035 + 4 * 0.045);
+      const targetX = side * (2.259 + endCapOffset);
+      details.position.x = THREE.MathUtils.damp(details.position.x, targetX, 6.2, delta);
+    });
+
+    const particles = particlesRef.current;
+    if (particles) {
+      particles.position.y = Math.sin(elapsed * 0.24) * 0.035;
+      particles.rotation.y = elapsed * 0.012;
+    }
+  });
+
+  return (
+    <>
+      <group
+        ref={rootRef}
+        position={[0, reducedMotion ? 0 : -2.75, 0]}
+        rotation={[0.08, -0.4, -0.1]}
+        scale={compact ? 0.64 : 0.96}
+      >
+      <mesh rotation={[0, 0, Math.PI / 2]} castShadow={!compact}>
+        <cylinderGeometry args={[0.16, 0.16, 2.22, compact ? 24 : 36, 1]} />
+        <meshPhysicalMaterial
+          color={DARK_CHROME}
+          metalness={0.94}
+          roughness={0.3}
+          bumpMap={knurlTexture}
+          bumpScale={0.055}
+          clearcoat={0.42}
+          clearcoatRoughness={0.28}
+        />
+      </mesh>
+
+      {([-1, 1] as const).map((side) => (
+        <group key={side}>
+          <mesh
+            position={[side * 1.42, 0, 0]}
+            rotation={[0, 0, Math.PI / 2]}
+            castShadow={!compact}
+          >
+            <cylinderGeometry args={[0.22, 0.22, 0.66, compact ? 22 : 32]} />
+            <meshStandardMaterial color="#4D4F4D" metalness={0.98} roughness={0.2} />
+          </mesh>
+          <MetalCollar side={side} compact={compact} />
+        </group>
+      ))}
+
+      {PLATE_INSTANCES.map((plate, index) => (
+        <WeightPlate
+          key={`${plate.side}-${plate.stackIndex}`}
+          ref={(node) => {
+            plateRefs.current[index] = node;
+          }}
+          {...plate}
+          compact={compact}
+        />
+      ))}
+
+        <EndCapDetails
+          ref={(node) => {
+            endCapDetailsRefs.current[0] = node;
+          }}
+          side={-1}
+        />
+        <EndCapDetails
+          ref={(node) => {
+            endCapDetailsRefs.current[1] = node;
+          }}
+          side={1}
+        />
+      </group>
+
+      <ChalkParticles compact={compact} particlesRef={particlesRef} />
+    </>
+  );
+}
