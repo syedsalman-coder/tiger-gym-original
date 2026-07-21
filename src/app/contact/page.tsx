@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { MapPin, MessageCircle, Phone } from "lucide-react";
+import { Clock3, MapPin, MessageCircle, Phone } from "lucide-react";
 import ContactForm from "@/components/contact/ContactForm";
 import MapEmbed from "@/components/contact/MapEmbed";
 import MagneticButton from "@/components/shared/MagneticButton";
@@ -33,7 +33,21 @@ export default function ContactPage() {
               <span className="eyebrow">Tiger Gym Fitness Center</span>
               <address><MapPin size={24} aria-hidden="true" /> {site.address}</address>
               <a className="contact-details__phone" href={site.phoneHref}>{site.phoneDisplay}</a>
-              <p>Opening hours are not published here because the current schedule has not been confirmed.</p>
+              <div className="contact-hours" aria-label="Tiger Gym opening hours">
+                <div className="contact-hours__icon">
+                  <Clock3 size={22} aria-hidden="true" />
+                </div>
+                <div className="contact-hours__schedule">
+                  <div className="contact-hours__row">
+                    <span>{site.openingHours.regularDays}</span>
+                    <strong>{site.openingHours.regularTime}</strong>
+                  </div>
+                  <div className="contact-hours__row">
+                    <span>{site.openingHours.fridayDays}</span>
+                    <strong>{site.openingHours.fridayTime}</strong>
+                  </div>
+                </div>
+              </div>
               <div>
                 <MagneticButton href={site.phoneHref} variant="outline"><Phone size={17} aria-hidden="true" /> Call now</MagneticButton>
                 <MagneticButton href={site.whatsappHref} target="_blank" rel="noreferrer"><MessageCircle size={17} aria-hidden="true" /> WhatsApp</MagneticButton>

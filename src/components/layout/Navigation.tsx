@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { ArrowUpRight } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import Logo from "@/components/shared/Logo";
 import { navigation } from "@/data/site";
@@ -93,7 +94,7 @@ export default function Navigation() {
           aria-hidden={menuOpen}
           tabIndex={menuOpen ? -1 : undefined}
         >
-          Join now <span aria-hidden="true">↗</span>
+          Join now <ArrowUpRight size={14} aria-hidden="true" />
         </Link>
 
         <button

@@ -7,6 +7,15 @@ export const site = {
   phoneHref: "tel:+96569678350",
   whatsappNumber: "96569678350",
   whatsappHref: "https://wa.me/96569678350",
+
+  openingHours: {
+  regularDays: "Saturday to Thursday",
+  regularTime: "5:00 AM – 2:00 AM",
+  fridayDays: "Friday",
+  fridayTime: "12:00 PM – 2:00 AM",
+  shortDisplay: "Sat–Thu: 5:00 AM–2:00 AM | Fri: 12:00 PM–2:00 AM",
+},
+
   socialLinks: [],
   description:
     "A focused training environment for strength, fitness and serious progress in Salmiya, Kuwait.",

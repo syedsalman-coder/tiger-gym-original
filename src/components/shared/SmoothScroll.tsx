@@ -1,13 +1,25 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useLayoutEffect, useRef } from "react";
 import { useReducedMotion } from "framer-motion";
+import { usePathname } from "next/navigation";
 import Lenis from "lenis";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 export default function SmoothScroll() {
+  const pathname = usePathname();
   const reduceMotion = useReducedMotion();
+  const lenisRef = useRef<Lenis | null>(null);
+
+  useLayoutEffect(() => {
+    if (lenisRef.current) {
+      lenisRef.current.scrollTo(0, { immediate: true, force: true });
+      return;
+    }
+
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  }, [pathname]);
 
   useEffect(() => {
     if (reduceMotion) return;
@@ -18,6 +30,7 @@ export default function SmoothScroll() {
       syncTouch: false,
       wheelMultiplier: 0.92,
     });
+    lenisRef.current = lenis;
     const tick = (time: number) => lenis.raf(time * 1000);
     const update = () => ScrollTrigger.update();
     const refresh = () => ScrollTrigger.refresh();
@@ -48,6 +61,7 @@ export default function SmoothScroll() {
       gsap.ticker.lagSmoothing(500, 33);
       lenis.off("scroll", update);
       lenis.destroy();
+      lenisRef.current = null;
     };
   }, [reduceMotion]);
 
