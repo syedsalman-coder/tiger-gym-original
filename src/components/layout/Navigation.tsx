@@ -6,10 +6,14 @@ import { ArrowUpRight } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import Logo from "@/components/shared/Logo";
 import { navigation, site } from "@/data/site";
+import { getLocalizedValue, localizePath, type Locale } from "@/i18n/config";
+import { getDictionary } from "@/i18n/dictionaries";
+import LanguageSwitcher from "./LanguageSwitcher";
 import MobileMenu from "./MobileMenu";
 
-export default function Navigation() {
+export default function Navigation({ locale }: { locale: Locale }) {
   const pathname = usePathname();
+  const dictionary = getDictionary(locale);
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
@@ -59,49 +63,46 @@ export default function Navigation() {
     }
   }, [menuOpen]);
 
-  const solid = pathname !== "/" || scrolled || menuOpen;
+  const solid = pathname !== localizePath(locale, "/") || scrolled || menuOpen;
+  const text = (value: Parameters<typeof getLocalizedValue>[0]) => getLocalizedValue(value, locale);
 
   return (
     <>
       <header className={`main-nav ${solid ? "main-nav--solid" : ""} ${menuOpen ? "main-nav--open" : ""}`}>
         <Link
           className="main-nav__brand"
-          href="/"
-          aria-label={`${site.name.en} home`}
+          href={localizePath(locale, "/")}
+          aria-label={dictionary.accessibility.home}
           aria-hidden={menuOpen}
           tabIndex={menuOpen ? -1 : undefined}
         >
-          <Logo decorative priority />
-          <span><strong>{site.name.en}</strong><small>{site.descriptor.en}</small></span>
+          <Logo locale={locale} decorative priority />
+          <span><strong>{text(site.name)}</strong><small>{text(site.descriptor)}</small></span>
         </Link>
 
-        <nav className="main-nav__links" aria-label="Primary navigation">
-          {navigation.map((item) => (
-            <Link
-              className={pathname === item.href ? "is-active" : undefined}
-              href={item.href}
-              key={item.href}
-              aria-current={pathname === item.href ? "page" : undefined}
-            >
-              {item.label.en}
-            </Link>
-          ))}
+        <nav className="main-nav__links" aria-label={dictionary.accessibility.primaryNavigation}>
+          {navigation.map((item) => {
+            const href = localizePath(locale, item.href);
+            return <Link className={pathname === href ? "is-active" : undefined} href={href} key={item.href} aria-current={pathname === href ? "page" : undefined}>{text(item.label)}</Link>;
+          })}
         </nav>
+
+        <LanguageSwitcher locale={locale} disabled={menuOpen} />
 
         <Link
           className="main-nav__join"
-          href="/membership"
+          href={localizePath(locale, "/membership")}
           aria-hidden={menuOpen}
           tabIndex={menuOpen ? -1 : undefined}
         >
-          Join now <ArrowUpRight size={14} aria-hidden="true" />
+          {dictionary.common.joinNow} <ArrowUpRight size={14} aria-hidden="true" />
         </Link>
 
         <button
           ref={menuButtonRef}
           className={`main-nav__toggle ${menuOpen ? "is-open" : ""}`}
           type="button"
-          aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
+          aria-label={menuOpen ? dictionary.accessibility.closeMenu : dictionary.accessibility.openMenu}
           aria-expanded={menuOpen}
           aria-controls="mobile-navigation"
           onClick={() => setMenuOpen((current) => !current)}
@@ -109,7 +110,7 @@ export default function Navigation() {
           <span /><span />
         </button>
       </header>
-      <MobileMenu open={menuOpen} pathname={pathname} onClose={closeMenu} />
+      <MobileMenu locale={locale} open={menuOpen} pathname={pathname} onClose={closeMenu} />
     </>
   );
 }

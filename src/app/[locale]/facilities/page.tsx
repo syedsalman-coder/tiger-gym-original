@@ -4,36 +4,28 @@ import MagneticButton from "@/components/shared/MagneticButton";
 import PageHero from "@/components/shared/PageHero";
 import SectionHeading from "@/components/shared/SectionHeading";
 import { facilities, facilitiesContent } from "@/data/facilities";
+import { getLocalizedValue, localizePath } from "@/i18n/config";
+import { createLocalizedMetadata } from "@/i18n/metadata";
+import { requireLocale, type LocaleParams } from "@/i18n/server";
 
 const icons = { activity: Activity, dumbbell: Dumbbell, weight: BicepsFlexed, zap: Zap } as const;
 
-export const metadata: Metadata = {
-  title: facilitiesContent.metadata.title.en,
-  description: facilitiesContent.metadata.description.en,
-};
+export async function generateMetadata({ params }: { params: LocaleParams }): Promise<Metadata> {
+  const locale = await requireLocale(params);
+  return createLocalizedMetadata(locale, "/facilities", facilitiesContent.metadata);
+}
 
-export default function FacilitiesPage() {
+export default async function FacilitiesPage({ params }: { params: LocaleParams }) {
+  const locale = await requireLocale(params);
   const content = facilitiesContent;
+  const text = (value: Parameters<typeof getLocalizedValue>[0]) => getLocalizedValue(value, locale);
 
   return (
     <main id="main-content">
-      <PageHero
-        index={content.hero.index.en}
-        eyebrow={content.hero.eyebrow.en}
-        title={content.hero.title.en}
-        description={content.hero.description.en}
-        nextLabel={content.hero.nextLabel.en}
-        nextHref={content.hero.nextHref}
-      />
-
+      <PageHero index={text(content.hero.index)} eyebrow={text(content.hero.eyebrow)} title={text(content.hero.title)} description={text(content.hero.description)} nextLabel={text(content.hero.nextLabel)} nextHref={content.hero.nextHref} />
       <section className="facility-list section-space" id="training-areas">
         <div className="page-shell">
-          <SectionHeading
-            number={content.section.number.en}
-            eyebrow={content.section.eyebrow.en}
-            title={content.section.title.en}
-            description={content.section.description.en}
-          />
+          <SectionHeading number={text(content.section.number)} eyebrow={text(content.section.eyebrow)} title={text(content.section.title)} description={text(content.section.description)} />
           <div className="facility-list__items">
             {facilities.map((facility, index) => {
               const Icon = icons[facility.icon];
@@ -45,10 +37,10 @@ export default function FacilitiesPage() {
                     <Icon size={32} strokeWidth={1.25} />
                   </div>
                   <div className="facility-row__copy">
-                    <span className="eyebrow">{facility.shortTitle.en}</span>
-                    <h2>{facility.title.en}</h2>
-                    <p>{facility.description.en}</p>
-                    <div className="facility-row__detail"><span>{content.section.detailLabel.en}</span><p>{facility.detail.en}</p></div>
+                    <span className="eyebrow">{text(facility.shortTitle)}</span>
+                    <h2>{text(facility.title)}</h2>
+                    <p>{text(facility.description)}</p>
+                    <div className="facility-row__detail"><span>{text(content.section.detailLabel)}</span><p>{text(facility.detail)}</p></div>
                   </div>
                 </article>
               );
@@ -56,12 +48,11 @@ export default function FacilitiesPage() {
           </div>
         </div>
       </section>
-
       <section className="inline-cta inline-cta--yellow section-space">
         <div className="page-shell inline-cta__panel" data-reveal>
-          <span className="eyebrow">{content.cta.eyebrow.en}</span>
-          <h2>{content.cta.title.en}</h2>
-          <MagneticButton href={content.cta.href} variant="light">{content.cta.label.en}</MagneticButton>
+          <span className="eyebrow">{text(content.cta.eyebrow)}</span>
+          <h2>{text(content.cta.title)}</h2>
+          <MagneticButton href={localizePath(locale, content.cta.href)} variant="light">{text(content.cta.label)}</MagneticButton>
         </div>
       </section>
     </main>

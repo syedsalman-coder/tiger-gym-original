@@ -5,11 +5,15 @@ import { useEffect, useState } from "react";
 import Logo from "@/components/shared/Logo";
 import { pageContent } from "@/data/pages";
 import { site } from "@/data/site";
+import { getLocalizedValue, type Locale } from "@/i18n/config";
+import { getDictionary } from "@/i18n/dictionaries";
 
-export default function HomeLoader() {
+export default function HomeLoader({ locale }: { locale: Locale }) {
   const [visible, setVisible] = useState(true);
   const [progress, setProgress] = useState(0);
   const reduceMotion = useReducedMotion();
+  const dictionary = getDictionary(locale);
+  const text = (value: Parameters<typeof getLocalizedValue>[0]) => getLocalizedValue(value, locale);
 
   useEffect(() => {
     const previousOverflow = document.body.style.overflow;
@@ -40,14 +44,14 @@ export default function HomeLoader() {
         <motion.div
           className="home-loader"
           role="status"
-          aria-label={`Loading ${site.name.en}`}
+          aria-label={dictionary.accessibility.loading}
           exit={reduceMotion ? { opacity: 0 } : { y: "-100%" }}
           transition={{ duration: reduceMotion ? 0.12 : 0.5, ease: [0.76, 0, 0.24, 1] }}
         >
           <div className="home-loader__grid" aria-hidden="true" />
           <div className="home-loader__brand">
-            <Logo priority />
-            <p>{site.name.en} <span>{site.descriptor.en}</span></p>
+            <Logo locale={locale} priority />
+            <p>{text(site.name)} <span>{text(site.descriptor)}</span></p>
           </div>
           <div className="home-loader__claws" aria-hidden="true">
             {[0, 1, 2].map((item) => (
@@ -60,7 +64,7 @@ export default function HomeLoader() {
             ))}
           </div>
           <div className="home-loader__progress">
-            <span>{pageContent.home.loader.progressLabel.en}</span><strong>{progress.toString().padStart(3, "0")}</strong>
+            <span>{text(pageContent.home.loader.progressLabel)}</span><strong>{progress.toString().padStart(3, "0")}</strong>
           </div>
           <div className="home-loader__line"><span style={{ transform: `scaleX(${progress / 100})` }} /></div>
         </motion.div>

@@ -11,7 +11,7 @@ export type ContentCollection<T> = Readonly<{
   items: readonly T[];
 }>;
 
-export const localized = (en: string): LocalizedText => ({ en });
+export const localized = (en: string, ar?: string): LocalizedText => ({ en, ar });
 
 export type NavigationItem = Readonly<{
   label: LocalizedText;

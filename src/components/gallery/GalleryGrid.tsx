@@ -5,22 +5,25 @@ import { motion, useReducedMotion } from "framer-motion";
 import { Expand, ImagePlus } from "lucide-react";
 import { useCallback, useId, useState } from "react";
 import { galleryContent, galleryImages, galleryPlaceholders } from "@/data/gallery";
+import { getLocalizedValue, type Locale } from "@/i18n/config";
+import { getDictionary, interpolate } from "@/i18n/dictionaries";
 import GalleryLightbox, { type GalleryLightboxImage } from "./GalleryLightbox";
 
-const verifiedImages = galleryImages.map((image) => ({
-  src: image.src,
-  alt: image.alt.en,
-  title: image.title.en,
-  description: image.description.en,
-  width: image.width,
-  height: image.height,
-})) satisfies readonly GalleryLightboxImage[];
-
-export function GalleryGrid() {
+export function GalleryGrid({ locale }: { locale: Locale }) {
+  const dictionary = getDictionary(locale);
+  const text = (value: Parameters<typeof getLocalizedValue>[0]) => getLocalizedValue(value, locale);
+  const verifiedImages = galleryImages.map((image) => ({
+    src: image.src,
+    alt: text(image.alt),
+    title: text(image.title),
+    description: text(image.description),
+    width: image.width,
+    height: image.height,
+  })) satisfies readonly GalleryLightboxImage[];
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const galleryNoteId = useId();
   const prefersReducedMotion = useReducedMotion();
-  const closeLightbox = useCallback(() => setActiveIndex(null), []);
+  const closeLightbox = useCallback(() => setActiveIndex(null), [setActiveIndex]);
 
   const revealProps = (index: number) => ({
     initial: prefersReducedMotion ? false : { opacity: 0, y: 22 },
@@ -34,7 +37,7 @@ export function GalleryGrid() {
   return (
     <div className="gallery-grid-block gallery-grid-block--yellow-black">
       <p className="gallery-grid__note" id={galleryNoteId}>
-        {galleryContent.note.en}
+        {text(galleryContent.note)}
       </p>
 
       <ul className="gallery-grid" aria-describedby={galleryNoteId}>
@@ -47,7 +50,7 @@ export function GalleryGrid() {
               className="gallery-card__image-button"
               type="button"
               onClick={() => setActiveIndex(0)}
-              aria-label={`Open the ${verifiedImages[0].title} full screen`}
+              aria-label={interpolate(dictionary.gallery.openFullScreen, { title: verifiedImages[0].title })}
             >
               <span className="gallery-card__media">
                 <Image
@@ -65,11 +68,11 @@ export function GalleryGrid() {
                 </span>
               </span>
               <span className="gallery-card__caption">
-                <span className="gallery-card__eyebrow">{galleryContent.verifiedLabel.en}</span>
+                <span className="gallery-card__eyebrow">{text(galleryContent.verifiedLabel)}</span>
                 <span className="gallery-card__title">
                   {verifiedImages[0].title}
                 </span>
-                <span className="gallery-card__action">{galleryContent.viewLabel.en}</span>
+                <span className="gallery-card__action">{text(galleryContent.viewLabel)}</span>
               </span>
             </button>
           </figure>
@@ -93,9 +96,9 @@ export function GalleryGrid() {
                   <span>{slot.number}</span>
                 </div>
                 <div className="gallery-card__placeholder-copy">
-                  <p className="gallery-card__eyebrow">{galleryContent.placeholderLabel.en}</p>
-                  <h3 id={titleId}>{slot.title.en}</h3>
-                  <p>{slot.description.en}</p>
+                  <p className="gallery-card__eyebrow">{text(galleryContent.placeholderLabel)}</p>
+                  <h3 id={titleId}>{text(slot.title)}</h3>
+                  <p>{text(slot.description)}</p>
                 </div>
               </article>
             </motion.li>
@@ -104,6 +107,7 @@ export function GalleryGrid() {
       </ul>
 
       <GalleryLightbox
+        locale={locale}
         images={verifiedImages}
         activeIndex={activeIndex}
         onClose={closeLightbox}

@@ -3,6 +3,8 @@
 import { type FormEvent, useState } from "react";
 
 import { site } from "@/data/site";
+import type { Locale } from "@/i18n/config";
+import { getDictionary, type Dictionary } from "@/i18n/dictionaries";
 
 type ContactValues = {
   name: string;
@@ -24,37 +26,39 @@ const initialValues: ContactValues = {
   message: "",
 };
 
-function validatePhone(phone: string) {
+function validatePhone(phone: string, dictionary: Dictionary) {
   const digitCount = phone.replace(/\D/g, "").length;
 
   if (!phone.trim()) {
-    return "Enter your phone number.";
+    return dictionary.contactForm.errors.phone;
   }
 
   if (digitCount < 7 || digitCount > 15) {
-    return "Enter a phone number containing 7 to 15 digits.";
+    return dictionary.contactForm.errors.phoneFormat;
   }
 
   return undefined;
 }
 
-function validateField(field: ContactField, value: string) {
+function validateField(field: ContactField, value: string, dictionary: Dictionary) {
   if (field === "phone") {
-    return validatePhone(value);
+    return validatePhone(value, dictionary);
   }
 
   if (!value.trim()) {
-    return field === "name" ? "Enter your name." : "Enter a message.";
+    return field === "name"
+      ? dictionary.contactForm.errors.name
+      : dictionary.contactForm.errors.message;
   }
 
   return undefined;
 }
 
-function validate(values: ContactValues) {
+function validate(values: ContactValues, dictionary: Dictionary) {
   const errors: ContactErrors = {};
 
   (Object.keys(values) as ContactField[]).forEach((field) => {
-    const error = validateField(field, values[field]);
+    const error = validateField(field, values[field], dictionary);
     if (error) errors[field] = error;
   });
 
@@ -69,7 +73,9 @@ function createWhatsappUrl(message: string) {
   return `${baseUrl}${separator}text=${encodeURIComponent(message)}`;
 }
 
-export default function ContactForm() {
+export default function ContactForm({ locale }: { locale: Locale }) {
+  const dictionary = getDictionary(locale);
+  const copy = dictionary.contactForm;
   const [values, setValues] = useState<ContactValues>(initialValues);
   const [errors, setErrors] = useState<ContactErrors>({});
   const [submissionStatus, setSubmissionStatus] =
@@ -82,7 +88,7 @@ export default function ContactForm() {
     if (errors[field]) {
       setErrors((current) => ({
         ...current,
-        [field]: validateField(field, value),
+        [field]: validateField(field, value, dictionary),
       }));
     }
   }
@@ -90,14 +96,14 @@ export default function ContactForm() {
   function handleBlur(field: ContactField) {
     setErrors((current) => ({
       ...current,
-      [field]: validateField(field, values[field]),
+      [field]: validateField(field, values[field], dictionary),
     }));
   }
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    const nextErrors = validate(values);
+    const nextErrors = validate(values, dictionary);
     setErrors(nextErrors);
 
     if (Object.keys(nextErrors).length > 0) {
@@ -114,11 +120,11 @@ export default function ContactForm() {
 
     const whatsappUrl = createWhatsappUrl(
       [
-        `Hello ${site.name.en},`,
+        copy.template.greeting,
         "",
-        `Name: ${values.name.trim()}`,
-        `Phone: ${values.phone.trim()}`,
-        `Message: ${values.message.trim()}`,
+        `${copy.template.name}: ${values.name.trim()}`,
+        `${copy.template.phone}: ${values.phone.trim()}`,
+        `${copy.template.message}: ${values.message.trim()}`,
       ].join("\n"),
     );
     const whatsappWindow = window.open(whatsappUrl, "_blank");
@@ -139,7 +145,7 @@ export default function ContactForm() {
       onSubmit={handleSubmit}
     >
       <div className="enquiry-form__field">
-        <label htmlFor="contact-name">Name</label>
+        <label htmlFor="contact-name">{copy.name}</label>
         <input
           id="contact-name"
           name="name"
@@ -164,13 +170,14 @@ export default function ContactForm() {
       </div>
 
       <div className="enquiry-form__field">
-        <label htmlFor="contact-phone">Phone</label>
+        <label htmlFor="contact-phone">{copy.phone}</label>
         <input
           id="contact-phone"
           name="phone"
           type="tel"
           inputMode="tel"
           autoComplete="tel"
+          dir="ltr"
           value={values.phone}
           required
           aria-invalid={Boolean(errors.phone)}
@@ -190,7 +197,7 @@ export default function ContactForm() {
       </div>
 
       <div className="enquiry-form__field enquiry-form__field--full">
-        <label htmlFor="contact-message">Message</label>
+        <label htmlFor="contact-message">{copy.message}</label>
         <textarea
           id="contact-message"
           name="message"
@@ -217,17 +224,16 @@ export default function ContactForm() {
 
       <div className="enquiry-form__footer">
         <button className="enquiry-form__submit" type="submit">
-          Prepare WhatsApp message
+          {copy.submit}
         </button>
         <p className="enquiry-form__note">
-          This form prepares a WhatsApp message for you to review and send.
+          {copy.note}
         </p>
       </div>
 
       {submissionStatus.kind === "opened" ? (
         <p className="enquiry-form__status" role="status" aria-live="polite">
-          WhatsApp opened with your message. Review it there and tap Send;
-          nothing was sent by this form.
+          {copy.opened}
         </p>
       ) : null}
 
@@ -237,17 +243,14 @@ export default function ContactForm() {
           role="status"
           aria-live="polite"
         >
-          <p>
-            WhatsApp could not open automatically. Nothing was sent. Use the
-            link below to review and send your prepared message.
-          </p>
+          <p>{copy.blocked}</p>
           <a
             className="enquiry-form__whatsapp-link"
             href={submissionStatus.whatsappUrl}
             target="_blank"
             rel="noreferrer"
           >
-            Open WhatsApp
+            {copy.openWhatsapp}
           </a>
         </div>
       ) : null}

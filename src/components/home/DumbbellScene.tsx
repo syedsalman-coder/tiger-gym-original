@@ -14,6 +14,9 @@ import {
 import { Canvas } from "@react-three/fiber";
 import { ContactShadows } from "@react-three/drei";
 import * as THREE from "three";
+import { pageContent } from "@/data/pages";
+import { site } from "@/data/site";
+import { getLocalizedValue, type Locale } from "@/i18n/config";
 import DumbbellModel from "./DumbbellModel";
 
 const TIGER_YELLOW = "#FFEA00";
@@ -21,6 +24,7 @@ const STUDIO_BLACK = "#050505";
 
 type DumbbellSceneProps = {
   className?: string;
+  locale: Locale;
 };
 
 type SceneProps = {
@@ -88,7 +92,7 @@ function detectWebGLSupport(): boolean {
   }
 }
 
-function StaticFallback() {
+function StaticFallback({ locale }: { locale: Locale }) {
   return (
     <div
       className="absolute inset-0 grid place-items-center overflow-hidden bg-[#050505]"
@@ -108,10 +112,10 @@ function StaticFallback() {
           />
         </div>
         <p className="text-[0.62rem] font-bold tracking-[0.38em] text-[#FFEA00] sm:text-xs">
-          TIGER GYM FITNESS CENTER
+          {getLocalizedValue(site.fullName, locale)}
         </p>
         <p className="text-xl font-black tracking-[-0.04em] text-[#F7F7F5] sm:text-3xl">
-          BUILT FOR STRENGTH
+          {getLocalizedValue(pageContent.footer.taglineLineOne, locale)}
         </p>
       </div>
     </div>
@@ -205,7 +209,7 @@ function StudioScene({ compact, reducedMotion }: SceneProps) {
   );
 }
 
-export default function DumbbellScene({ className = "" }: DumbbellSceneProps) {
+export default function DumbbellScene({ className = "", locale }: DumbbellSceneProps) {
   const compact = useMediaQuery("(max-width: 767px), (pointer: coarse)");
   const reducedMotion = useMediaQuery("(prefers-reduced-motion: reduce)");
   const [webGLSupported, setWebGLSupported] = useState<boolean | null>(null);
@@ -251,7 +255,7 @@ export default function DumbbellScene({ className = "" }: DumbbellSceneProps) {
     [],
   );
 
-  const fallback = <StaticFallback />;
+  const fallback = <StaticFallback locale={locale} />;
 
   return (
     <div

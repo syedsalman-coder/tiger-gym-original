@@ -6,6 +6,8 @@ import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { useCallback, useEffect, useId, useRef } from "react";
 import { createPortal } from "react-dom";
 import { galleryContent } from "@/data/gallery";
+import { getLocalizedValue, type Locale } from "@/i18n/config";
+import { getDictionary, interpolate } from "@/i18n/dictionaries";
 
 export interface GalleryLightboxImage {
   src: string;
@@ -17,6 +19,7 @@ export interface GalleryLightboxImage {
 }
 
 interface GalleryLightboxProps {
+  locale: Locale;
   images: readonly GalleryLightboxImage[];
   activeIndex: number | null;
   onClose: () => void;
@@ -33,6 +36,7 @@ const FOCUSABLE_SELECTOR = [
 ].join(",");
 
 export function GalleryLightbox({
+  locale,
   images,
   activeIndex,
   onClose,
@@ -43,6 +47,9 @@ export function GalleryLightbox({
   const titleId = useId();
   const descriptionId = useId();
   const prefersReducedMotion = useReducedMotion();
+  const dictionary = getDictionary(locale);
+  const previousDirection: -1 | 1 = locale === "ar" ? 1 : -1;
+  const nextDirection: -1 | 1 = locale === "ar" ? -1 : 1;
   const activeImage = activeIndex === null ? null : images[activeIndex] ?? null;
 
   const navigate = useCallback(
@@ -68,16 +75,16 @@ export function GalleryLightbox({
         ? document.activeElement
         : null;
     const originalOverflow = document.body.style.overflow;
-    const originalPaddingRight = document.body.style.paddingRight;
+    const originalPaddingInlineEnd = document.body.style.paddingInlineEnd;
     const scrollbarWidth =
       window.innerWidth - document.documentElement.clientWidth;
 
     document.body.style.overflow = "hidden";
     if (scrollbarWidth > 0) {
       const currentPadding = Number.parseFloat(
-        window.getComputedStyle(document.body).paddingRight,
+        window.getComputedStyle(document.body).paddingInlineEnd,
       );
-      document.body.style.paddingRight = `${currentPadding + scrollbarWidth}px`;
+      document.body.style.paddingInlineEnd = `${currentPadding + scrollbarWidth}px`;
     }
 
     const focusFrame = window.requestAnimationFrame(() => {
@@ -93,13 +100,13 @@ export function GalleryLightbox({
 
       if (event.key === "ArrowLeft" && images.length > 1) {
         event.preventDefault();
-        navigate(-1);
+        navigate(previousDirection);
         return;
       }
 
       if (event.key === "ArrowRight" && images.length > 1) {
         event.preventDefault();
-        navigate(1);
+        navigate(nextDirection);
         return;
       }
 
@@ -135,10 +142,10 @@ export function GalleryLightbox({
       window.cancelAnimationFrame(focusFrame);
       document.removeEventListener("keydown", handleKeyDown);
       document.body.style.overflow = originalOverflow;
-      document.body.style.paddingRight = originalPaddingRight;
+      document.body.style.paddingInlineEnd = originalPaddingInlineEnd;
       previouslyFocused?.focus();
     };
-  }, [activeImage, images.length, navigate, onClose]);
+  }, [activeImage, images.length, navigate, nextDirection, onClose, previousDirection]);
 
   if (typeof document === "undefined") {
     return null;
@@ -180,14 +187,14 @@ export function GalleryLightbox({
           >
             <div className="gallery-lightbox__toolbar">
               <p className="gallery-lightbox__status" aria-live="polite">
-                Verified image {activeIndex + 1} of {images.length}
+                {interpolate(dictionary.gallery.verifiedStatus, { current: activeIndex + 1, total: images.length })}
               </p>
               <button
                 ref={closeButtonRef}
                 className="gallery-lightbox__close gallery-lightbox__control--yellow"
                 type="button"
                 onClick={onClose}
-                aria-label="Close full-screen image"
+                aria-label={dictionary.gallery.close}
               >
                 <X aria-hidden="true" />
               </button>
@@ -208,7 +215,7 @@ export function GalleryLightbox({
               </div>
               <figcaption className="gallery-lightbox__caption">
                 <span className="gallery-lightbox__eyebrow">
-                  {galleryContent.lightboxEyebrow.en}
+                  {getLocalizedValue(galleryContent.lightboxEyebrow, locale)}
                 </span>
                 <h2 id={titleId}>{activeImage.title}</h2>
                 <p id={descriptionId}>{activeImage.description}</p>
@@ -218,23 +225,23 @@ export function GalleryLightbox({
             {images.length > 1 && onNavigate ? (
               <nav
                 className="gallery-lightbox__navigation"
-                aria-label="Gallery image navigation"
+                aria-label={dictionary.gallery.navigation}
               >
                 <button
                   className="gallery-lightbox__previous gallery-lightbox__control--yellow"
                   type="button"
-                  onClick={() => navigate(-1)}
-                  aria-label="View previous gallery image"
+                  onClick={() => navigate(previousDirection)}
+                  aria-label={dictionary.gallery.previous}
                 >
-                  <ChevronLeft aria-hidden="true" />
+                  {locale === "ar" ? <ChevronRight aria-hidden="true" /> : <ChevronLeft aria-hidden="true" />}
                 </button>
                 <button
                   className="gallery-lightbox__next gallery-lightbox__control--yellow"
                   type="button"
-                  onClick={() => navigate(1)}
-                  aria-label="View next gallery image"
+                  onClick={() => navigate(nextDirection)}
+                  aria-label={dictionary.gallery.next}
                 >
-                  <ChevronRight aria-hidden="true" />
+                  {locale === "ar" ? <ChevronLeft aria-hidden="true" /> : <ChevronRight aria-hidden="true" />}
                 </button>
               </nav>
             ) : null}
