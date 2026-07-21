@@ -5,46 +5,48 @@ import MapEmbed from "@/components/contact/MapEmbed";
 import MagneticButton from "@/components/shared/MagneticButton";
 import PageHero from "@/components/shared/PageHero";
 import SectionHeading from "@/components/shared/SectionHeading";
+import { pageContent } from "@/data/pages";
 import { site } from "@/data/site";
 
 export const metadata: Metadata = {
-  title: "Contact Tiger Gym | Salmiya, Kuwait",
-  description:
-    "Call, message, locate or visit Tiger Gym Fitness Center in Salmiya, Kuwait.",
+  title: pageContent.contact.metadata.title.en,
+  description: pageContent.contact.metadata.description.en,
 };
 
 export default function ContactPage() {
+  const content = pageContent.contact;
+
   return (
     <main id="main-content">
       <PageHero
-        index="06 / Contact"
-        eyebrow="Find Tiger Gym"
-        title="Salmiya. Your next session."
-        description="Call, message or use the verified map location to plan your visit."
-        nextLabel="Location details"
-        nextHref="#location"
+        index={content.hero.index.en}
+        eyebrow={content.hero.eyebrow.en}
+        title={content.hero.title.en}
+        description={content.hero.description.en}
+        nextLabel={content.hero.nextLabel.en}
+        nextHref={content.hero.nextHref}
       />
 
       <section className="contact-details section-space" id="location">
         <div className="page-shell">
-          <SectionHeading number="06.1" eyebrow="Location" title="Get here. Get to work." />
+          <SectionHeading number={content.location.number.en} eyebrow={content.location.eyebrow.en} title={content.location.title.en} />
           <div className="contact-details__grid">
             <div className="contact-details__copy" data-reveal>
-              <span className="eyebrow">Tiger Gym Fitness Center</span>
-              <address><MapPin size={24} aria-hidden="true" /> {site.address}</address>
+              <span className="eyebrow">{site.fullName.en}</span>
+              <address><MapPin size={24} aria-hidden="true" /> {site.address.en}</address>
               <a className="contact-details__phone" href={site.phoneHref}>{site.phoneDisplay}</a>
-              <div className="contact-hours" aria-label="Tiger Gym opening hours">
+              <div className="contact-hours" aria-label={`${site.name.en} opening hours`}>
                 <div className="contact-hours__icon">
                   <Clock3 size={22} aria-hidden="true" />
                 </div>
                 <div className="contact-hours__schedule">
                   <div className="contact-hours__row">
-                    <span>{site.openingHours.regularDays}</span>
-                    <strong>{site.openingHours.regularTime}</strong>
+                    <span>{site.openingHours.regularDays.en}</span>
+                    <strong>{site.openingHours.regularTime.en}</strong>
                   </div>
                   <div className="contact-hours__row">
-                    <span>{site.openingHours.fridayDays}</span>
-                    <strong>{site.openingHours.fridayTime}</strong>
+                    <span>{site.openingHours.fridayDays.en}</span>
+                    <strong>{site.openingHours.fridayTime.en}</strong>
                   </div>
                 </div>
               </div>
@@ -61,7 +63,7 @@ export default function ContactPage() {
 
       <section className="form-section form-section--contact section-space">
         <div className="page-shell form-section__grid">
-          <div data-reveal><span className="eyebrow">Contact form</span><h2>Prepare a message.</h2><p>This form validates your details and opens WhatsApp for you to review and send the message yourself.</p></div>
+          <div data-reveal><span className="eyebrow">{content.formIntro.eyebrow.en}</span><h2>{content.formIntro.title.en}</h2><p>{content.formIntro.description.en}</p></div>
           <ContactForm />
         </div>
       </section>

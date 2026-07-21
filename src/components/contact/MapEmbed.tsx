@@ -12,7 +12,7 @@ export default function MapEmbed() {
         allowFullScreen
         loading="lazy"
         referrerPolicy="strict-origin-when-cross-origin"
-        title="Tiger Gym location in Salmiya, Kuwait"
+        title={`${site.name.en} location in ${site.locality.en}`}
       />
     </div>
   );

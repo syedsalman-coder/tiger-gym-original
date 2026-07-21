@@ -5,11 +5,11 @@ import HomeIntro from "@/components/home/HomeIntro";
 import HomeLoader from "@/components/home/HomeLoader";
 import LocationPreview from "@/components/home/LocationPreview";
 import MembershipCTA from "@/components/home/MembershipCTA";
+import { pageContent } from "@/data/pages";
 
 export const metadata: Metadata = {
-  title: "Tiger Gym | Fitness Center in Salmiya, Kuwait",
-  description:
-    "Tiger Gym is a focused strength and fitness center in Salmiya, Kuwait.",
+  title: pageContent.home.metadata.title.en,
+  description: pageContent.home.metadata.description.en,
 };
 
 export default function HomePage() {

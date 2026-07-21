@@ -1,21 +1,21 @@
 import type { Metadata } from "next";
 import GalleryGrid from "@/components/gallery/GalleryGrid";
 import PageHero from "@/components/shared/PageHero";
+import { galleryContent } from "@/data/gallery";
 
 export const metadata: Metadata = {
-  title: "Gallery | Tiger Gym Salmiya",
-  description:
-    "View the verified Tiger Gym brand asset and prepared spaces for future approved gym photography.",
+  title: galleryContent.metadata.title.en,
+  description: galleryContent.metadata.description.en,
 };
 
 export default function GalleryPage() {
   return (
     <main id="main-content">
       <PageHero
-        index="05 / Gallery"
-        eyebrow="Tiger Gym visuals"
-        title="The brand. The floor—coming next."
-        description="The official Tiger Gym mark leads a gallery prepared for future approved photography from the training floor."
+        index={galleryContent.hero.index.en}
+        eyebrow={galleryContent.hero.eyebrow.en}
+        title={galleryContent.hero.title.en}
+        description={galleryContent.hero.description.en}
       />
       <section className="gallery-page section-space">
         <div className="page-shell"><GalleryGrid /></div>

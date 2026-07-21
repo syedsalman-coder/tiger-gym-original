@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { ArrowUpRight } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import Logo from "@/components/shared/Logo";
-import { navigation } from "@/data/site";
+import { navigation, site } from "@/data/site";
 import MobileMenu from "./MobileMenu";
 
 export default function Navigation() {
@@ -67,12 +67,12 @@ export default function Navigation() {
         <Link
           className="main-nav__brand"
           href="/"
-          aria-label="Tiger Gym home"
+          aria-label={`${site.name.en} home`}
           aria-hidden={menuOpen}
           tabIndex={menuOpen ? -1 : undefined}
         >
           <Logo decorative priority />
-          <span><strong>Tiger Gym</strong><small>Fitness Center</small></span>
+          <span><strong>{site.name.en}</strong><small>{site.descriptor.en}</small></span>
         </Link>
 
         <nav className="main-nav__links" aria-label="Primary navigation">
@@ -83,7 +83,7 @@ export default function Navigation() {
               key={item.href}
               aria-current={pathname === item.href ? "page" : undefined}
             >
-              {item.label}
+              {item.label.en}
             </Link>
           ))}
         </nav>

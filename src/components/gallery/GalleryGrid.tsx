@@ -4,57 +4,17 @@ import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 import { Expand, ImagePlus } from "lucide-react";
 import { useCallback, useId, useState } from "react";
+import { galleryContent, galleryImages, galleryPlaceholders } from "@/data/gallery";
 import GalleryLightbox, { type GalleryLightboxImage } from "./GalleryLightbox";
 
-const verifiedImages = [
-  {
-    src: "/tiger-logo.png",
-    alt: "Tiger Gym Fitness Center logo with a yellow tiger and kettlebell emblem on a black circular badge.",
-    title: "Tiger Gym Fitness Center logo",
-    description:
-      "The official yellow-and-black Tiger Gym brand mark supplied with this website.",
-    width: 1233,
-    height: 865,
-  },
-] as const satisfies readonly GalleryLightboxImage[];
-
-const futurePhotoSlots = [
-  {
-    number: "01",
-    title: "Future facility photo",
-    description: "Reserved for a verified Tiger Gym facility photograph.",
-    size: "tall",
-    tone: "yellow",
-  },
-  {
-    number: "02",
-    title: "Future training photo",
-    description: "Reserved for a verified Tiger Gym training photograph.",
-    size: "standard",
-    tone: "black",
-  },
-  {
-    number: "03",
-    title: "Future facility photo",
-    description: "Reserved for another verified Tiger Gym facility photograph.",
-    size: "compact",
-    tone: "black",
-  },
-  {
-    number: "04",
-    title: "Future training photo",
-    description: "Reserved for another verified Tiger Gym training photograph.",
-    size: "wide",
-    tone: "yellow",
-  },
-  {
-    number: "05",
-    title: "Future gallery photo",
-    description: "Reserved until an approved Tiger Gym photograph is supplied.",
-    size: "standard",
-    tone: "black",
-  },
-] as const;
+const verifiedImages = galleryImages.map((image) => ({
+  src: image.src,
+  alt: image.alt.en,
+  title: image.title.en,
+  description: image.description.en,
+  width: image.width,
+  height: image.height,
+})) satisfies readonly GalleryLightboxImage[];
 
 export function GalleryGrid() {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
@@ -74,8 +34,7 @@ export function GalleryGrid() {
   return (
     <div className="gallery-grid-block gallery-grid-block--yellow-black">
       <p className="gallery-grid__note" id={galleryNoteId}>
-        One verified brand image is available. Future photo spaces are clearly
-        marked and contain no stock or invented imagery.
+        {galleryContent.note.en}
       </p>
 
       <ul className="gallery-grid" aria-describedby={galleryNoteId}>
@@ -88,7 +47,7 @@ export function GalleryGrid() {
               className="gallery-card__image-button"
               type="button"
               onClick={() => setActiveIndex(0)}
-              aria-label="Open the Tiger Gym Fitness Center logo full screen"
+              aria-label={`Open the ${verifiedImages[0].title} full screen`}
             >
               <span className="gallery-card__media">
                 <Image
@@ -106,17 +65,17 @@ export function GalleryGrid() {
                 </span>
               </span>
               <span className="gallery-card__caption">
-                <span className="gallery-card__eyebrow">Verified image</span>
+                <span className="gallery-card__eyebrow">{galleryContent.verifiedLabel.en}</span>
                 <span className="gallery-card__title">
-                  Tiger Gym Fitness Center logo
+                  {verifiedImages[0].title}
                 </span>
-                <span className="gallery-card__action">View full screen</span>
+                <span className="gallery-card__action">{galleryContent.viewLabel.en}</span>
               </span>
             </button>
           </figure>
         </motion.li>
 
-        {futurePhotoSlots.map((slot, index) => {
+        {galleryPlaceholders.map((slot, index) => {
           const titleId = `future-gallery-photo-${slot.number}`;
 
           return (
@@ -134,9 +93,9 @@ export function GalleryGrid() {
                   <span>{slot.number}</span>
                 </div>
                 <div className="gallery-card__placeholder-copy">
-                  <p className="gallery-card__eyebrow">Photo placeholder</p>
-                  <h3 id={titleId}>{slot.title}</h3>
-                  <p>{slot.description}</p>
+                  <p className="gallery-card__eyebrow">{galleryContent.placeholderLabel.en}</p>
+                  <h3 id={titleId}>{slot.title.en}</h3>
+                  <p>{slot.description.en}</p>
                 </div>
               </article>
             </motion.li>

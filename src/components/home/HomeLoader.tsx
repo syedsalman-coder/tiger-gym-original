@@ -3,6 +3,8 @@
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useEffect, useState } from "react";
 import Logo from "@/components/shared/Logo";
+import { pageContent } from "@/data/pages";
+import { site } from "@/data/site";
 
 export default function HomeLoader() {
   const [visible, setVisible] = useState(true);
@@ -38,14 +40,14 @@ export default function HomeLoader() {
         <motion.div
           className="home-loader"
           role="status"
-          aria-label="Loading Tiger Gym"
+          aria-label={`Loading ${site.name.en}`}
           exit={reduceMotion ? { opacity: 0 } : { y: "-100%" }}
           transition={{ duration: reduceMotion ? 0.12 : 0.5, ease: [0.76, 0, 0.24, 1] }}
         >
           <div className="home-loader__grid" aria-hidden="true" />
           <div className="home-loader__brand">
             <Logo priority />
-            <p>Tiger Gym <span>Fitness Center</span></p>
+            <p>{site.name.en} <span>{site.descriptor.en}</span></p>
           </div>
           <div className="home-loader__claws" aria-hidden="true">
             {[0, 1, 2].map((item) => (
@@ -58,7 +60,7 @@ export default function HomeLoader() {
             ))}
           </div>
           <div className="home-loader__progress">
-            <span>Preparing the floor</span><strong>{progress.toString().padStart(3, "0")}</strong>
+            <span>{pageContent.home.loader.progressLabel.en}</span><strong>{progress.toString().padStart(3, "0")}</strong>
           </div>
           <div className="home-loader__line"><span style={{ transform: `scaleX(${progress / 100})` }} /></div>
         </motion.div>

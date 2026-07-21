@@ -114,7 +114,7 @@ export default function ContactForm() {
 
     const whatsappUrl = createWhatsappUrl(
       [
-        "Hello Tiger Gym,",
+        `Hello ${site.name.en},`,
         "",
         `Name: ${values.name.trim()}`,
         `Phone: ${values.phone.trim()}`,

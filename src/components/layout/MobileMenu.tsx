@@ -4,7 +4,7 @@ import Link from "next/link";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { useEffect, useRef } from "react";
-import { navigation } from "@/data/site";
+import { navigation, site } from "@/data/site";
 
 type MobileMenuProps = {
   open: boolean;
@@ -76,13 +76,13 @@ export default function MobileMenu({ open, pathname, onClose }: MobileMenuProps)
                   onClick={onClose}
                 >
                   <span>0{index + 1}</span>
-                  {item.label}
+                  {item.label.en}
                 </Link>
               </motion.div>
             ))}
           </nav>
           <Link className="mobile-nav__join" href="/membership" onClick={onClose}>
-            Join Tiger Gym <ArrowUpRight size={18} aria-hidden="true" />
+            Join {site.name.en} <ArrowUpRight size={18} aria-hidden="true" />
           </Link>
         </motion.div>
       ) : null}

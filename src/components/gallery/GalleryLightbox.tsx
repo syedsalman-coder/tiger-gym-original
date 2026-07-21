@@ -5,6 +5,7 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { useCallback, useEffect, useId, useRef } from "react";
 import { createPortal } from "react-dom";
+import { galleryContent } from "@/data/gallery";
 
 export interface GalleryLightboxImage {
   src: string;
@@ -207,7 +208,7 @@ export function GalleryLightbox({
               </div>
               <figcaption className="gallery-lightbox__caption">
                 <span className="gallery-lightbox__eyebrow">
-                  Verified Tiger Gym asset
+                  {galleryContent.lightboxEyebrow.en}
                 </span>
                 <h2 id={titleId}>{activeImage.title}</h2>
                 <p id={descriptionId}>{activeImage.description}</p>

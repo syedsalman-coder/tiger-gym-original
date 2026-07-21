@@ -6,15 +6,15 @@ import CustomCursor from "@/components/shared/CustomCursor";
 import RouteMotion from "@/components/shared/RouteMotion";
 import ScrollProgress from "@/components/shared/ScrollProgress";
 import SmoothScroll from "@/components/shared/SmoothScroll";
+import { pageContent } from "@/data/pages";
 import "./globals.css";
 
 export const metadata: Metadata = {
   title: {
-    default: "Tiger Gym | Fitness Center in Salmiya, Kuwait",
+    default: pageContent.home.metadata.title.en,
     template: "%s",
   },
-  description:
-    "Tiger Gym is a strength and fitness center in Salmiya, Kuwait.",
+  description: pageContent.home.metadata.description.en,
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

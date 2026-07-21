@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { site } from "@/data/site";
 
 type LogoProps = {
   className?: string;
@@ -15,7 +16,7 @@ export default function Logo({
     <Image
       className={className}
       src="/tiger-logo.png"
-      alt={decorative ? "" : "Tiger Gym Fitness Center logo"}
+      alt={decorative ? "" : `${site.fullName.en} logo`}
       width={1233}
       height={865}
       priority={priority}

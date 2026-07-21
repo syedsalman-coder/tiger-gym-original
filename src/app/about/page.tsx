@@ -6,24 +6,26 @@ import MagneticButton from "@/components/shared/MagneticButton";
 import PageHero from "@/components/shared/PageHero";
 import SectionHeading from "@/components/shared/SectionHeading";
 import TiltCard from "@/components/shared/TiltCard";
-import { philosophy } from "@/data/site";
+import { pageContent } from "@/data/pages";
+import { site } from "@/data/site";
 
 export const metadata: Metadata = {
-  title: "About Tiger Gym | Salmiya, Kuwait",
-  description:
-    "Learn about Tiger Gym's focused approach to strength, discipline and consistent training in Salmiya, Kuwait.",
+  title: pageContent.about.metadata.title.en,
+  description: pageContent.about.metadata.description.en,
 };
 
 export default function AboutPage() {
+  const content = pageContent.about;
+
   return (
     <main id="main-content">
       <PageHero
-        index="02 / About"
-        eyebrow="Our approach"
-        title="Built around the work."
-        description="Tiger Gym is a bodybuilding, strength and fitness center in Salmiya, Kuwait."
-        nextLabel="Our philosophy"
-        nextHref="#philosophy"
+        index={content.hero.index.en}
+        eyebrow={content.hero.eyebrow.en}
+        title={content.hero.title.en}
+        description={content.hero.description.en}
+        nextLabel={content.hero.nextLabel.en}
+        nextHref={content.hero.nextHref}
       />
 
       <section className="about-story section-space">
@@ -33,31 +35,22 @@ export default function AboutPage() {
             <Logo />
           </div>
           <div className="about-story__copy" data-reveal>
-            <span className="eyebrow">Tiger Gym Fitness Center</span>
-            <h2>Strength is built through consistency.</h2>
-            <p>
-              Tiger Gym brings strength training, free weights, cardio and
-              functional training together in a focused environment for people
-              who want purpose in every session.
-            </p>
-            <p>
-              The philosophy is direct: show up, train with intent and give
-              progress time to compound. Every session is a clear commitment
-              to the work in front of you.
-            </p>
-            <Link className="text-link" href="/facilities">Explore the training areas <ArrowUpRight size={18} aria-hidden="true" /></Link>
+            <span className="eyebrow">{site.fullName.en}</span>
+            <h2>{content.story.title.en}</h2>
+            {content.story.paragraphs.map((paragraph) => <p key={paragraph.en}>{paragraph.en}</p>)}
+            <Link className="text-link" href="/facilities">{content.story.linkLabel.en} <ArrowUpRight size={18} aria-hidden="true" /></Link>
           </div>
         </div>
       </section>
 
       <section className="philosophy section-space" id="philosophy">
         <div className="page-shell">
-          <SectionHeading number="02.1" eyebrow="Training philosophy" title="The standard stays high." />
+          <SectionHeading number={content.philosophy.number.en} eyebrow={content.philosophy.eyebrow.en} title={content.philosophy.title.en} />
           <div className="philosophy__grid">
-            {philosophy.map((item) => (
+            {content.philosophy.items.map((item) => (
               <TiltCard key={item.number}>
                 <article className="philosophy__card" data-stagger-card data-cursor>
-                  <span>{item.number}</span><h3>{item.title}</h3><p>{item.text}</p>
+                  <span>{item.number}</span><h3>{item.title.en}</h3><p>{item.text.en}</p>
                 </article>
               </TiltCard>
             ))}
@@ -67,9 +60,9 @@ export default function AboutPage() {
 
       <section className="inline-cta section-space">
         <div className="page-shell inline-cta__panel" data-reveal>
-          <span className="eyebrow">Your next step</span>
-          <h2>Bring intent.<br />We’ll make room for the work.</h2>
-          <MagneticButton href="/membership">Ask about membership</MagneticButton>
+          <span className="eyebrow">{content.cta.eyebrow.en}</span>
+          <h2>{content.cta.titleLineOne.en}<br />{content.cta.titleLineTwo.en}</h2>
+          <MagneticButton href="/membership">{content.cta.label.en}</MagneticButton>
         </div>
       </section>
     </main>

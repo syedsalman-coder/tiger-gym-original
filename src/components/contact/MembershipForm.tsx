@@ -2,6 +2,7 @@
 
 import { type FormEvent, useState } from "react";
 
+import { membershipOptions } from "@/data/membership-options";
 import { site } from "@/data/site";
 
 type MembershipValues = {
@@ -125,7 +126,7 @@ export default function MembershipForm() {
 
     const whatsappUrl = createWhatsappUrl(
       [
-        "Hello Tiger Gym, I would like to ask about membership.",
+        `Hello ${site.name.en}, I would like to ask about membership.`,
         "",
         `Name: ${values.name.trim()}`,
         `Phone: ${values.phone.trim()}`,
@@ -256,11 +257,9 @@ export default function MembershipForm() {
           <option value="" disabled>
             Select an option
           </option>
-          <option value="Monthly Membership">Monthly Membership</option>
-          <option value="Flexible Training Access">
-            Flexible Training Access
-          </option>
-          <option value="Membership Enquiry">Membership Enquiry</option>
+          {membershipOptions.map((option) => (
+            <option value={option.title.en} key={option.id}>{option.title.en}</option>
+          ))}
         </select>
         {errors.membershipInterest ? (
           <span

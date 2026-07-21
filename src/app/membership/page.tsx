@@ -4,42 +4,41 @@ import MembershipForm from "@/components/contact/MembershipForm";
 import MagneticButton from "@/components/shared/MagneticButton";
 import PageHero from "@/components/shared/PageHero";
 import SectionHeading from "@/components/shared/SectionHeading";
+import { membershipContent, membershipOptions } from "@/data/membership-options";
 import { site } from "@/data/site";
 
-const enquiryOptions = [
-  { title: "Monthly Membership", text: "Contact Tiger Gym for current monthly membership information.", icon: MessageCircle },
-  { title: "Flexible Training Access", text: "Speak with the team about the access options currently available.", icon: Phone },
-  { title: "Membership Enquiry", text: "Visit the gym or prepare a WhatsApp enquiry using the form below.", icon: MapPin },
-] as const;
+const icons = { location: MapPin, message: MessageCircle, phone: Phone } as const;
 
 export const metadata: Metadata = {
-  title: "Membership | Tiger Gym Kuwait",
-  description:
-    "Ask Tiger Gym in Salmiya about current membership options through phone, WhatsApp or an enquiry form.",
+  title: membershipContent.metadata.title.en,
+  description: membershipContent.metadata.description.en,
 };
 
 export default function MembershipPage() {
+  const content = membershipContent;
+
   return (
     <main id="main-content">
       <PageHero
-        index="04 / Membership"
-        eyebrow="Start training"
-        title="Make the enquiry. Do the work."
-        description="Current membership rates and access options are available directly from the Tiger Gym team."
-        nextLabel="Membership options"
-        nextHref="#membership-options"
+        index={content.hero.index.en}
+        eyebrow={content.hero.eyebrow.en}
+        title={content.hero.title.en}
+        description={content.hero.description.en}
+        nextLabel={content.hero.nextLabel.en}
+        nextHref={content.hero.nextHref}
       />
 
       <section className="membership-options section-space" id="membership-options">
         <div className="page-shell">
-          <SectionHeading number="04.1" eyebrow="Enquiry options" title="Talk to the team." />
+          <SectionHeading number={content.section.number.en} eyebrow={content.section.eyebrow.en} title={content.section.title.en} />
           <div className="membership-options__grid">
-            {enquiryOptions.map(({ title, text, icon: Icon }, index) => (
-              <article className="membership-option" key={title} data-stagger-card>
+            {membershipOptions.map((option, index) => {
+              const Icon = icons[option.icon];
+              return <article className="membership-option" key={option.id} data-stagger-card>
                 <div><span>0{index + 1}</span><Icon size={24} strokeWidth={1.4} aria-hidden="true" /></div>
-                <h3>{title}</h3><p>{text}</p><strong>Contact for current price</strong>
-              </article>
-            ))}
+                <h3>{option.title.en}</h3><p>{option.description.en}</p><strong>{option.price?.en ?? option.priceLabel.en}</strong>
+              </article>;
+            })}
           </div>
           <div className="membership-options__direct" data-reveal>
             <MagneticButton href={site.phoneHref} variant="outline"><Phone size={17} aria-hidden="true" /> Call now</MagneticButton>
@@ -50,7 +49,7 @@ export default function MembershipPage() {
 
       <section className="form-section section-space">
         <div className="page-shell form-section__grid">
-          <div data-reveal><span className="eyebrow">Membership form</span><h2>Prepare your enquiry.</h2><p>The form validates your details and opens a message for you to review in WhatsApp. Nothing is sent automatically.</p></div>
+          <div data-reveal><span className="eyebrow">{content.formIntro.eyebrow.en}</span><h2>{content.formIntro.title.en}</h2><p>{content.formIntro.description.en}</p></div>
           <MembershipForm />
         </div>
       </section>
