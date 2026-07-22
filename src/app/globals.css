@@ -2473,3 +2473,452 @@ html[lang="ar"] .membership-concierge__step h3 {
     animation: none;
   }
 }
+
+/* =========================================================
+   Premium Visit Tiger Gym finale
+   ========================================================= */
+
+.visit-finale {
+  position: relative;
+  overflow: hidden;
+  background: var(--yellow);
+  color: var(--black);
+}
+
+.visit-finale::before {
+  position: absolute;
+  top: -18rem;
+  inset-inline-end: -15rem;
+  width: clamp(32rem, 55vw, 58rem);
+  aspect-ratio: 1;
+  border: 1px solid rgba(0, 0, 0, 0.16);
+  border-radius: 50%;
+  box-shadow:
+    inset 0 0 0 clamp(5rem, 10vw, 10rem)
+      rgba(0, 0, 0, 0.025),
+    inset 0 0 0 calc(clamp(5rem, 10vw, 10rem) + 1px)
+      rgba(0, 0, 0, 0.1);
+  content: "";
+  pointer-events: none;
+}
+
+.visit-finale .page-shell {
+  position: relative;
+  z-index: 2;
+}
+
+.visit-finale .eyebrow {
+  color: rgba(0, 0, 0, 0.58);
+}
+
+.visit-finale__heading {
+  display: grid;
+  grid-template-columns:
+    minmax(12rem, 0.3fr)
+    minmax(0, 1fr);
+  align-items: start;
+  gap: clamp(2rem, 7vw, 8rem);
+  margin-bottom: clamp(4rem, 8vw, 7rem);
+}
+
+.visit-finale__meta {
+  display: grid;
+  grid-template-columns: auto minmax(2rem, 1fr);
+  align-items: center;
+  gap: 0.85rem;
+  padding-top: 0.75rem;
+}
+
+.visit-finale__meta > span:first-child {
+  font-family: var(--font-numeric);
+  font-size: var(--text-label);
+  font-weight: 900;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.12em;
+}
+
+.visit-finale__meta > span:nth-child(2) {
+  width: 100%;
+  height: 1px;
+  background: rgba(0, 0, 0, 0.34);
+}
+
+.visit-finale__meta strong {
+  grid-column: 1 / -1;
+  margin-top: 0.35rem;
+  color: rgba(0, 0, 0, 0.58);
+  font-family: var(--font-label);
+  font-size: var(--text-label);
+  font-weight: 850;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.visit-finale__title h2 {
+  max-width: 9ch;
+  margin-block: 1.25rem 1.75rem;
+  font-family: var(--display);
+  font-size: clamp(4.5rem, 10vw, 11rem);
+  font-weight: 900;
+  letter-spacing: -0.05em;
+  line-height: 0.82;
+  text-wrap: balance;
+}
+
+.visit-finale__title > p {
+  max-width: 42rem;
+  margin: 0;
+  color: rgba(0, 0, 0, 0.67);
+  font-size: var(--text-body-large);
+  font-weight: 600;
+  line-height: 1.8;
+}
+
+.visit-finale__layout {
+  display: grid;
+  grid-template-columns:
+    minmax(22rem, 0.72fr)
+    minmax(0, 1.28fr);
+  align-items: stretch;
+  gap: var(--grid-gap);
+}
+
+.visit-finale__information {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  border: 1px solid rgba(0, 0, 0, 0.28);
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.12);
+}
+
+.visit-finale__detail {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 1.25rem;
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.visit-finale__detail-icon {
+  display: grid;
+  width: 3.25rem;
+  height: 3.25rem;
+  place-items: center;
+  flex: none;
+  background: var(--black);
+  color: var(--yellow);
+  box-shadow: 0 1rem 2.2rem rgba(0, 0, 0, 0.18);
+}
+
+.visit-finale__detail > div:last-child {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.visit-finale__detail > div:last-child > span {
+  color: rgba(0, 0, 0, 0.55);
+  font-family: var(--font-label);
+  font-size: var(--text-label);
+  font-weight: 850;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.visit-finale__detail > div:last-child > strong {
+  max-width: 34rem;
+  font-family: var(--display);
+  font-size: clamp(1.65rem, 2.7vw, 2.7rem);
+  font-weight: 750;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.visit-finale__hours {
+  display: grid;
+}
+
+.visit-finale__hours p {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 1.5rem;
+  margin: 0;
+  padding-block: 0.75rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.16);
+}
+
+.visit-finale__hours p:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.visit-finale__hours p > span {
+  color: rgba(0, 0, 0, 0.62);
+  font-size: 0.78rem;
+  font-weight: 750;
+}
+
+.visit-finale__hours p > strong {
+  font-size: 0.8rem;
+  font-weight: 850;
+}
+
+.visit-finale__phone {
+  width: fit-content;
+  font-family: var(--font-numeric);
+  font-size: clamp(2rem, 3.8vw, 4.1rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+.visit-finale__phone:hover {
+  opacity: 0.65;
+}
+
+.visit-finale__actions {
+  display: grid;
+  gap: 0.7rem;
+  margin-top: auto;
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.visit-finale__actions .button {
+  width: 100%;
+}
+
+.visit-finale__actions .button--yellow {
+  border-color: var(--black);
+  background: var(--black);
+  color: var(--yellow);
+}
+
+.visit-finale__actions .button--yellow .button-arrow {
+  background: var(--yellow);
+  color: var(--black);
+}
+
+.visit-finale__actions .button--yellow:hover {
+  border-color: #161616;
+  background: #161616;
+}
+
+.visit-finale__actions .button--outline {
+  border-color: rgba(0, 0, 0, 0.35);
+  color: var(--black);
+}
+
+.visit-finale__actions .button--outline:hover {
+  border-color: var(--black);
+  background: rgba(0, 0, 0, 0.05);
+  color: var(--black);
+}
+
+.visit-finale__contact-link {
+  display: inline-flex;
+  min-height: 3.25rem;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+  color: rgba(0, 0, 0, 0.72);
+  font-family: var(--font-label);
+  font-size: var(--text-label);
+  font-weight: 850;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition:
+    color var(--duration-base) var(--ease-standard),
+    border-color var(--duration-base) var(--ease-standard);
+}
+
+.visit-finale__contact-link:hover {
+  border-color: var(--black);
+  color: var(--black);
+}
+
+.visit-finale__map {
+  display: grid;
+  min-width: 0;
+  grid-template-rows: auto minmax(32rem, 1fr) auto;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.34);
+  border-radius: var(--radius-sm);
+  background: var(--black);
+  box-shadow: 0 2rem 5rem rgba(0, 0, 0, 0.18);
+}
+
+.visit-finale__map-header,
+.visit-finale__map-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 3.8rem;
+  padding-inline: clamp(1.1rem, 2vw, 1.7rem);
+  color: var(--muted);
+  font-family: var(--font-numeric);
+  font-size: 0.62rem;
+  font-weight: 750;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.visit-finale__map-header {
+  border-bottom: 1px solid var(--border);
+}
+
+.visit-finale__map-header span:first-child {
+  color: var(--yellow);
+}
+
+.visit-finale__map-footer {
+  border-top: 1px solid var(--border);
+}
+
+.visit-finale__map .map-embed,
+.visit-finale__map .map-embed__frame {
+  width: 100%;
+  height: 100%;
+  min-height: 32rem;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.visit-finale__closing {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-top: clamp(4rem, 8vw, 8rem);
+  border-top: 1px solid rgba(0, 0, 0, 0.3);
+  padding-top: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.visit-finale__closing > span {
+  color: rgba(0, 0, 0, 0.58);
+  font-family: var(--font-label);
+  font-size: var(--text-label);
+  font-weight: 850;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.visit-finale__closing > a {
+  font-family: var(--display);
+  font-size: clamp(3rem, 8vw, 9rem);
+  font-weight: 900;
+  letter-spacing: -0.045em;
+  line-height: 0.85;
+}
+
+.visit-finale__closing > a:hover {
+  opacity: 0.6;
+}
+
+html[lang="ar"] .visit-finale__meta strong,
+html[lang="ar"] .visit-finale__detail > div:last-child > span,
+html[lang="ar"] .visit-finale__contact-link,
+html[lang="ar"] .visit-finale__map-header,
+html[lang="ar"] .visit-finale__map-footer,
+html[lang="ar"] .visit-finale__closing > span {
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+html[lang="ar"] .visit-finale__title h2 {
+  max-width: 11ch;
+  font-size: clamp(3.8rem, 8.5vw, 9rem);
+  letter-spacing: 0;
+  line-height: 1.03;
+}
+
+html[lang="ar"]
+  .visit-finale__detail
+  > div:last-child
+  > strong {
+  letter-spacing: 0;
+  line-height: 1.45;
+}
+
+@media (max-width: 1100px) {
+  .visit-finale__heading {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .visit-finale__meta {
+    max-width: 20rem;
+  }
+
+  .visit-finale__layout {
+    grid-template-columns: 1fr;
+  }
+
+  .visit-finale__map {
+    min-height: 38rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .visit-finale::before {
+    top: -8rem;
+    inset-inline-end: -16rem;
+    width: 30rem;
+  }
+
+  .visit-finale__heading {
+    margin-bottom: 3.5rem;
+  }
+
+  .visit-finale__title h2 {
+    font-size: clamp(3.7rem, 17vw, 6.5rem);
+    line-height: 0.86;
+  }
+
+  html[lang="ar"] .visit-finale__title h2 {
+    font-size: clamp(3.1rem, 13vw, 5.2rem);
+    line-height: 1.12;
+  }
+
+  .visit-finale__detail {
+    grid-template-columns: 1fr;
+    padding: 1.25rem;
+  }
+
+  .visit-finale__hours p {
+    grid-template-columns: 1fr;
+    gap: 0.35rem;
+  }
+
+  .visit-finale__actions {
+    padding: 1.25rem;
+  }
+
+  .visit-finale__map {
+    grid-template-rows: auto minmax(25rem, 1fr) auto;
+    min-height: 32rem;
+  }
+
+  .visit-finale__map .map-embed,
+  .visit-finale__map .map-embed__frame {
+    min-height: 25rem;
+  }
+
+  .visit-finale__map-header,
+  .visit-finale__map-footer {
+    font-size: 0.54rem;
+  }
+
+  .visit-finale__closing {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .visit-finale__closing > a {
+    font-size: clamp(2.6rem, 13vw, 4.5rem);
+  }
+}
