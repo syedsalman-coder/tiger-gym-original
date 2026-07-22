@@ -314,7 +314,7 @@ export default function SmoothScroll() {
       router.push(
         `${destination.pathname}${destination.search}`,
         {
-          scroll: false,
+          scroll: true,
         },
       );
     };
