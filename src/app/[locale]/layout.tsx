@@ -1,4 +1,4 @@
-import { Manrope, Noto_Sans_Arabic } from "next/font/google";
+import { Barlow_Condensed, Manrope, Noto_Sans_Arabic } from "next/font/google";
 import { notFound } from "next/navigation";
 import Footer from "@/components/layout/Footer";
 import Navigation from "@/components/layout/Navigation";
@@ -14,6 +14,13 @@ import "../globals.css";
 const manrope = Manrope({
   subsets: ["latin"],
   variable: "--font-manrope",
+  display: "swap",
+});
+
+const barlowCondensed = Barlow_Condensed({
+  subsets: ["latin"],
+  weight: ["600", "700", "800", "900"],
+  variable: "--font-barlow-condensed",
   display: "swap",
 });
 
@@ -46,7 +53,7 @@ export default async function LocaleLayout({
     <html
       lang={locale}
       dir={direction}
-      className={`${manrope.variable} ${notoSansArabic.variable} h-full antialiased`}
+      className={`${barlowCondensed.variable} ${manrope.variable} ${notoSansArabic.variable} h-full antialiased`}
       data-locale={locale}
     >
       <body className="min-h-full">
