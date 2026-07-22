@@ -992,3 +992,378 @@ html[dir="rtl"] .location-preview__details {
     padding-left: 0;
   }
 }
+/* =========================================================
+   Home manifesto - premium editorial introduction
+   ========================================================= */
+
+.home-manifesto {
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border);
+  background:
+    linear-gradient(
+      90deg,
+      transparent 0,
+      transparent calc(50% - 1px),
+      rgba(255, 255, 255, 0.035) 50%,
+      transparent calc(50% + 1px)
+    ),
+    var(--surface-section);
+}
+
+.home-manifesto::before {
+  position: absolute;
+  top: clamp(4rem, 9vw, 9rem);
+  inset-inline-end: -10rem;
+  width: clamp(20rem, 38vw, 38rem);
+  aspect-ratio: 1;
+  border: 1px solid rgba(244, 217, 11, 0.12);
+  border-radius: 50%;
+  box-shadow:
+    inset 0 0 0 clamp(3.5rem, 7vw, 7rem) rgba(255, 255, 255, 0.015),
+    inset 0 0 0 calc(clamp(3.5rem, 7vw, 7rem) + 1px)
+      rgba(244, 217, 11, 0.08);
+  content: "";
+  pointer-events: none;
+}
+
+.home-manifesto .page-shell {
+  position: relative;
+  z-index: 2;
+}
+
+.home-manifesto__header {
+  display: grid;
+  grid-template-columns: minmax(12rem, 0.28fr) minmax(0, 1fr);
+  gap: clamp(2rem, 7vw, 8rem);
+  align-items: start;
+}
+
+.home-manifesto__meta {
+  display: grid;
+  grid-template-columns: auto minmax(2rem, 1fr);
+  align-items: center;
+  gap: 0.8rem;
+  padding-top: 0.75rem;
+}
+
+.home-manifesto__number {
+  color: var(--yellow);
+  font-family: var(--font-numeric);
+  font-size: var(--text-label);
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.12em;
+}
+
+.home-manifesto__line {
+  display: block;
+  width: 100%;
+  height: 1px;
+  background: var(--border-strong);
+}
+
+.home-manifesto__meta .eyebrow {
+  grid-column: 1 / -1;
+  margin-top: 0.4rem;
+}
+
+.home-manifesto__headline {
+  max-width: 11ch;
+  margin: 0;
+  font-family: var(--display);
+  font-size: clamp(4.6rem, 10vw, 11rem);
+  font-weight: 800;
+  letter-spacing: -0.045em;
+  line-height: 0.84;
+  text-wrap: balance;
+}
+
+html[lang="ar"] .home-manifesto__headline {
+  max-width: 12ch;
+  font-size: clamp(3.9rem, 8.4vw, 9rem);
+  letter-spacing: 0;
+  line-height: 1.02;
+}
+
+.home-manifesto__body {
+  display: grid;
+  grid-template-columns: minmax(16rem, 0.55fr) minmax(20rem, 0.75fr);
+  gap: clamp(3rem, 9vw, 10rem);
+  margin-top: clamp(4rem, 8vw, 8rem);
+  border-top: 1px solid var(--border);
+  padding-top: clamp(2rem, 4vw, 3.5rem);
+}
+
+.home-manifesto__lead p {
+  max-width: 25ch;
+  margin: 0;
+  color: var(--white);
+  font-family: var(--display);
+  font-size: clamp(2rem, 3.5vw, 4rem);
+  font-weight: 650;
+  letter-spacing: -0.025em;
+  line-height: 1.06;
+  text-wrap: balance;
+}
+
+html[lang="ar"] .home-manifesto__lead p {
+  max-width: 22ch;
+  letter-spacing: 0;
+  line-height: 1.35;
+}
+
+.home-manifesto__detail {
+  border-inline-start: 1px solid var(--border);
+  padding-inline-start: clamp(1.5rem, 4vw, 4rem);
+}
+
+.home-manifesto__detail > p {
+  max-width: 40rem;
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--text-body-large);
+  line-height: 1.9;
+}
+
+.home-manifesto__detail .text-link {
+  margin-top: 2rem;
+}
+
+.home-manifesto__proof {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-top: clamp(4rem, 9vw, 8rem);
+  border-top: 1px solid var(--border);
+  border-inline-start: 1px solid var(--border);
+}
+
+.home-manifesto__proof-item {
+  position: relative;
+  display: flex;
+  min-height: 13rem;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.5rem;
+  overflow: hidden;
+  border-inline-end: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: clamp(1.25rem, 2vw, 2rem);
+  background: rgba(255, 255, 255, 0.012);
+  transition:
+    background var(--duration-base) var(--ease-standard),
+    border-color var(--duration-base) var(--ease-standard);
+}
+
+.home-manifesto__proof-item::after {
+  position: absolute;
+  inset-inline-start: 0;
+  bottom: 0;
+  width: 100%;
+  height: 3px;
+  transform: scaleX(0);
+  transform-origin: left;
+  background: var(--yellow);
+  content: "";
+  transition: transform var(--duration-slow) var(--ease-emphasized);
+}
+
+html[dir="rtl"] .home-manifesto__proof-item::after {
+  transform-origin: right;
+}
+
+.home-manifesto__proof-item:hover {
+  border-color: var(--border-brand);
+  background: rgba(244, 217, 11, 0.035);
+}
+
+.home-manifesto__proof-item:hover::after {
+  transform: scaleX(1);
+}
+
+.home-manifesto__proof-index {
+  color: var(--yellow);
+  font-family: var(--font-numeric);
+  font-size: 0.66rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.12em;
+}
+
+.home-manifesto__proof-label {
+  margin-top: auto;
+  color: var(--muted);
+  font-family: var(--font-label);
+  font-size: var(--text-label);
+  font-weight: 750;
+  letter-spacing: 0.06em;
+}
+
+.home-manifesto__proof-item strong,
+.home-manifesto__proof-item a {
+  color: var(--white);
+  font-family: var(--display);
+  font-size: clamp(1.45rem, 2.2vw, 2.35rem);
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  line-height: 1.05;
+}
+
+html[lang="ar"] .home-manifesto__proof-label,
+html[lang="ar"] .home-manifesto__proof-index {
+  letter-spacing: 0;
+}
+
+html[lang="ar"] .home-manifesto__proof-item strong,
+html[lang="ar"] .home-manifesto__proof-item a {
+  letter-spacing: 0;
+  line-height: 1.35;
+}
+
+@media (max-width: 1024px) {
+  .home-manifesto__header {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .home-manifesto__meta {
+    max-width: 20rem;
+  }
+
+  .home-manifesto__body {
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+  }
+
+  .home-manifesto__proof {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 767px) {
+  .home-manifesto {
+    background: var(--surface-section);
+  }
+
+  .home-manifesto::before {
+    top: 9rem;
+    inset-inline-end: -13rem;
+    width: 25rem;
+    opacity: 0.7;
+  }
+
+  .home-manifesto__headline {
+    font-size: clamp(3.6rem, 17vw, 6rem);
+    line-height: 0.88;
+  }
+
+  html[lang="ar"] .home-manifesto__headline {
+    font-size: clamp(3rem, 13vw, 5rem);
+    line-height: 1.08;
+  }
+
+  .home-manifesto__body {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    margin-top: 3.5rem;
+  }
+
+  .home-manifesto__lead p {
+    max-width: 22ch;
+    font-size: clamp(2rem, 9vw, 3.1rem);
+  }
+
+  .home-manifesto__detail {
+    border-inline-start: 0;
+    border-top: 1px solid var(--border);
+    padding-block-start: 2rem;
+    padding-inline-start: 0;
+  }
+
+  .home-manifesto__proof {
+    grid-template-columns: 1fr 1fr;
+    margin-top: 4rem;
+  }
+
+  .home-manifesto__proof-item {
+    min-height: 11rem;
+    padding: 1.15rem;
+  }
+
+  .home-manifesto__proof-item strong,
+  .home-manifesto__proof-item a {
+    font-size: clamp(1.25rem, 5.8vw, 1.8rem);
+  }
+}
+
+@media (max-width: 430px) {
+  .home-manifesto__proof {
+    grid-template-columns: 1fr;
+  }
+
+  .home-manifesto__proof-item {
+    min-height: 9.5rem;
+  }
+}
+
+
+/* Arabic home hero composition:
+   move the 3D dumbbell opposite the RTL heading. */
+html[dir="rtl"] .home-hero__scene {
+  right: 37%;
+  left: -3%;
+  mask-image: linear-gradient(
+    270deg,
+    transparent,
+    black 12% 90%,
+    transparent
+  );
+}
+
+html[dir="rtl"] .home-hero__light {
+  right: auto;
+  left: 2%;
+}
+
+html[dir="rtl"] .home-hero__grid {
+  mask-image: radial-gradient(
+    circle at 32% 48%,
+    black,
+    transparent 68%
+  );
+}
+
+html[dir="rtl"] .home-hero__stage::after {
+  right: auto;
+  left: 3.5%;
+  background: linear-gradient(
+    90deg,
+    var(--yellow),
+    transparent
+  );
+}
+
+@media (max-width: 1024px) and (min-width: 768px) {
+  html[dir="rtl"] .home-hero__scene {
+    right: 20%;
+    left: -12%;
+  }
+}
+
+/* Keep the dumbbell centred on phones. */
+@media (max-width: 767px) {
+  html[dir="rtl"] .home-hero__scene {
+    right: -32%;
+    left: -32%;
+    mask-image: radial-gradient(
+      circle,
+      black 38%,
+      transparent 74%
+    );
+  }
+
+  html[dir="rtl"] .home-hero__light {
+    right: 2%;
+    left: auto;
+  }
+}
