@@ -13,9 +13,9 @@ export default function PageTransition({ children }: { children: ReactNode }) {
       <AnimatePresence mode="wait" initial={false}>
         <motion.div
           key={pathname}
-          initial={reduceMotion ? { opacity: 1 } : { opacity: 0, y: 8 }}
+          initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
-          exit={reduceMotion ? { opacity: 1 } : { opacity: 0, y: -8 }}
+          exit={{ opacity: 0, y: -8 }}
           transition={{ duration: reduceMotion ? 0 : 0.34, ease: [0.22, 1, 0.36, 1] }}
         >
           {children}
@@ -24,8 +24,8 @@ export default function PageTransition({ children }: { children: ReactNode }) {
       <motion.div
         className="route-wipe"
         key={`wipe-${pathname}`}
-        initial={reduceMotion ? { opacity: 0 } : { scaleY: 1 }}
-        animate={reduceMotion ? { opacity: 0 } : { scaleY: 0 }}
+        initial={{ scaleY: 1 }}
+        animate={{ scaleY: 0 }}
         transition={{ duration: reduceMotion ? 0 : 0.48, ease: [0.76, 0, 0.24, 1] }}
         aria-hidden="true"
       />

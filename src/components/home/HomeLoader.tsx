@@ -173,14 +173,10 @@ export default function HomeLoader({
             {[0, 1, 2].map((item) => (
               <motion.span
                 key={item}
-                initial={
-                  reduceMotion
-                    ? false
-                    : { scaleX: 0 }
-                }
+                initial={{ scaleX: 0 }}
                 animate={{ scaleX: 1 }}
                 transition={{
-                  duration: 0.38,
+                  duration: reduceMotion ? 0 : 0.38,
                   delay: reduceMotion
                     ? 0
                     : item * 0.08,
