@@ -17,7 +17,7 @@ describe("Phase 1 conversion shell", () => {
     );
     expect(screen.getByRole("link", { name: /call now/i })).toHaveAttribute(
       "href",
-      "tel:+96569678350",
+      site.phoneHref,
     );
     expect(screen.getByRole("link", { name: /get directions/i })).toHaveAttribute(
       "href",
@@ -49,7 +49,7 @@ describe("Phase 1 conversion shell", () => {
     expect(structuredData).toMatchObject({
       "@type": "ExerciseGym",
       name: "Tiger Gym Fitness Center",
-      telephone: "+96569678350",
+      telephone: site.phoneHref.replace(/^tel:/, ""),
       hasMap: site.directionsUrl,
     });
     expect(structuredData.telephone).not.toContain("*");
