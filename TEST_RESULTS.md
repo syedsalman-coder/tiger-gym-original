@@ -1,6 +1,28 @@
 # Test Results
 
-Updated: 2026-07-29T14:35:42Z
+Updated: 2026-07-29T16:18:11Z
+
+## Phase 3 command verification
+
+| Command | Exit code | Result |
+| --- | ---: | --- |
+| `npm run test:ci -- src/tests/phase3-homepage-scroll-story.test.tsx` | 0 | Passed: 1 file, 2 tests |
+| `npm run test:ci -- src/tests/phase3-gallery-readiness.test.tsx` | 0 | Passed: 1 file, 2 tests |
+| `npm run test:ci` | 0 | Passed: 9 files, 16 tests |
+| `npm run lint` | 0 | Passed |
+| `npx tsc --noEmit` | 0 | Passed |
+| `npm run build` | 0 | Passed; compiled successfully and generated 21 static pages |
+| `git diff --check` | 0 | Passed; Git printed line-ending warnings for markdown/report files and touched TypeScript/CSS files only |
+
+## Phase 3 route verification
+
+Production server route verification with `next start -p 3002` passed: `/en/gallery` and `/ar/gallery` returned HTTP 200 and contained the localized gallery readiness title, no-stock/no-invented-photo warning, and verified-logo guidance.
+
+## Phase 3 TDD evidence
+
+The homepage cinematic scroll-story regression was written before production implementation and failed because the homepage had no scroll-story region, performance markers, or localized training chapters. After adding the localized homepage section, CSS-only sticky/transform animation styles, responsive fallbacks, and reduced-motion overrides, the targeted test passed and is included in the full `npm run test:ci` suite.
+
+The gallery readiness regression was written before production implementation and failed because the gallery page had no `ContentStatusNotice`. After adding localized gallery readiness copy and rendering the shared notice before the gallery grid, the targeted test passed and is included in the full `npm run test:ci` suite.
 
 ## Phase 2 command verification
 

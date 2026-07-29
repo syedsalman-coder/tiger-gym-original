@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import GalleryGrid from "@/components/gallery/GalleryGrid";
+import ContentStatusNotice from "@/components/shared/ContentStatusNotice";
 import PageHero from "@/components/shared/PageHero";
 import { galleryContent } from "@/data/gallery";
 import { getLocalizedValue } from "@/i18n/config";
@@ -19,7 +20,16 @@ export default async function GalleryPage({ params }: { params: LocaleParams }) 
     <main id="main-content">
       <PageHero index={text(galleryContent.hero.index)} eyebrow={text(galleryContent.hero.eyebrow)} title={text(galleryContent.hero.title)} description={text(galleryContent.hero.description)} />
       <section className="gallery-page section-space">
-        <div className="page-shell"><GalleryGrid locale={locale} /></div>
+        <div className="page-shell">
+          <ContentStatusNotice
+            locale={locale}
+            status="pending"
+            title={galleryContent.readiness.title}
+            description={galleryContent.readiness.description}
+            note={galleryContent.readiness.note}
+          />
+          <GalleryGrid locale={locale} />
+        </div>
       </section>
     </main>
   );

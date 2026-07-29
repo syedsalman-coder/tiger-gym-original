@@ -3,6 +3,7 @@ import FacilityPreview from "@/components/home/FacilityPreview";
 import HomeHero from "@/components/home/HomeHero";
 import HomeIntro from "@/components/home/HomeIntro";
 import HomeLoader from "@/components/home/HomeLoader";
+import HomeScrollStory from "@/components/home/HomeScrollStory";
 import LocationPreview from "@/components/home/LocationPreview";
 import MembershipCTA from "@/components/home/MembershipCTA";
 import { pageContent } from "@/data/pages";
@@ -23,6 +24,7 @@ export default async function HomePage({ params }: { params: LocaleParams }) {
       <main id="main-content">
         <HomeHero locale={locale} />
         <HomeIntro locale={locale} />
+        <HomeScrollStory locale={locale} />
         <FacilityPreview locale={locale} />
         <MembershipCTA locale={locale} />
         <LocationPreview locale={locale} />

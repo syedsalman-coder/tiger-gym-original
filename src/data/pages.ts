@@ -43,6 +43,52 @@ export const pageContent = {
         "القوة · الانضباط · الأداء · التقدّم ·",
       ),
     },
+    scrollStory: {
+      number: localized("03", "03"),
+      eyebrow: localized("Scroll sequence", "تسلسل التمرين"),
+      kicker: localized("Cinematic training flow", "مسار تدريبي سينمائي"),
+      ariaLabel: localized(
+        "Cinematic training sequence",
+        "تسلسل تدريبي سينمائي",
+      ),
+      title: localized(
+        "A session told in motion.",
+        "حصة تدريب تُروى بالحركة.",
+      ),
+      description: localized(
+        "A lightweight sticky sequence uses CSS transforms and opacity instead of scroll JavaScript, keeping the homepage cinematic without adding runtime listeners.",
+        "يستخدم هذا التسلسل الثابت مؤثرات CSS للحركة والشفافية بدل JavaScript أثناء التمرير، ليحافظ على الطابع السينمائي دون إضافة مستمعات تشغيلية.",
+      ),
+      chapters: [
+        {
+          step: "01",
+          title: localized("Enter the floor", "ادخل مساحة التدريب"),
+          description: localized(
+            "The hero gives way to a focused training floor built around strength, discipline, and clear intent.",
+            "تنتقل المقدمة إلى مساحة تدريب مركّزة قائمة على القوة والانضباط والهدف الواضح.",
+          ),
+        },
+        {
+          step: "02",
+          title: localized("Set the work", "حدّد العمل"),
+          description: localized(
+            "Training categories move into view as deliberate checkpoints rather than heavy media assets.",
+            "تظهر فئات التدريب كنقاط تقدّم مدروسة بدل الاعتماد على وسائط ثقيلة.",
+          ),
+        },
+        {
+          step: "03",
+          title: localized(
+            "Leave ready for the next session",
+            "اخرج جاهزًا للحصة التالية",
+          ),
+          description: localized(
+            "The sequence resolves into membership and visit actions so the cinematic moment stays conversion-focused.",
+            "ينتهي التسلسل إلى إجراءات العضوية والزيارة ليبقى المشهد السينمائي موجّهًا نحو التحويل.",
+          ),
+        },
+      ],
+    },
     location: {
       eyebrow: localized("Visit Tiger Gym", "زُر Tiger Gym"),
       titleLineOne: localized("Train in", "تدرّب في"),

@@ -1,6 +1,6 @@
 # Performance Budget
 
-Updated: 2026-07-29T14:35:42Z
+Updated: 2026-07-29T16:18:11Z
 
 ## Phase 1 implementation baseline
 
@@ -22,6 +22,13 @@ Updated: 2026-07-29T14:35:42Z
 ## Protected rendering path
 
 `src/components/home/DumbbellScene.tsx` remains on the hardened WebGL recovery path and now includes the Phase 2 cinematic lighting adjustments.
+
+## Phase 3 homepage scroll-story budget
+
+- Phase 3 added no new production dependencies.
+- Homepage scroll storytelling uses one server-rendered React component, CSS sticky positioning, and transform/opacity animation ranges instead of runtime scroll listeners.
+- The section is marked with `data-performance-mode="css-sticky"`, `data-motion-budget="transform-opacity"`, and `data-reduced-motion-safe="true"` for regression coverage.
+- Mobile viewports disable the sticky pinning and reduced-motion mode disables animations/transforms for readable static content.
 
 ## Watch items for later phases
 

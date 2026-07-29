@@ -1,6 +1,6 @@
 # Redesign Report
 
-Updated: 2026-07-29T14:35:42Z
+Updated: 2026-07-29T16:18:11Z
 
 ## Phase 0 checkpoint
 
@@ -51,13 +51,29 @@ Phase 2 combines the earlier content-readiness slice with the adaptive cinematic
 - `globals.css` adds responsive cinematic stage treatments for mobile, tablet, desktop, Arabic RTL mirroring, and reduced-motion-safe styling.
 - `home-hero-cinematic.test.tsx` locks the cinematic layer and lighting contract so the hero is not accidentally downgraded.
 
+## Phase 3 implementation
+
+### Homepage cinematic scroll storytelling
+
+- Homepage now includes a localized cinematic scroll sequence after the manifesto and before the facility preview.
+- The sequence uses a CSS-only sticky layout with transform/opacity animation ranges, containment, and no new runtime dependencies or scroll listeners.
+- Reduced-motion and mobile layouts resolve to static/readable content while retaining the training-flow narrative and conversion direction.
+- English and Arabic regression coverage confirms the sequence placement, performance markers, and localized chapters remain intact.
+
+### Gallery readiness
+
+- Gallery now surfaces a localized pending-content notice before the verified-logo and future-photo grid.
+- The notice states that no stock or invented gym photos are being used and that future image slots are reserved for owner-approved photography.
+- English and Arabic regression coverage confirms the visitor-facing gallery readiness notice remains present.
+
 ## Verification
 
-- `npm run test:ci` passed: 6 files, 10 tests.
+- `npm run test:ci` passed: 9 files, 16 tests.
 - `npm run lint` passed.
 - `npx tsc --noEmit` passed.
 - `npm run build` passed and generated 21 static pages.
 - `git diff --check` passed with line-ending warnings only.
+- `next start -p 3002` route verification confirmed `/en/gallery` and `/ar/gallery` returned HTTP 200 with localized gallery readiness copy.
 - `/en` and `/ar` passed normal responsive checks at 360x800, 390x844, 768x1024, 1366x768, and 1440x900.
 - English LTR and Arabic RTL layouts render with visible headline/CTAs, usable navigation, responsive mobile scrolling, and no horizontal document/body overflow.
 - Reduced-motion mode renders a readable static composition with CTAs available and no visible infinite animations. A pre-existing shared-motion hydration mismatch warning appears under Chrome reduced-motion emulation and is recorded in `PHASE_2_VERIFICATION.md`.

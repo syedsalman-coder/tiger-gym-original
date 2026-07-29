@@ -1370,6 +1370,384 @@ html[lang="ar"] .home-manifesto__proof-item a {
   }
 }
 
+/* =========================================================
+   Homepage cinematic scroll story
+   CSS-only sticky sequence with transform/opacity motion budget
+   ========================================================= */
+
+.home-scroll-story {
+  position: relative;
+  min-height: clamp(62rem, 138svh, 92rem);
+  overflow: clip;
+  border-bottom: 1px solid var(--border);
+  background:
+    radial-gradient(
+      circle at 72% 24%,
+      rgba(244, 217, 11, 0.12),
+      transparent 30%
+    ),
+    linear-gradient(
+      180deg,
+      var(--surface-section),
+      var(--surface-page) 46%,
+      var(--surface-section)
+    );
+  isolation: isolate;
+}
+
+.home-scroll-story::before,
+.home-scroll-story::after {
+  position: absolute;
+  z-index: -1;
+  border: 1px solid rgba(244, 217, 11, 0.12);
+  border-radius: 50%;
+  content: "";
+  pointer-events: none;
+}
+
+.home-scroll-story::before {
+  top: 8%;
+  inset-inline-start: -13rem;
+  width: clamp(28rem, 45vw, 48rem);
+  aspect-ratio: 1;
+  box-shadow: inset 0 0 0 5rem rgba(255, 255, 255, 0.012);
+}
+
+.home-scroll-story::after {
+  right: -10rem;
+  bottom: 10%;
+  width: clamp(18rem, 28vw, 30rem);
+  aspect-ratio: 1;
+  border-style: dashed;
+}
+
+.home-scroll-story__sticky {
+  position: sticky;
+  top: 0;
+  display: grid;
+  min-height: 100svh;
+  align-items: center;
+  padding-block: clamp(5rem, 9vw, 8rem);
+}
+
+.home-scroll-story__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.88fr) minmax(18rem, 0.42fr) minmax(0, 0.82fr);
+  align-items: center;
+  gap: clamp(2rem, 5vw, 5rem);
+}
+
+.home-scroll-story__header {
+  display: grid;
+  gap: clamp(2rem, 4vw, 3.5rem);
+}
+
+.home-scroll-story__meta {
+  display: grid;
+  grid-template-columns: auto minmax(2rem, 1fr);
+  align-items: center;
+  gap: 0.85rem;
+  max-width: 18rem;
+}
+
+.home-scroll-story__meta span:first-child {
+  color: var(--yellow);
+  font-family: var(--font-numeric);
+  font-size: var(--text-label);
+  font-weight: 850;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.12em;
+}
+
+.home-scroll-story__meta span:nth-child(2) {
+  width: 100%;
+  height: 1px;
+  background: var(--border-strong);
+}
+
+.home-scroll-story__meta strong {
+  grid-column: 1 / -1;
+  color: var(--muted);
+  font-family: var(--font-label);
+  font-size: var(--text-label);
+  font-weight: 750;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.home-scroll-story h2 {
+  max-width: 9ch;
+  margin-block: 1.15rem 1.5rem;
+  font-family: var(--display);
+  font-size: clamp(4rem, 8vw, 9.5rem);
+  font-weight: 800;
+  letter-spacing: -0.045em;
+  line-height: 0.86;
+  text-wrap: balance;
+}
+
+.home-scroll-story__header p {
+  max-width: 42rem;
+  margin: 0;
+  color: var(--muted);
+  font-size: var(--text-body-large);
+  line-height: 1.85;
+}
+
+.home-scroll-story__visual {
+  position: relative;
+  display: grid;
+  aspect-ratio: 1;
+  min-width: 0;
+  place-items: center;
+  contain: layout paint style;
+  transform: translate3d(0, 0, 0);
+}
+
+.home-scroll-story__orb {
+  position: absolute;
+  border-radius: 50%;
+  transform: translate3d(0, 0, 0);
+  pointer-events: none;
+}
+
+.home-scroll-story__orb--outer {
+  inset: 0;
+  border: 1px solid rgba(244, 217, 11, 0.22);
+  box-shadow:
+    inset 0 0 0 clamp(2rem, 5vw, 4.5rem) rgba(255, 255, 255, 0.018),
+    0 0 5rem rgba(244, 217, 11, 0.08);
+}
+
+.home-scroll-story__orb--inner {
+  inset: 25%;
+  background: var(--yellow);
+  box-shadow: 0 0 6rem rgba(244, 217, 11, 0.22);
+}
+
+.home-scroll-story__sweep {
+  position: absolute;
+  inset: 9%;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 210deg,
+    transparent 0 28%,
+    rgba(244, 217, 11, 0.34) 33%,
+    transparent 39% 100%
+  );
+  opacity: 0.72;
+  transform: translate3d(0, 0, 0);
+}
+
+.home-scroll-story__visual strong {
+  position: relative;
+  z-index: 2;
+  color: var(--black);
+  font-family: var(--display);
+  font-size: clamp(3rem, 7vw, 7rem);
+  font-weight: 850;
+  line-height: 1;
+}
+
+.home-scroll-story__chapters {
+  display: grid;
+  gap: 1rem;
+}
+
+.home-scroll-story__chapter {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: clamp(1.25rem, 2.2vw, 2rem);
+  background:
+    linear-gradient(
+      135deg,
+      rgba(244, 217, 11, 0.05),
+      transparent 45%
+    ),
+    var(--surface-card);
+  box-shadow: var(--shadow-sm);
+  opacity: calc(0.76 + (var(--story-index) * 0.08));
+  transform: translate3d(calc((2 - var(--story-index)) * 0.55rem), 0, 0);
+}
+
+.home-scroll-story__chapter::before {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0;
+  width: 3px;
+  background: var(--yellow);
+  content: "";
+}
+
+.home-scroll-story__chapter-step {
+  color: var(--yellow);
+  font-family: var(--font-numeric);
+  font-size: 0.66rem;
+  font-weight: 850;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.12em;
+}
+
+.home-scroll-story__chapter h3 {
+  max-width: 12ch;
+  margin-top: 1.2rem;
+  font-family: var(--display);
+  font-size: clamp(2.2rem, 4vw, 4.2rem);
+  font-weight: 750;
+  letter-spacing: -0.025em;
+  line-height: 0.95;
+  text-wrap: balance;
+}
+
+.home-scroll-story__chapter p {
+  max-width: 31rem;
+  margin-top: 1rem;
+  color: var(--muted);
+  font-size: 0.86rem;
+  line-height: 1.75;
+}
+
+html[lang="ar"] .home-scroll-story__meta strong,
+html[lang="ar"] .home-scroll-story__chapter-step {
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+html[lang="ar"] .home-scroll-story h2,
+html[lang="ar"] .home-scroll-story__chapter h3 {
+  letter-spacing: 0;
+  line-height: 1.08;
+}
+
+html[dir="rtl"] .home-scroll-story {
+  background:
+    radial-gradient(
+      circle at 28% 24%,
+      rgba(244, 217, 11, 0.12),
+      transparent 30%
+    ),
+    linear-gradient(
+      180deg,
+      var(--surface-section),
+      var(--surface-page) 46%,
+      var(--surface-section)
+    );
+}
+
+html[dir="rtl"] .home-scroll-story::after {
+  right: auto;
+  left: -10rem;
+}
+
+html[dir="rtl"] .home-scroll-story__chapter {
+  transform: translate3d(calc((var(--story-index) - 2) * 0.55rem), 0, 0);
+}
+
+@media (min-width: 900px) and (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .home-scroll-story__visual {
+      animation: home-story-orbit linear both;
+      animation-timeline: view();
+      animation-range: entry 5% exit 80%;
+    }
+
+    .home-scroll-story__chapter {
+      animation: home-story-chapter linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 45%;
+    }
+  }
+}
+
+@keyframes home-story-orbit {
+  from {
+    opacity: 0.65;
+    transform: translate3d(0, 2rem, 0) scale(0.92) rotate(-5deg);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, -1rem, 0) scale(1) rotate(5deg);
+  }
+}
+
+@keyframes home-story-chapter {
+  from {
+    opacity: 0.58;
+    transform: translate3d(1.2rem, 1.2rem, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@media (max-width: 1100px) {
+  .home-scroll-story__layout {
+    grid-template-columns: minmax(0, 1fr) minmax(16rem, 0.42fr);
+  }
+
+  .home-scroll-story__chapters {
+    grid-column: 1 / -1;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 767px) {
+  .home-scroll-story {
+    min-height: auto;
+  }
+
+  .home-scroll-story__sticky {
+    position: relative;
+    min-height: auto;
+    padding-block: clamp(4rem, 16vw, 6rem);
+  }
+
+  .home-scroll-story__layout,
+  .home-scroll-story__chapters {
+    grid-template-columns: 1fr;
+  }
+
+  .home-scroll-story__visual {
+    width: min(72vw, 18rem);
+    margin-inline: auto;
+  }
+
+  .home-scroll-story h2 {
+    font-size: clamp(3.4rem, 15vw, 5.8rem);
+  }
+
+  .home-scroll-story__header p {
+    font-size: var(--text-body);
+    line-height: 1.8;
+  }
+
+  .home-scroll-story__chapter {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-scroll-story,
+  .home-scroll-story__sticky,
+  .home-scroll-story__visual,
+  .home-scroll-story__chapter,
+  .home-scroll-story__sweep,
+  .home-scroll-story__orb {
+    animation: none !important;
+    transform: none !important;
+  }
+
+  .home-scroll-story__chapter {
+    opacity: 1;
+  }
+}
+
 
 /* Arabic home hero composition:
    move the 3D dumbbell opposite the RTL heading. */

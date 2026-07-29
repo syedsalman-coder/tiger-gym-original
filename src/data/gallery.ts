@@ -101,6 +101,20 @@ export const galleryContent = {
     "One verified brand image is available. Future photo spaces are clearly marked and contain no stock or invented imagery.",
     "تتوفر صورة واحدة موثّقة للعلامة. أما مساحات الصور المستقبلية فمحددة بوضوح ولا تحتوي على صور مخزّنة أو مختلقة.",
   ),
+  readiness: {
+    title: localized(
+      "Gallery photography is still pending.",
+      "صور المعرض قيد الإضافة.",
+    ),
+    description: localized(
+      "No stock or invented gym photos are being used. The gallery shows only the verified Tiger Gym brand asset and clearly marked future photo spaces until owner-approved photography is supplied.",
+      "لا تُستخدم صور مخزّنة أو مختلقة للنادي. يعرض المعرض عنصر الهوية الموثّق فقط ومساحات صور مستقبلية واضحة إلى حين توفير صور معتمدة من المالك.",
+    ),
+    note: localized(
+      "Use the verified logo and contact Tiger Gym for current training-floor details before relying on future photo slots.",
+      "استخدم الشعار الموثّق وتواصل مع Tiger Gym لمعرفة تفاصيل مساحة التدريب الحالية قبل الاعتماد على مساحات الصور المستقبلية.",
+    ),
+  },
   verifiedLabel: localized("Verified image", "صورة موثّقة"),
   lightboxEyebrow: localized("Verified Tiger Gym asset", "عنصر موثّق من Tiger Gym"),
   placeholderLabel: localized("Photo placeholder", "مساحة صورة مستقبلية"),
