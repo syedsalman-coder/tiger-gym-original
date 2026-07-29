@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import type {
+  AriaRole,
   PointerEvent,
   ReactNode,
 } from "react";
@@ -14,6 +15,8 @@ type MagneticButtonProps = {
   variant?: "yellow" | "outline" | "light";
   target?: "_blank";
   rel?: string;
+  ariaLabel?: string;
+  role?: AriaRole;
 };
 
 export default function MagneticButton({
@@ -23,6 +26,8 @@ export default function MagneticButton({
   variant = "yellow",
   target,
   rel,
+  ariaLabel,
+  role,
 }: MagneticButtonProps) {
   const reduceMotion = useReducedMotion();
 
@@ -99,6 +104,8 @@ export default function MagneticButton({
       <Link
         className={classes}
         href={href}
+        aria-label={ariaLabel}
+        role={role}
         onPointerMove={handlePointerMove}
         onPointerLeave={reset}
       >
@@ -111,6 +118,8 @@ export default function MagneticButton({
     <a
       className={classes}
       href={href}
+      aria-label={ariaLabel}
+      role={role}
       target={target}
       rel={rel}
       onPointerMove={handlePointerMove}

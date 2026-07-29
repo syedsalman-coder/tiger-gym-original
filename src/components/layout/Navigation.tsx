@@ -14,6 +14,8 @@ import MobileMenu from "./MobileMenu";
 export default function Navigation({ locale }: { locale: Locale }) {
   const pathname = usePathname();
   const dictionary = getDictionary(locale);
+  const navId = `primary-navigation-${locale}`;
+  const mobileNavId = `mobile-navigation-${locale}`;
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
@@ -68,7 +70,7 @@ export default function Navigation({ locale }: { locale: Locale }) {
 
   return (
     <>
-      <header className={`main-nav ${solid ? "main-nav--solid" : ""} ${menuOpen ? "main-nav--open" : ""}`}>
+      <header className={`main-nav ${solid ? "main-nav--solid" : ""} ${menuOpen ? "main-nav--open" : ""}`} data-navigation-shell>
         <Link
           className="main-nav__brand"
           href={localizePath(locale, "/")}
@@ -80,7 +82,7 @@ export default function Navigation({ locale }: { locale: Locale }) {
           <span><strong>{text(site.name)}</strong><small>{text(site.descriptor)}</small></span>
         </Link>
 
-        <nav className="main-nav__links" aria-label={dictionary.accessibility.primaryNavigation}>
+        <nav id={navId} className="main-nav__links" aria-label={dictionary.accessibility.primaryNavigation}>
           {navigation.map((item) => {
             const href = localizePath(locale, item.href);
             return <Link className={pathname === href ? "is-active" : undefined} href={href} key={item.href} aria-current={pathname === href ? "page" : undefined}>{text(item.label)}</Link>;
@@ -104,13 +106,13 @@ export default function Navigation({ locale }: { locale: Locale }) {
           type="button"
           aria-label={menuOpen ? dictionary.accessibility.closeMenu : dictionary.accessibility.openMenu}
           aria-expanded={menuOpen}
-          aria-controls="mobile-navigation"
+          aria-controls={mobileNavId}
           onClick={() => setMenuOpen((current) => !current)}
         >
           <span /><span />
         </button>
       </header>
-      <MobileMenu locale={locale} open={menuOpen} pathname={pathname} onClose={closeMenu} />
+      <MobileMenu id={mobileNavId} locale={locale} open={menuOpen} pathname={pathname} onClose={closeMenu} />
     </>
   );
 }

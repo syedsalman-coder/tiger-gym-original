@@ -218,6 +218,20 @@ export default function Footer({
                 <strong>
                   {text(site.address)}
                 </strong>
+
+                <a
+                  className="premium-footer__directions"
+                  href={site.directionsUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {dictionary.common.getDirections}
+                  <ArrowUpRight
+                    size={14}
+                    strokeWidth={1.6}
+                    aria-hidden="true"
+                  />
+                </a>
               </div>
             </div>
 

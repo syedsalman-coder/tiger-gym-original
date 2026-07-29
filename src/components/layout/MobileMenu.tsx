@@ -10,13 +10,14 @@ import { getDictionary } from "@/i18n/dictionaries";
 import LanguageSwitcher from "./LanguageSwitcher";
 
 type MobileMenuProps = {
+  id: string;
   locale: Locale;
   open: boolean;
   pathname: string;
   onClose: () => void;
 };
 
-export default function MobileMenu({ locale, open, pathname, onClose }: MobileMenuProps) {
+export default function MobileMenu({ id, locale, open, pathname, onClose }: MobileMenuProps) {
   const reduceMotion = useReducedMotion();
   const dictionary = getDictionary(locale);
   const text = (value: Parameters<typeof getLocalizedValue>[0]) => getLocalizedValue(value, locale);
@@ -56,7 +57,7 @@ export default function MobileMenu({ locale, open, pathname, onClose }: MobileMe
       {open ? (
         <motion.div
           ref={dialogRef}
-          id="mobile-navigation"
+          id={id}
           className="mobile-nav"
           role="dialog"
           aria-modal="true"
@@ -85,7 +86,7 @@ export default function MobileMenu({ locale, open, pathname, onClose }: MobileMe
                   onClick={onClose}
                 >
                   <span>0{index + 1}</span>
-                  {text(item.label)}
+                  <strong>{text(item.label)}</strong>
                 </Link>
               </motion.div>
               );

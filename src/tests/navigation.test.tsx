@@ -1,5 +1,5 @@
-import { describe, it, expect, vi } from 'vitest';
-import { render, screen, within } from '@testing-library/react';
+import { afterEach, describe, it, expect, vi } from 'vitest';
+import { cleanup, render, screen, within } from '@testing-library/react';
 import Navigation from '@/components/layout/Navigation';
 
 // Mock the next/navigation
@@ -21,7 +21,12 @@ vi.mock('@/i18n/config', () => ({
 
 vi.mock('@/i18n/dictionaries', () => ({
   getDictionary: () => ({
-    accessibility: { home: 'Home', primaryNavigation: 'Nav' },
+    accessibility: {
+      home: 'Home',
+      primaryNavigation: 'Nav',
+      openMenu: 'Open menu',
+      closeMenu: 'Close menu',
+    },
     common: { joinNow: 'Join' },
   }),
 }));
@@ -39,9 +44,18 @@ vi.mock('@/components/shared/Logo', () => ({
 }));
 
 describe('Navigation', () => {
+  afterEach(() => cleanup());
   it('renders navigation links', () => {
     render(<Navigation locale="en" />);
     const nav = screen.getByRole('navigation', { name: /Nav/i });
     expect(within(nav).getByRole('link', { name: /home/i })).toBeDefined();
+  });
+
+  it('connects the mobile menu toggle to a localized mobile navigation id', () => {
+    render(<Navigation locale="en" />);
+    expect(screen.getByRole('button', { name: /open menu/i })).toHaveAttribute(
+      'aria-controls',
+      'mobile-navigation-en',
+    );
   });
 });

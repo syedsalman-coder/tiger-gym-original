@@ -1,17 +1,24 @@
 # Performance Budget
 
-Updated: 2026-07-29T02:32:47Z
+Updated: 2026-07-29T03:35:57Z
 
-## Phase 0 baseline
+## Phase 1 implementation baseline
 
-No production performance budget changes were made in Phase 0. The checkpoint is limited to automated test setup, test cleanup, and concise project reports.
+- `npm run build` passed and generated 21 static pages.
+- Phase 1 added no new production dependencies.
+- Mobile conversion action bar uses existing `lucide-react` icons and CSS tokens.
+- Metadata foundation uses Next.js metadata primitives only.
+- Shared design tokens centralize spacing, radius, overlay, and shadow values to avoid repeated one-off CSS values in later phases.
 
-## Current build status
+## Protected rendering path
 
-`npm run build` passes and prerenders the locale routes successfully.
+`src/components/home/DumbbellScene.tsx` was not edited, staged, reset, or reverted by this implementation. Its current WebGL recovery and compact/mobile rendering work remains intact.
+
+- Diff hash: `db3daa450c5dac86890a02b339146a66e8ada011`
+- SHA-256: `459c4ec573c3cd4528b8aef2bfdba9cbdc11b7f35a807fe54a1ff16ed7eb6835`
 
 ## Watch items for later phases
 
-- Keep animation and WebGL work out of unit tests unless it can be tested through stable user-visible behavior.
-- Monitor bundle impact before adding production dependencies.
+- Monitor mobile viewport space because the fixed conversion action bar intentionally reserves bottom safe-area space on small screens.
+- Monitor bundle impact before adding any new production dependency.
 - Treat Google Fonts network fetches as a CI/build reliability risk if builds run without stable outbound network access.

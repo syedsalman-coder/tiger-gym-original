@@ -2,6 +2,8 @@
   /* Core palette: intentionally narrow to preserve the Tiger Gym identity. */
   --color-brand: #f4d90b;
   --color-brand-bright: #ffe22e;
+  --color-brand-soft: rgba(244, 217, 11, 0.12);
+  --color-brand-glow: rgba(244, 217, 11, 0.34);
   --color-ink: #050505;
   --color-charcoal: #181616;
   --color-canvas: #0a0a0a;
@@ -32,9 +34,12 @@
   --surface-card-raised: var(--color-surface-raised);
   --surface-input: #131313;
   --surface-navigation: rgba(5, 5, 5, 0.94);
+  --surface-overlay: rgba(5, 5, 5, 0.72);
 
   --shadow-sm: 0 0.75rem 1.75rem rgba(0, 0, 0, 0.18);
   --shadow-md: 0 1.5rem 3.5rem rgba(0, 0, 0, 0.28);
+  --shadow-lg: 0 2.25rem 5.5rem rgba(0, 0, 0, 0.42);
+  --shadow-brand: 0 1.25rem 3rem rgba(244, 217, 11, 0.22);
   --shadow-focus: 0 0 0 3px rgba(244, 217, 11, 0.2);
 
   --font-display: var(--font-barlow-condensed), "Arial Narrow", sans-serif;
@@ -61,8 +66,10 @@
   --space-3xl: clamp(5.5rem, 3.8rem + 5.5vw, 9rem);
 
   --page-gutter: clamp(1rem, 3.5vw, 3.5rem);
+  --mobile-action-height: 4.9rem;
   --section-space: clamp(5.5rem, 8.5vw, 9rem);
   --grid-gap: clamp(0.75rem, 1.2vw, 1.25rem);
+  --layout-gap: clamp(1.25rem, 3vw, 3.5rem);
   --card-padding: clamp(1.25rem, 2vw, 1.875rem);
   --container-wide: 90rem;
   --container-content: 72rem;
@@ -72,6 +79,7 @@
   --radius-sm: 0.375rem;
   --radius-md: 0.75rem;
   --radius-lg: 1.25rem;
+  --radius-xl: 2rem;
   --radius-pill: 999px;
 
   --duration-fast: 160ms;
