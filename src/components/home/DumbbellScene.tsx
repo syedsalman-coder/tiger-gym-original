@@ -438,6 +438,11 @@ export default function DumbbellScene({
     setContextLost,
   ] = useState(false);
 
+  const [
+    canvasRevision,
+    setCanvasRevision,
+  ] = useState(0);
+
   const [inView, setInView] =
     useState(true);
 
@@ -448,6 +453,15 @@ export default function DumbbellScene({
     useRef<() => void>(
       () => undefined,
     );
+
+  const recoveryTimerRef =
+    useRef<number | null>(null);
+
+  const stabilityTimerRef =
+    useRef<number | null>(null);
+
+  const recoveryAttemptsRef =
+    useRef(0);
 
   const readyDispatchedRef =
     useRef(false);
@@ -519,6 +533,18 @@ export default function DumbbellScene({
   useEffect(
     () => () => {
       removeContextListenerRef.current();
+
+      if (recoveryTimerRef.current !== null) {
+        window.clearTimeout(
+          recoveryTimerRef.current,
+        );
+      }
+
+      if (stabilityTimerRef.current !== null) {
+        window.clearTimeout(
+          stabilityTimerRef.current,
+        );
+      }
     },
     [],
   );
@@ -543,6 +569,7 @@ export default function DumbbellScene({
           onError={dispatchReady}
         >
           <Canvas
+            key={canvasRevision}
             className="absolute inset-0"
             style={{
               touchAction: "pan-y",
@@ -592,14 +619,88 @@ export default function DumbbellScene({
             onCreated={({ gl }) => {
               removeContextListenerRef.current();
 
+              if (
+                stabilityTimerRef.current !== null
+              ) {
+                window.clearTimeout(
+                  stabilityTimerRef.current,
+                );
+
+                stabilityTimerRef.current = null;
+              }
+
+              const clearRecoveryTimer = () => {
+                if (
+                  recoveryTimerRef.current === null
+                ) {
+                  return;
+                }
+
+                window.clearTimeout(
+                  recoveryTimerRef.current,
+                );
+
+                recoveryTimerRef.current = null;
+              };
+
               const handleContextLost = (
                 event: Event,
               ) => {
                 event.preventDefault();
 
-                removeContextListenerRef.current();
+                clearRecoveryTimer();
+
+                if (
+                  stabilityTimerRef.current !== null
+                ) {
+                  window.clearTimeout(
+                    stabilityTimerRef.current,
+                  );
+
+                  stabilityTimerRef.current = null;
+                }
+
+                const nextAttempt =
+                  recoveryAttemptsRef.current + 1;
+
+                recoveryAttemptsRef.current =
+                  nextAttempt;
 
                 setContextLost(true);
+
+                if (nextAttempt > 2) {
+                  dispatchReady();
+                  return;
+                }
+
+                recoveryTimerRef.current =
+                  window.setTimeout(
+                    () => {
+                      recoveryTimerRef.current =
+                        null;
+
+                      setCanvasRevision(
+                        (current) => current + 1,
+                      );
+
+                      setContextLost(false);
+                    },
+                    nextAttempt === 1
+                      ? 900
+                      : 1800,
+                  );
+              };
+
+              const handleContextRestored = () => {
+                clearRecoveryTimer();
+
+                recoveryAttemptsRef.current = 0;
+
+                setCanvasRevision(
+                  (current) => current + 1,
+                );
+
+                setContextLost(false);
               };
 
               gl.domElement.addEventListener(
@@ -607,11 +708,21 @@ export default function DumbbellScene({
                 handleContextLost,
               );
 
+              gl.domElement.addEventListener(
+                "webglcontextrestored",
+                handleContextRestored,
+              );
+
               removeContextListenerRef.current =
                 () => {
                   gl.domElement.removeEventListener(
                     "webglcontextlost",
                     handleContextLost,
+                  );
+
+                  gl.domElement.removeEventListener(
+                    "webglcontextrestored",
+                    handleContextRestored,
                   );
                 };
 
@@ -625,7 +736,17 @@ export default function DumbbellScene({
                 compact ? 1.03 : 1.08;
 
               gl.shadowMap.type =
-                THREE.PCFSoftShadowMap;
+                THREE.PCFShadowMap;
+
+              stabilityTimerRef.current =
+                window.setTimeout(
+                  () => {
+                    recoveryAttemptsRef.current = 0;
+                    stabilityTimerRef.current =
+                      null;
+                  },
+                  5000,
+                );
 
               dispatchReady();
             }}
