@@ -9,6 +9,7 @@ import RouteMotion from "@/components/shared/RouteMotion";
 import ScrollProgress from "@/components/shared/ScrollProgress";
 import SmoothScroll from "@/components/shared/SmoothScroll";
 import { getDictionary } from "@/i18n/dictionaries";
+import { createLocalBusinessJsonLd } from "@/i18n/metadata";
 import { isLocale, localeDirections, locales } from "@/i18n/config";
 import "../globals.css";
 
@@ -49,6 +50,7 @@ export default async function LocaleLayout({
 
   const dictionary = getDictionary(locale);
   const direction = localeDirections[locale];
+  const localBusinessJsonLd = createLocalBusinessJsonLd(locale);
 
   return (
     <html
@@ -58,6 +60,13 @@ export default async function LocaleLayout({
       data-locale={locale}
     >
       <body className="min-h-full">
+        <script
+          type="application/ld+json"
+          suppressHydrationWarning
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(localBusinessJsonLd).replace(/</g, "\\u003c"),
+          }}
+        />
         <noscript><style>{".home-loader{display:none!important}"}</style></noscript>
         <a className="skip-link" href="#main-content">{dictionary.accessibility.skipToContent}</a>
         <SmoothScroll />

@@ -13,7 +13,11 @@ const localeOpenGraph: Record<Locale, string> = {
   ar: "ar_KW",
 };
 
-const localizedBaseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://tigergym.kw";
+export const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://tigergym.kw";
+
+export function absoluteSiteUrl(path: string): string {
+  return new URL(path, siteUrl).toString();
+}
 
 export function createLocalizedMetadata(
   locale: Locale,
@@ -28,7 +32,7 @@ export function createLocalizedMetadata(
     .map((candidate) => localeOpenGraph[candidate]);
 
   return {
-    metadataBase: new URL(localizedBaseUrl),
+    metadataBase: new URL(siteUrl),
     title,
     description,
     alternates: {
@@ -52,5 +56,37 @@ export function createLocalizedMetadata(
       title,
       description,
     },
+  };
+}
+
+export function createLocalBusinessJsonLd(locale: Locale) {
+  const text = (value: LocalizedText) => getLocalizedValue(value, locale);
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "ExerciseGym",
+    "@id": `${absoluteSiteUrl(localizePath(locale, "/"))}#local-business`,
+    name: text(site.fullName),
+    alternateName: text(site.name),
+    description: text(site.description),
+    url: absoluteSiteUrl(localizePath(locale, "/")),
+    telephone: site.phoneHref.replace(/^tel:/, ""),
+    image: absoluteSiteUrl("/tiger-logo.png"),
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: text(site.address),
+      addressLocality: text(site.city),
+      addressCountry: text(site.country),
+    },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: 29.323539475294567,
+      longitude: 48.05703127531609,
+    },
+    hasMap: site.directionsUrl,
+    openingHours: [
+      `Sa-Th ${text(site.openingHours.regularTime)}`,
+      `Fr ${text(site.openingHours.fridayTime)}`,
+    ],
   };
 }

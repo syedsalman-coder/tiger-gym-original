@@ -1,7 +1,10 @@
 import { describe, expect, it } from "vitest";
 import { render, screen } from "@testing-library/react";
 import MobileActionBar from "@/components/layout/MobileActionBar";
-import { createLocalizedMetadata } from "@/i18n/metadata";
+import robots from "@/app/robots";
+import sitemap from "@/app/sitemap";
+import { site } from "@/data/site";
+import { createLocalBusinessJsonLd, createLocalizedMetadata } from "@/i18n/metadata";
 import { pageContent } from "@/data/pages";
 
 describe("Phase 1 conversion shell", () => {
@@ -14,7 +17,7 @@ describe("Phase 1 conversion shell", () => {
     );
     expect(screen.getByRole("link", { name: /call now/i })).toHaveAttribute(
       "href",
-      expect.stringContaining("tel:"),
+      "tel:+96569678350",
     );
     expect(screen.getByRole("link", { name: /get directions/i })).toHaveAttribute(
       "href",
@@ -30,4 +33,27 @@ describe("Phase 1 conversion shell", () => {
     expect(metadata.alternates?.languages).toMatchObject({ en: "/en", ar: "/ar" });
     expect(metadata.openGraph).toMatchObject({ locale: "ar_KW", alternateLocale: ["en_KW"] });
   });
+
+  it("publishes crawl routes and verified local-business structured data", () => {
+    const urls = sitemap().map((entry) => entry.url);
+
+    expect(urls).toContain("https://tigergym.kw/en");
+    expect(urls).toContain("https://tigergym.kw/ar/contact");
+    expect(robots()).toMatchObject({
+      rules: { userAgent: "*", allow: "/" },
+      sitemap: "https://tigergym.kw/sitemap.xml",
+    });
+
+    const structuredData = createLocalBusinessJsonLd("en");
+
+    expect(structuredData).toMatchObject({
+      "@type": "ExerciseGym",
+      name: "Tiger Gym Fitness Center",
+      telephone: "+96569678350",
+      hasMap: site.directionsUrl,
+    });
+    expect(structuredData.telephone).not.toContain("*");
+    expect(structuredData.address.streetAddress).toContain("Amman Street");
+  });
+
 });
