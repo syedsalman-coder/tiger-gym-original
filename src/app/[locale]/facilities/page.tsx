@@ -7,6 +7,7 @@ import {
 } from "lucide-react";
 
 import MagneticButton from "@/components/shared/MagneticButton";
+import ContentStatusNotice from "@/components/shared/ContentStatusNotice";
 import PageHero from "@/components/shared/PageHero";
 import SectionHeading from "@/components/shared/SectionHeading";
 import {
@@ -77,6 +78,14 @@ export default async function FacilitiesPage({
             eyebrow={text(content.section.eyebrow)}
             title={text(content.section.title)}
             description={text(content.section.description)}
+          />
+
+          <ContentStatusNotice
+            locale={locale}
+            status="pending"
+            title={content.section.readiness.title}
+            description={content.section.readiness.description}
+            note={content.section.readiness.note}
           />
 
           <div className="facility-list__items">

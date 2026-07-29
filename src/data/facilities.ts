@@ -98,6 +98,20 @@ export const facilitiesContent = {
       "تبقى تفاصيل الفئات والمعدات قيد التأكيد من مالك النادي.",
     ),
     detailLabel: localized("Training focus", "محور التدريب"),
+    readiness: {
+      title: localized(
+        "Training details are being verified.",
+        "تفاصيل التدريب قيد التأكيد.",
+      ),
+      description: localized(
+        "Some details are pending owner confirmation, so each area is shown as a training category instead of a final equipment list.",
+        "بعض التفاصيل قيد تأكيد المالك، لذلك تُعرض كل منطقة كفئة تدريب وليس كقائمة نهائية بالمعدات.",
+      ),
+      note: localized(
+        "Confirm equipment availability with the Tiger Gym team before planning a specific workout.",
+        "تأكّد من توفر المعدات مع فريق Tiger Gym قبل التخطيط لتمرين محدد.",
+      ),
+    },
   },
   preview: {
     number: localized("03", "03"),

@@ -1,6 +1,6 @@
 # Implementation Progress
 
-Updated: 2026-07-29T03:35:57Z
+Updated: 2026-07-29T16:21:36Z
 
 ## Current branch
 
@@ -11,9 +11,9 @@ Updated: 2026-07-29T03:35:57Z
 - Phase 0 cleanup remains locally committed as `d9d6fc4e9c476bb2b0221ae2dd4c18e891047083`.
 - Phase 0 was not restarted or repeated for this continuation.
 
-## Phase 1 implemented
+## Phase 1 completed
 
-Production UI code changes are now implemented for the Phase 1 conversion shell:
+Production UI code changes are implemented for the Phase 1 conversion shell:
 
 - Expanded shared design tokens in `src/app/design-tokens.css` for brand glow, overlay surfaces, layout gaps, mobile action height, larger radius scale, and reusable shadows.
 - Refined global styling in `src/app/globals.css` for responsive shells, shared button behavior, desktop navigation, mobile menu spacing, fixed mobile action bar, footer direction links, and Arabic RTL mirroring.
@@ -26,16 +26,27 @@ Production UI code changes are now implemented for the Phase 1 conversion shell:
 - Added localized conversion-action accessibility labels in `src/i18n/dictionaries.ts`.
 - Added regression coverage in `src/tests/phase1-shell.test.tsx` and expanded `src/tests/navigation.test.tsx`.
 
-## Protected work
+## DumbbellScene checkpoint completed
 
-`src/components/home/DumbbellScene.tsx` remains protected and unstaged by this implementation.
+The previously existing `src/components/home/DumbbellScene.tsx` change was committed alone as:
 
-- Protected diff hash: `db3daa450c5dac86890a02b339146a66e8ada011`
-- Protected SHA-256: `459c4ec573c3cd4528b8aef2bfdba9cbdc11b7f35a807fe54a1ff16ed7eb6835`
+- `25fd6b6 fix: harden DumbbellScene WebGL recovery`
+
+## Phase 2 started
+
+The first Phase 2 production slice adds visitor-facing pending-content readiness notices for the facilities and membership pages:
+
+- Added shared `src/components/shared/ContentStatusNotice.tsx`.
+- Added localized readiness copy to `src/data/facilities.ts` and `src/data/membership-options.ts`.
+- Rendered the notices in `src/app/[locale]/facilities/page.tsx` and `src/app/[locale]/membership/page.tsx`.
+- Added styling in `src/app/globals.css`.
+- Added regression coverage in `src/tests/phase2-content-readiness.test.tsx`.
 
 ## Verification
 
-- `npm run test:ci` passed: 4 files, 7 tests.
+- `npm run test:ci -- src/tests/phase2-content-readiness.test.tsx` passed: 1 file, 2 tests.
+- `npm run test:ci` passed: 5 files, 9 tests.
 - `npm run lint` passed.
 - `npx tsc --noEmit` passed.
 - `npm run build` passed and generated 21 static pages.
+- `git diff --check` passed.

@@ -1,26 +1,24 @@
 # Test Results
 
-Updated: 2026-07-29T03:35:57Z
+Updated: 2026-07-29T16:21:36Z
 
-## Phase 1 implementation verification commands
+## Phase 2 verification commands
 
 | Command | Exit code | Result |
 | --- | ---: | --- |
-| `npm run test:ci` | 0 | Passed: 4 files, 7 tests |
+| `npm run test:ci -- src/tests/phase2-content-readiness.test.tsx` | 0 | Passed: 1 file, 2 tests |
+| `npm run test:ci` | 0 | Passed: 5 files, 9 tests |
 | `npm run lint` | 0 | Passed |
 | `npx tsc --noEmit` | 0 | Passed |
 | `npm run build` | 0 | Passed; 21 static pages generated |
+| `git diff --check` | 0 | Passed |
 
-## Targeted regression coverage added
+## TDD evidence
 
-| Test file | Coverage |
-| --- | --- |
-| `src/tests/phase1-shell.test.tsx` | Mobile WhatsApp/Call/Directions action bar renders with accessible links; Arabic metadata includes canonical alternates and Open Graph locale data. |
-| `src/tests/navigation.test.tsx` | Desktop navigation still renders and mobile toggle points at the localized mobile navigation dialog ID. |
+The Phase 2 regression test was run before production code and failed as expected because no content-readiness `role="status"` notice existed on the facilities or membership pages.
 
-## Protected file verification
+After implementation, the same targeted test passed.
 
-`src/components/home/DumbbellScene.tsx` remained unchanged by this implementation:
+## Notes
 
-- Diff hash: `db3daa450c5dac86890a02b339146a66e8ada011`
-- SHA-256: `459c4ec573c3cd4528b8aef2bfdba9cbdc11b7f35a807fe54a1ff16ed7eb6835`
+The Vite test command still reports the existing advisory that `vite-tsconfig-paths` is detected and Vite can now resolve tsconfig paths natively. This is advisory output, not a failing test condition.

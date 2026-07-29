@@ -65,6 +65,20 @@ export const membershipContent = {
     number: localized("04.1", "04.1"),
     eyebrow: localized("Enquiry options", "خيارات الاستفسار"),
     title: localized("Talk to the team.", "تحدّث مع الفريق."),
+    readiness: {
+      title: localized(
+        "Membership details are being confirmed.",
+        "تفاصيل العضوية قيد التأكيد.",
+      ),
+      description: localized(
+        "Prices and access terms are pending owner confirmation, so this page guides visitors to contact Tiger Gym directly.",
+        "الأسعار وشروط الدخول قيد تأكيد المالك، لذلك توجه هذه الصفحة الزوار للتواصل مباشرةً مع Tiger Gym.",
+      ),
+      note: localized(
+        "Use WhatsApp, phone, or the enquiry form to confirm the current membership option before visiting.",
+        "استخدم واتساب أو الهاتف أو نموذج الاستفسار لتأكيد خيار العضوية الحالي قبل الزيارة.",
+      ),
+    },
   },
   homeCta: {
     eyebrow: localized("Membership · Speak with our team", "العضوية · تحدّث مع فريقنا"),

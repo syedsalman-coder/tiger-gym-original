@@ -1,10 +1,10 @@
 # Content Needed
 
-Updated: 2026-07-29T03:35:57Z
+Updated: 2026-07-29T16:21:36Z
 
-## Phase 1 status
+## Phase 2 status
 
-No new owner-provided content was required for the Phase 1 design-system and conversion-shell implementation.
+The site now exposes visitor-facing readiness notices for pending facilities and membership details. These notices are intentional and should remain until owner-approved content is available.
 
 ## Existing content follow-up
 
