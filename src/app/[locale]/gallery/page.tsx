@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import GalleryGrid from "@/components/gallery/GalleryGrid";
 import ContentStatusNotice from "@/components/shared/ContentStatusNotice";
+import FinalCta from "@/components/shared/FinalCta";
 import PageHero from "@/components/shared/PageHero";
 import { galleryContent } from "@/data/gallery";
 import { getLocalizedValue } from "@/i18n/config";
@@ -31,6 +32,14 @@ export default async function GalleryPage({ params }: { params: LocaleParams }) 
           <GalleryGrid locale={locale} />
         </div>
       </section>
+      <FinalCta
+        locale={locale}
+        ariaLabel={locale === "ar" ? "إجراء تحويل المعرض" : "Gallery conversion action"}
+        eyebrow={galleryContent.finalCta.eyebrow}
+        title={galleryContent.finalCta.title}
+        description={galleryContent.finalCta.description}
+        primaryLabel={galleryContent.finalCta.label}
+      />
     </main>
   );
 }

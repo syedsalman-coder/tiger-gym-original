@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { MapPin, MessageCircle, Phone } from "lucide-react";
 import MembershipForm from "@/components/contact/MembershipForm";
 import ContentStatusNotice from "@/components/shared/ContentStatusNotice";
+import FinalCta from "@/components/shared/FinalCta";
 import MagneticButton from "@/components/shared/MagneticButton";
 import PageHero from "@/components/shared/PageHero";
 import SectionHeading from "@/components/shared/SectionHeading";
@@ -47,12 +48,20 @@ export default async function MembershipPage({ params }: { params: LocaleParams 
           </div>
         </div>
       </section>
-      <section className="form-section section-space">
+      <section className="form-section section-space" id="membership-form">
         <div className="page-shell form-section__grid">
           <div data-reveal><span className="eyebrow">{text(content.formIntro.eyebrow)}</span><h2>{text(content.formIntro.title)}</h2><p>{text(content.formIntro.description)}</p></div>
           <MembershipForm locale={locale} />
         </div>
       </section>
+      <FinalCta
+        locale={locale}
+        ariaLabel={locale === "ar" ? "إجراء تحويل العضوية" : "Membership conversion action"}
+        eyebrow={content.finalCta.eyebrow}
+        title={content.finalCta.title}
+        description={content.finalCta.description}
+        primaryLabel={content.finalCta.label}
+      />
     </main>
   );
 }

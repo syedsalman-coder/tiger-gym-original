@@ -125,4 +125,13 @@ export const facilitiesContent = {
     label: localized("Membership enquiry", "استفسار عن العضوية"),
     href: "/membership",
   },
+  finalCta: {
+    eyebrow: localized("Verify the training floor", "أكّد مساحة التدريب"),
+    title: localized("Ask what is available before you train.", "اسأل عمّا هو متاح قبل التدريب."),
+    description: localized(
+      "Training categories are listed, but equipment details should be confirmed directly with Tiger Gym before a specific workout.",
+      "فئات التدريب مدرجة، لكن يجب تأكيد تفاصيل المعدات مباشرةً مع Tiger Gym قبل تمرين محدد.",
+    ),
+    label: localized("Prepare membership enquiry", "جهّز استفسار العضوية"),
+  },
 } as const;

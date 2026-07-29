@@ -119,4 +119,13 @@ export const galleryContent = {
   lightboxEyebrow: localized("Verified Tiger Gym asset", "عنصر موثّق من Tiger Gym"),
   placeholderLabel: localized("Photo placeholder", "مساحة صورة مستقبلية"),
   viewLabel: localized("View full screen", "عرض بملء الشاشة"),
+  finalCta: {
+    eyebrow: localized("Need current visuals?", "تحتاج صورًا حالية؟"),
+    title: localized("Ask the team for the latest floor details.", "اسأل الفريق عن أحدث تفاصيل مساحة التدريب."),
+    description: localized(
+      "Only the supplied logo is verified here. Contact Tiger Gym for current facility details until approved photography is added.",
+      "الشعار المزوّد هو العنصر الموثّق الوحيد هنا. تواصل مع Tiger Gym لمعرفة تفاصيل المرافق الحالية إلى حين إضافة صور معتمدة.",
+    ),
+    label: localized("Prepare membership enquiry", "جهّز استفسار العضوية"),
+  },
 } as const;

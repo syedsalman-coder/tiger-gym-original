@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import { Clock3, MapPin, MessageCircle, Phone } from "lucide-react";
 import ContactForm from "@/components/contact/ContactForm";
 import MapEmbed from "@/components/contact/MapEmbed";
+import FinalCta from "@/components/shared/FinalCta";
 import MagneticButton from "@/components/shared/MagneticButton";
+import PendingFaq from "@/components/shared/PendingFaq";
 import PageHero from "@/components/shared/PageHero";
 import SectionHeading from "@/components/shared/SectionHeading";
 import { pageContent } from "@/data/pages";
@@ -51,12 +53,23 @@ export default async function ContactPage({ params }: { params: LocaleParams }) 
           </div>
         </div>
       </section>
-      <section className="form-section form-section--contact section-space">
+      <section className="form-section form-section--contact section-space" id="contact-form">
         <div className="page-shell form-section__grid">
           <div data-reveal><span className="eyebrow">{text(content.formIntro.eyebrow)}</span><h2>{text(content.formIntro.title)}</h2><p>{text(content.formIntro.description)}</p></div>
           <ContactForm locale={locale} />
         </div>
       </section>
+      <PendingFaq locale={locale} />
+      <FinalCta
+        locale={locale}
+        ariaLabel={locale === "ar" ? "إجراء تحويل التواصل" : "Contact conversion action"}
+        eyebrow={content.finalCta.eyebrow}
+        title={content.finalCta.title}
+        description={content.finalCta.description}
+        primaryLabel={content.finalCta.label}
+        primaryHref="/contact#contact-form"
+        showDirections
+      />
     </main>
   );
 }

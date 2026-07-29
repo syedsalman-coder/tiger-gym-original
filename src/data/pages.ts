@@ -96,6 +96,15 @@ export const pageContent = {
       contactLabel: localized("Location & contact", "الموقع والتواصل"),
       directionsLabel: localized("Get directions", "احصل على الاتجاهات"),
     },
+    finalCta: {
+      eyebrow: localized("Start with verified details", "ابدأ بتفاصيل مؤكدة"),
+      title: localized("Ready to plan your first session?", "جاهز للتخطيط لحصتك الأولى؟"),
+      description: localized(
+        "Use the membership form, WhatsApp, phone or directions to confirm the current option that fits your visit.",
+        "استخدم نموذج العضوية أو واتساب أو الهاتف أو الاتجاهات لتأكيد الخيار الحالي المناسب لزيارتك.",
+      ),
+      label: localized("Prepare membership enquiry", "جهّز استفسار العضوية"),
+    },
     loader: {
       progressLabel: localized("Preparing the floor", "جارٍ تجهيز مساحة التدريب"),
     },
@@ -180,6 +189,15 @@ export const pageContent = {
       ),
       label: localized("Ask about membership", "استفسر عن العضوية"),
     },
+    finalCta: {
+      eyebrow: localized("Talk to Tiger Gym", "تحدّث مع Tiger Gym"),
+      title: localized("Confirm your next step directly.", "أكّد خطوتك التالية مباشرةً."),
+      description: localized(
+        "Membership, equipment and visit details should be confirmed with the team before you plan a session.",
+        "يجب تأكيد تفاصيل العضوية والمعدات والزيارة مع الفريق قبل التخطيط لحصة تدريب.",
+      ),
+      label: localized("Prepare membership enquiry", "جهّز استفسار العضوية"),
+    },
   },
   contact: {
     status: "demo",
@@ -216,6 +234,15 @@ export const pageContent = {
         "This form validates your details and opens WhatsApp for you to review and send the message yourself.",
         "يتحقق هذا النموذج من بياناتك ثم يفتح واتساب لتراجع الرسالة وترسلها بنفسك.",
       ),
+    },
+    finalCta: {
+      eyebrow: localized("Before you visit", "قبل زيارتك"),
+      title: localized("Confirm today’s details with the team.", "أكّد تفاصيل اليوم مع الفريق."),
+      description: localized(
+        "Use WhatsApp, phone, the verified map, or the message form so your visit is based on current confirmed information.",
+        "استخدم واتساب أو الهاتف أو الخريطة الموثّقة أو نموذج الرسائل لتكون زيارتك مبنية على معلومات حالية مؤكدة.",
+      ),
+      label: localized("Prepare WhatsApp message", "جهّز رسالة واتساب"),
     },
   },
   footer: {

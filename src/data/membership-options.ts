@@ -97,4 +97,13 @@ export const membershipContent = {
       "يتحقق النموذج من بياناتك ثم يفتح رسالة لتراجعها في واتساب. لن يُرسل أي شيء تلقائيًا.",
     ),
   },
+  finalCta: {
+    eyebrow: localized("Confirm before you join", "أكّد قبل الانضمام"),
+    title: localized("Ready to confirm your membership option?", "جاهز لتأكيد خيار العضوية؟"),
+    description: localized(
+      "Use the form or WhatsApp to ask Tiger Gym for current prices, access terms and visit details before committing.",
+      "استخدم النموذج أو واتساب لسؤال Tiger Gym عن الأسعار الحالية وشروط الدخول وتفاصيل الزيارة قبل الالتزام.",
+    ),
+    label: localized("Prepare membership enquiry", "جهّز استفسار العضوية"),
+  },
 } as const;
