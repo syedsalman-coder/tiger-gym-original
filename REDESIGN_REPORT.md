@@ -1,6 +1,6 @@
 # Redesign Report
 
-Updated: 2026-07-29T16:21:36Z
+Updated: 2026-07-29T14:35:42Z
 
 ## Phase 0 checkpoint
 
@@ -30,25 +30,37 @@ Phase 1 includes production UI implementation rather than verification-only docu
 
 ## DumbbellScene checkpoint
 
-The pre-existing `src/components/home/DumbbellScene.tsx` change is now isolated in local checkpoint commit `25fd6b6 fix: harden DumbbellScene WebGL recovery`.
+The pre-existing `src/components/home/DumbbellScene.tsx` change is isolated in local checkpoint commit `25fd6b6 fix: harden DumbbellScene WebGL recovery`.
 
-## Phase 2 implementation started
+## Phase 2 implementation
 
-The first Phase 2 slice addresses content trust and launch-readiness communication for areas where owner-approved details are still pending.
+Phase 2 combines the earlier content-readiness slice with the adaptive cinematic Tiger Gym hero work. The current hero implementation was preserved; the work was not redesigned or restarted.
+
+### Content readiness
 
 - Added a reusable `ContentStatusNotice` component with localized English/Arabic status labels.
-- Facilities now show a pending readiness notice before the training-area list so visitors understand equipment/category details are not final.
-- Membership now shows a pending readiness notice before plan cards so visitors understand prices/access terms require direct confirmation.
+- Facilities show a pending readiness notice before the training-area list so visitors understand equipment/category details are not final.
+- Membership shows a pending readiness notice before plan cards so visitors understand prices/access terms require direct confirmation.
 - Added CSS for the notice surface using the existing dark/yellow Tiger Gym design language.
 - Added regression tests covering the English facilities notice and Arabic membership notice.
 
+### Adaptive cinematic home hero
+
+- `HomeHero.tsx` now includes an aria-hidden cinematic layer around the existing hero stage, with key/rim spotlights, aperture falloff, and grain treatment.
+- `DumbbellScene.tsx` keeps the existing WebGL recovery/fallback flow and uses stronger cinematic studio lighting, including a rect area light.
+- `globals.css` adds responsive cinematic stage treatments for mobile, tablet, desktop, Arabic RTL mirroring, and reduced-motion-safe styling.
+- `home-hero-cinematic.test.tsx` locks the cinematic layer and lighting contract so the hero is not accidentally downgraded.
+
 ## Verification
 
-- `npm run test:ci -- src/tests/phase2-content-readiness.test.tsx` passed.
-- `npm run test:ci` passed: 5 files, 9 tests.
+- `npm run test:ci` passed: 6 files, 10 tests.
 - `npm run lint` passed.
 - `npx tsc --noEmit` passed.
 - `npm run build` passed and generated 21 static pages.
-- `git diff --check` passed.
+- `git diff --check` passed with line-ending warnings only.
+- `/en` and `/ar` passed normal responsive checks at 360x800, 390x844, 768x1024, 1366x768, and 1440x900.
+- English LTR and Arabic RTL layouts render with visible headline/CTAs, usable navigation, responsive mobile scrolling, and no horizontal document/body overflow.
+- Reduced-motion mode renders a readable static composition with CTAs available and no visible infinite animations. A pre-existing shared-motion hydration mismatch warning appears under Chrome reduced-motion emulation and is recorded in `PHASE_2_VERIFICATION.md`.
+- WebGL-disabled fallback renders non-blank fallback content and preserves navigation/CTA usability.
 
 No push or merge was performed.

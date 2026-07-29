@@ -30,7 +30,19 @@ export default function HomeHero({ locale }: { locale: Locale }) {
       <div className="home-hero__stage">
         <div className="home-hero__grid" aria-hidden="true" />
         <div className="home-hero__light" aria-hidden="true" />
-        <div className="home-hero__scene" data-home-scene><DumbbellScene locale={locale} /></div>
+        <div
+          className="home-hero__cinematic"
+          data-home-cinematic
+          aria-hidden="true"
+        >
+          <span className="home-hero__spotlight home-hero__spotlight--key" />
+          <span className="home-hero__spotlight home-hero__spotlight--rim" />
+          <span className="home-hero__aperture" />
+          <span className="home-hero__grain" />
+        </div>
+        <div className="home-hero__scene" data-home-scene>
+          <DumbbellScene locale={locale} />
+        </div>
 
         <div className="page-shell home-hero__content">
           <div className="home-hero__label">

@@ -115,10 +115,16 @@ html[dir="rtl"] .scroll-line span { transform-origin: right; }
 
 /* Home hero */
 .home-hero { position: relative; height: 138svh; background: var(--black); }
-.home-hero__stage { position: sticky; top: 0; height: 100svh; min-height: 42rem; overflow: hidden; isolation: isolate; }
-.home-hero__grid { position: absolute; z-index: -2; inset: 0; background-image: linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px); background-size: clamp(4rem,7vw,7rem) clamp(4rem,7vw,7rem); mask-image: radial-gradient(circle at 68% 48%, black, transparent 68%); opacity: .45; }
-.home-hero__light { position: absolute; z-index: -1; top: 5%; right: 2%; width: 60%; height: 85%; background: radial-gradient(circle, rgba(255,234,0,.16), transparent 55%); filter: blur(2rem); }
+.home-hero__stage { position: sticky; top: 0; height: 100svh; min-height: 42rem; overflow: hidden; isolation: isolate; background: radial-gradient(circle at 67% 38%, rgba(255,234,0,.08), transparent 34%), linear-gradient(125deg,#030303 0%,#080808 45%,#020202 100%); }
+.home-hero__grid { position: absolute; z-index: -3; inset: 0; background-image: linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px); background-size: clamp(4rem,7vw,7rem) clamp(4rem,7vw,7rem); mask-image: radial-gradient(circle at 68% 48%, black, transparent 68%); opacity: .3; }
+.home-hero__light { position: absolute; z-index: -2; top: 5%; right: 2%; width: 60%; height: 85%; background: radial-gradient(circle, rgba(255,234,0,.16), transparent 55%); filter: blur(2rem); }
 .home-hero__stage::after { position: absolute; z-index: 1; right: 3.5%; bottom: 5%; width: 18rem; height: 1px; background: linear-gradient(90deg,transparent,var(--yellow)); content: ""; }
+.home-hero__cinematic { position: absolute; z-index: 2; inset: 0; overflow: hidden; pointer-events: none; mix-blend-mode: screen; }
+.home-hero__spotlight { position: absolute; display: block; border-radius: 999px; filter: blur(1.4rem); transform: translate3d(0,0,0) rotate(-16deg); }
+.home-hero__spotlight--key { top: -22%; right: 4%; width: clamp(18rem,36vw,42rem); height: 78%; background: radial-gradient(ellipse at center, rgba(255,240,127,.2), rgba(255,234,0,.08) 36%, transparent 70%); opacity: .9; }
+.home-hero__spotlight--rim { right: 18%; bottom: 8%; width: clamp(12rem,23vw,27rem); height: 16rem; background: radial-gradient(ellipse at center, rgba(255,234,0,.2), transparent 67%); opacity: .75; }
+.home-hero__aperture { position: absolute; inset: -12%; display: block; background: radial-gradient(circle at 63% 48%, transparent 0 34%, rgba(0,0,0,.18) 58%, rgba(0,0,0,.74) 100%); mix-blend-mode: multiply; }
+.home-hero__grain { position: absolute; inset: -50%; display: block; background-image: radial-gradient(circle, rgba(255,255,255,.18) .65px, transparent .75px); background-size: 3px 3px; opacity: .08; transform: rotate(8deg); }
 .home-hero__scene { position: absolute; z-index: 1; top: 5%; right: -3%; bottom: 7%; left: 37%; transform-origin: center; mask-image: linear-gradient(90deg,transparent,black 12% 90%,transparent); }
 .home-hero__content { position: relative; z-index: 4; height: 100%; padding-top: clamp(7rem, 14vh, 9rem); }
 .home-hero__label { display: flex; align-items: center; gap: .55rem; color: #d0d0ce; font-family: var(--mono); font-size: .62rem; letter-spacing: .15em; text-transform: uppercase; }
@@ -391,6 +397,8 @@ html[dir="rtl"] .scroll-line span { transform-origin: right; }
   .main-nav__toggle { display: block; }
   .mobile-nav { display: grid; }
   .home-hero__scene { right: -12%; left: 20%; }
+  .home-hero__spotlight--key { right: -8%; width: 46rem; }
+  .home-hero__spotlight--rim { right: 7%; }
   .home-hero__bottom { grid-template-columns: 1fr; }
   .home-hero__actions { justify-self: start; }
   .section-title { grid-template-columns: minmax(10rem,.35fr) 1fr; gap: 3rem; }
@@ -423,6 +431,11 @@ html[dir="rtl"] .scroll-line span { transform-origin: right; }
   .home-hero { height: 126svh; }
   .home-hero__stage { min-height: 42rem; }
   .home-hero__content { padding-top: 5.8rem; }
+  .home-hero__cinematic { mix-blend-mode: normal; opacity: .82; }
+  .home-hero__spotlight--key { top: -16%; right: -26%; width: 31rem; height: 52%; filter: blur(1.8rem); }
+  .home-hero__spotlight--rim { right: -18%; bottom: 26%; width: 19rem; height: 11rem; filter: blur(1.7rem); }
+  .home-hero__aperture { inset: -8%; background: radial-gradient(circle at 50% 42%, transparent 0 38%, rgba(0,0,0,.14) 62%, rgba(0,0,0,.68) 100%); }
+  .home-hero__grain { opacity: .055; }
   .home-hero__scene { top: 19%; right: -32%; bottom: 23%; left: -32%; mask-image: radial-gradient(circle,black 38%,transparent 74%); opacity: .86; }
   .home-hero__title { top: 34%; }
   .home-hero__index { top: -1.4rem; }
@@ -828,6 +841,43 @@ html[lang="ar"] .mobile-nav__join svg { transform: scaleX(-1); }
     transform: translate3d(0, 0, 0);
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
+  }
+}
+
+@media (max-width: 767px), (pointer: coarse) {
+  .home-hero__cinematic {
+    mix-blend-mode: normal;
+    opacity: 0.78;
+  }
+
+  .home-hero__spotlight--key {
+    top: -17%;
+    right: -18%;
+    width: 30rem;
+    height: 50%;
+    filter: blur(1.65rem);
+  }
+
+  .home-hero__spotlight--rim {
+    right: -12%;
+    bottom: 27%;
+    width: 18rem;
+    height: 10rem;
+    filter: blur(1.6rem);
+  }
+
+  .home-hero__aperture {
+    inset: -8%;
+    background: radial-gradient(
+      circle at 50% 42%,
+      transparent 0 38%,
+      rgba(0, 0, 0, 0.14) 62%,
+      rgba(0, 0, 0, 0.68) 100%
+    );
+  }
+
+  .home-hero__grain {
+    opacity: 0.055;
   }
 }
 
@@ -1339,6 +1389,26 @@ html[dir="rtl"] .home-hero__light {
   left: 2%;
 }
 
+html[dir="rtl"] .home-hero__spotlight--key {
+  right: auto;
+  left: 4%;
+  transform: translate3d(0, 0, 0) rotate(16deg);
+}
+
+html[dir="rtl"] .home-hero__spotlight--rim {
+  right: auto;
+  left: 18%;
+}
+
+html[dir="rtl"] .home-hero__aperture {
+  background: radial-gradient(
+    circle at 37% 48%,
+    transparent 0 34%,
+    rgba(0, 0, 0, 0.18) 58%,
+    rgba(0, 0, 0, 0.74) 100%
+  );
+}
+
 html[dir="rtl"] .home-hero__grid {
   mask-image: radial-gradient(
     circle at 32% 48%,
@@ -1379,6 +1449,25 @@ html[dir="rtl"] .home-hero__stage::after {
   html[dir="rtl"] .home-hero__light {
     right: 2%;
     left: auto;
+  }
+
+  html[dir="rtl"] .home-hero__spotlight--key {
+    right: -26%;
+    left: auto;
+  }
+
+  html[dir="rtl"] .home-hero__spotlight--rim {
+    right: -18%;
+    left: auto;
+  }
+
+  html[dir="rtl"] .home-hero__aperture {
+    background: radial-gradient(
+      circle at 50% 42%,
+      transparent 0 38%,
+      rgba(0, 0, 0, 0.14) 62%,
+      rgba(0, 0, 0, 0.68) 100%
+    );
   }
 }
 

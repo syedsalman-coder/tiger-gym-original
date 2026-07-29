@@ -315,7 +315,7 @@ function StudioScene({
       />
 
       <ambientLight
-        intensity={compact ? 0.48 : 0.42}
+        intensity={compact ? 0.36 : 0.3}
         color="#AEB3B7"
       />
 
@@ -323,20 +323,20 @@ function StudioScene({
         args={[
           "#FFF1A4",
           "#050505",
-          compact ? 0.42 : 0.48,
+          compact ? 0.34 : 0.36,
         ]}
       />
 
       <spotLight
         position={[
-          compact ? 2.4 : 2.8,
-          compact ? 4.2 : 4.8,
-          compact ? 4 : 4.5,
+          compact ? 2.15 : 2.55,
+          compact ? 4.6 : 5.25,
+          compact ? 3.25 : 3.8,
         ]}
-        angle={0.48}
-        penumbra={0.92}
-        intensity={compact ? 28 : 52}
-        distance={13}
+        angle={0.4}
+        penumbra={0.96}
+        intensity={compact ? 36 : 68}
+        distance={14}
         color="#FFF8D6"
         castShadow={!compact}
         shadow-bias={-0.00015}
@@ -350,17 +350,30 @@ function StudioScene({
 
       <pointLight
         position={[-3.4, 0.35, 1.2]}
-        intensity={compact ? 15 : 31}
-        distance={8}
+        intensity={compact ? 20 : 42}
+        distance={8.5}
         color={TIGER_YELLOW}
+      />
+
+      <rectAreaLight
+        position={[
+          compact ? -1.9 : -2.35,
+          compact ? 2.05 : 2.65,
+          compact ? 2.4 : 2.75,
+        ]}
+        rotation={[-0.55, -0.42, 0.24]}
+        width={compact ? 2.7 : 3.8}
+        height={compact ? 3.2 : 4.6}
+        intensity={compact ? 7 : 13}
+        color="#FFE66D"
       />
 
       {!compact && (
         <>
           <pointLight
             position={[3.1, -0.55, 2.3]}
-            intensity={24}
-            distance={7}
+            intensity={34}
+            distance={7.5}
             color="#FFF200"
           />
 

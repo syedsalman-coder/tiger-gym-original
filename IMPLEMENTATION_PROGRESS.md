@@ -1,6 +1,6 @@
 # Implementation Progress
 
-Updated: 2026-07-29T16:21:36Z
+Updated: 2026-07-29T14:35:42Z
 
 ## Current branch
 
@@ -32,9 +32,11 @@ The previously existing `src/components/home/DumbbellScene.tsx` change was commi
 
 - `25fd6b6 fix: harden DumbbellScene WebGL recovery`
 
-## Phase 2 started
+## Phase 2 completed
 
-The first Phase 2 production slice adds visitor-facing pending-content readiness notices for the facilities and membership pages:
+Phase 2 is completed from the preserved working tree and keeps the implemented hero direction intact.
+
+### Content readiness slice
 
 - Added shared `src/components/shared/ContentStatusNotice.tsx`.
 - Added localized readiness copy to `src/data/facilities.ts` and `src/data/membership-options.ts`.
@@ -42,11 +44,22 @@ The first Phase 2 production slice adds visitor-facing pending-content readiness
 - Added styling in `src/app/globals.css`.
 - Added regression coverage in `src/tests/phase2-content-readiness.test.tsx`.
 
+### Adaptive cinematic hero slice
+
+- Added an aria-hidden cinematic hero layer in `src/components/home/HomeHero.tsx` without changing the visible hero copy or CTA destinations.
+- Retuned the existing `src/components/home/DumbbellScene.tsx` studio lighting and preserved its reduced-motion and WebGL fallback paths.
+- Added responsive cinematic stage, spotlight, aperture, grain, mobile/tablet, and Arabic RTL styling in `src/app/globals.css`.
+- Added `src/tests/home-hero-cinematic.test.tsx` regression coverage for the cinematic hero layer and 3D lighting hook.
+
 ## Verification
 
-- `npm run test:ci -- src/tests/phase2-content-readiness.test.tsx` passed: 1 file, 2 tests.
-- `npm run test:ci` passed: 5 files, 9 tests.
+- `npm run test:ci` passed: 6 files, 10 tests.
 - `npm run lint` passed.
 - `npx tsc --noEmit` passed.
 - `npm run build` passed and generated 21 static pages.
-- `git diff --check` passed.
+- `git diff --check` passed with Git line-ending warnings only for `HomeHero.tsx` and `DumbbellScene.tsx`.
+- Local dev server verified `/en` and `/ar` across 360x800, 390x844, 768x1024, 1366x768, and 1440x900.
+- Normal responsive verification confirmed immediate headline visibility, primary hero CTA availability, WhatsApp CTA availability, Facilities CTA availability, no horizontal document/body overflow, usable navigation, responsive mobile scrolling, and no normal-mode critical console, hydration, or local 500 errors.
+- Arabic verification confirmed `lang="ar"`, `dir="rtl"`, RTL body direction, usable RTL navigation, localized headline/CTAs, and no horizontal document/body overflow.
+- Reduced-motion verification confirmed no visible infinite animations, a readable static composition, and available hero/mobile CTAs. Chrome reduced-motion emulation also surfaced an existing Framer Motion hydration mismatch warning from shared route/loading motion components; this is documented in `PHASE_2_VERIFICATION.md`.
+- WebGL fallback verification with WebGL disabled confirmed no blank hero, fallback image/copy rendering, usable navigation/CTAs, and no fallback-mode critical console, hydration, or local 500 errors.
