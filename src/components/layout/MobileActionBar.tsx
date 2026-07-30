@@ -1,4 +1,4 @@
-import { MapPin, MessageCircle, Phone } from "lucide-react";
+import { MessageCircle, Phone } from "lucide-react";
 import { site } from "@/data/site";
 import type { Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
@@ -19,13 +19,6 @@ export default function MobileActionBar({ locale }: { locale: Locale }) {
       label: dictionary.common.callNow,
       icon: Phone,
       external: false,
-    },
-    {
-      id: "directions",
-      href: site.directionsUrl,
-      label: dictionary.common.getDirections,
-      icon: MapPin,
-      external: true,
     },
   ] as const;
 

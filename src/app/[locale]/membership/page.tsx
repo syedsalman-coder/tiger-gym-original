@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { MapPin, MessageCircle, Phone } from "lucide-react";
 import MembershipForm from "@/components/contact/MembershipForm";
 import ContentStatusNotice from "@/components/shared/ContentStatusNotice";
-import FinalCta from "@/components/shared/FinalCta";
+
 import MagneticButton from "@/components/shared/MagneticButton";
 import PageHero from "@/components/shared/PageHero";
 import SectionHeading from "@/components/shared/SectionHeading";
@@ -54,14 +54,6 @@ export default async function MembershipPage({ params }: { params: LocaleParams 
           <MembershipForm locale={locale} />
         </div>
       </section>
-      <FinalCta
-        locale={locale}
-        ariaLabel={locale === "ar" ? "إجراء تحويل العضوية" : "Membership conversion action"}
-        eyebrow={content.finalCta.eyebrow}
-        title={content.finalCta.title}
-        description={content.finalCta.description}
-        primaryLabel={content.finalCta.label}
-      />
     </main>
   );
 }

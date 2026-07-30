@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import FacilityPreview from "@/components/home/FacilityPreview";
 import HomeHero from "@/components/home/HomeHero";
-import FinalCta from "@/components/shared/FinalCta";
+
 import HomeIntro from "@/components/home/HomeIntro";
 import HomeLoader from "@/components/home/HomeLoader";
 import HomeScrollStory from "@/components/home/HomeScrollStory";
@@ -29,15 +29,6 @@ export default async function HomePage({ params }: { params: LocaleParams }) {
         <FacilityPreview locale={locale} />
         <MembershipCTA locale={locale} />
         <LocationPreview locale={locale} />
-        <FinalCta
-          locale={locale}
-          ariaLabel={locale === "ar" ? "إجراء تحويل الصفحة الرئيسية النهائي" : "Final homepage conversion action"}
-          eyebrow={pageContent.home.finalCta.eyebrow}
-          title={pageContent.home.finalCta.title}
-          description={pageContent.home.finalCta.description}
-          primaryLabel={pageContent.home.finalCta.label}
-          showDirections
-        />
       </main>
     </>
   );

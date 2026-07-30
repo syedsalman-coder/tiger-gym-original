@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { Clock3, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
+import { Clock3, Mail, MapPin, MessageCircle } from "lucide-react";
 import ContactForm from "@/components/contact/ContactForm";
 import MapEmbed from "@/components/contact/MapEmbed";
-import FinalCta from "@/components/shared/FinalCta";
+
 import MagneticButton from "@/components/shared/MagneticButton";
-import PendingFaq from "@/components/shared/PendingFaq";
+import VerifiedFaq from "@/components/shared/VerifiedFaq";
 import PageHero from "@/components/shared/PageHero";
 import SectionHeading from "@/components/shared/SectionHeading";
 import { pageContent } from "@/data/pages";
@@ -25,10 +25,6 @@ export default async function ContactPage({ params }: { params: LocaleParams }) 
   const content = pageContent.contact;
   const dictionary = getDictionary(locale);
   const text = (value: Parameters<typeof getLocalizedValue>[0]) => getLocalizedValue(value, locale);
-  const labels =
-    locale === "ar"
-      ? { email: "البريد الإلكتروني", instagram: "إنستغرام" }
-      : { email: "Email", instagram: "Instagram" };
 
   return (
     <main id="main-content">
@@ -77,13 +73,14 @@ export default async function ContactPage({ params }: { params: LocaleParams }) 
                   <div className="contact-hours__row"><span>{text(site.openingHours.fridayDays)}</span><strong className="bidi-isolate">{text(site.openingHours.fridayTime)}</strong></div>
                 </div>
               </div>
-              <div>
-                <MagneticButton href={site.phoneHref} variant="outline"><Phone size={17} aria-hidden="true" /> {dictionary.common.callNow}</MagneticButton>
-                <MagneticButton href={site.whatsappHref} target="_blank" rel="noreferrer"><MessageCircle size={17} aria-hidden="true" /> {dictionary.common.whatsapp}</MagneticButton>
-                <MagneticButton href={site.emailHref} variant="outline"><Mail size={17} aria-hidden="true" /> {labels.email}</MagneticButton>
-                <MagneticButton href={site.instagramHref} target="_blank" rel="noreferrer" variant="outline"><span aria-hidden="true">@</span> {labels.instagram}</MagneticButton>
-                <MagneticButton href={site.directionsUrl} target="_blank" rel="noreferrer" variant="outline"><MapPin size={17} aria-hidden="true" /> {dictionary.common.getDirections}</MagneticButton>
-              </div>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: ".75rem" }}>
+                  <MagneticButton href={site.whatsappHref} target="_blank" rel="noreferrer">
+                    <MessageCircle size={17} aria-hidden="true" /> {dictionary.common.whatsapp}
+                  </MagneticButton>
+                  <MagneticButton href={site.directionsUrl} target="_blank" rel="noreferrer" variant="outline">
+                    <MapPin size={17} aria-hidden="true" /> {dictionary.common.getDirections}
+                  </MagneticButton>
+                </div>
             </div>
             <div className="contact-details__map" data-reveal><MapEmbed locale={locale} /></div>
           </div>
@@ -94,18 +91,7 @@ export default async function ContactPage({ params }: { params: LocaleParams }) 
           <div data-reveal><span className="eyebrow">{text(content.formIntro.eyebrow)}</span><h2>{text(content.formIntro.title)}</h2><p>{text(content.formIntro.description)}</p></div>
           <ContactForm locale={locale} />
         </div>
-      </section>
-      <PendingFaq locale={locale} />
-      <FinalCta
-        locale={locale}
-        ariaLabel={locale === "ar" ? "إجراء تحويل التواصل" : "Contact conversion action"}
-        eyebrow={content.finalCta.eyebrow}
-        title={content.finalCta.title}
-        description={content.finalCta.description}
-        primaryLabel={content.finalCta.label}
-        primaryHref="/contact#contact-form"
-        showDirections
-      />
+      </section>      <VerifiedFaq locale={locale} />
     </main>
   );
 }

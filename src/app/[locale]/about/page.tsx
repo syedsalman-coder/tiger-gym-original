@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import FinalCta from "@/components/shared/FinalCta";
+
 import Logo from "@/components/shared/Logo";
 import MagneticButton from "@/components/shared/MagneticButton";
 import PageHero from "@/components/shared/PageHero";
@@ -71,15 +71,6 @@ export default async function AboutPage({ params }: { params: LocaleParams }) {
           <MagneticButton href={localizePath(locale, "/membership")}>{text(content.cta.label)}</MagneticButton>
         </div>
       </section>
-
-      <FinalCta
-        locale={locale}
-        ariaLabel={locale === "ar" ? "إجراء تحويل صفحة من نحن" : "About conversion action"}
-        eyebrow={content.finalCta.eyebrow}
-        title={content.finalCta.title}
-        description={content.finalCta.description}
-        primaryLabel={content.finalCta.label}
-      />
     </main>
   );
 }

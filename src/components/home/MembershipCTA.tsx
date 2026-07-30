@@ -2,7 +2,6 @@ import {
   ArrowUpRight,
   CalendarDays,
   MessageCircle,
-  Phone,
   Target,
 } from "lucide-react";
 
@@ -53,9 +52,7 @@ export default function MembershipCTA({
             },
           ],
           membership: "استكشف العضوية",
-          whatsapp: "تواصل عبر واتساب",
-          call: "اتصل بالنادي",
-          directContact: "تواصل مباشر مع فريق Tiger Gym",
+          whatsapp: "تواصل عبر واتساب",          directContact: "تواصل مباشر مع فريق Tiger Gym",
         }
       : {
           sectionNumber: "04",
@@ -82,9 +79,7 @@ export default function MembershipCTA({
             },
           ],
           membership: "Explore membership",
-          whatsapp: "Message on WhatsApp",
-          call: "Call the gym",
-          directContact: "Direct contact with the Tiger Gym team",
+          whatsapp: "Message on WhatsApp",          directContact: "Direct contact with the Tiger Gym team",
         };
 
   const icons = [Target, MessageCircle, CalendarDays];
@@ -196,13 +191,6 @@ export default function MembershipCTA({
                 {labels.directContact}
               </span>
 
-              <a
-                className="membership-concierge__phone bidi-isolate"
-                href={site.phoneHref}
-              >
-                {site.phoneDisplay}
-              </a>
-
               <div className="membership-concierge__actions">
                 <MagneticButton
                   href={localizePath(locale, "/membership")}
@@ -228,18 +216,6 @@ export default function MembershipCTA({
 
                   {labels.whatsapp}
                 </MagneticButton>
-
-                <a
-                  className="membership-concierge__call"
-                  href={site.phoneHref}
-                >
-                  <Phone
-                    size={17}
-                    aria-hidden="true"
-                  />
-
-                  {labels.call}
-                </a>
               </div>
             </div>
           </aside>

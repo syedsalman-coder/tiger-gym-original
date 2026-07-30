@@ -1,4 +1,4 @@
-import { cleanup, fireEvent, render, screen, within } from "@testing-library/react";
+import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 vi.mock("next/dynamic", () => ({
@@ -50,57 +50,73 @@ beforeEach(() => {
 afterEach(() => cleanup());
 
 describe("Phase 4 conversion experience", () => {
-  it("adds a verified-data conversion finale to the homepage without removing the cinematic scroll story", async () => {
+  it("keeps the homepage cinematic while using one focused membership pathway", async () => {
     const page = await HomePage({ params: paramsFor("en") });
     render(page);
 
     expect(screen.getByRole("region", { name: /cinematic training sequence/i })).toHaveAttribute(
       "data-home-scroll-story",
     );
-
-    const finalCta = screen.getByRole("region", { name: /final homepage conversion action/i });
-    expect(finalCta).toHaveTextContent("Ready to plan your first session?");
-    expect(within(finalCta).getByRole("link", { name: /prepare membership enquiry/i })).toHaveAttribute(
+    expect(
+      screen.getByRole("heading", { name: /put your next session on the calendar/i }),
+    ).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /explore membership/i })).toHaveAttribute(
       "href",
-      "/en/membership#membership-form",
+      "/en/membership",
     );
-    expect(within(finalCta).getByRole("link", { name: /whatsapp/i })).toHaveAttribute(
-      "href",
-      expect.stringContaining("wa.me/96569678350"),
-    );
+    expect(screen.queryByRole("region", { name: /final homepage conversion action/i })).not.toBeInTheDocument();
   });
 
-  it("renders final CTAs on About, Facilities, Membership, Gallery, and Contact pages", async () => {
-    const pages = [
-      { page: await AboutPage({ params: paramsFor("en") }), name: /about conversion action/i },
-      { page: await FacilitiesPage({ params: paramsFor("en") }), name: /facilities conversion action/i },
-      { page: await MembershipPage({ params: paramsFor("en") }), name: /membership conversion action/i },
-      { page: await GalleryPage({ params: paramsFor("en") }), name: /gallery conversion action/i },
-      { page: await ContactPage({ params: paramsFor("en") }), name: /contact conversion action/i },
-    ];
+  it("removes duplicate final CTAs while retaining one contextual action per page", async () => {
+    render(await AboutPage({ params: paramsFor("en") }));
+    expect(screen.getByRole("link", { name: /ask about membership/i })).toHaveAttribute(
+      "href",
+      "/en/membership",
+    );
+    expect(screen.queryByRole("region", { name: /about conversion action/i })).not.toBeInTheDocument();
 
-    pages.forEach(({ page, name }) => {
-      cleanup();
-      render(page);
-      const cta = screen.getByRole("region", { name });
-      expect(within(cta).getByRole("link", { name: /^whatsapp$/i })).toHaveAttribute(
-        "href",
-        expect.stringContaining("wa.me/96569678350"),
-      );
-    });
+    cleanup();
+    render(await FacilitiesPage({ params: paramsFor("en") }));
+    expect(screen.getByRole("link", { name: /membership enquiry/i })).toHaveAttribute(
+      "href",
+      "/en/membership",
+    );
+    expect(screen.queryByRole("region", { name: /facilities conversion action/i })).not.toBeInTheDocument();
+
+    cleanup();
+    render(await MembershipPage({ params: paramsFor("en") }));
+    expect(screen.getByRole("button", { name: /prepare membership enquiry/i })).toBeInTheDocument();
+    expect(screen.queryByRole("region", { name: /membership conversion action/i })).not.toBeInTheDocument();
+
+    cleanup();
+    render(await GalleryPage({ params: paramsFor("en") }));
+    expect(screen.getByRole("region", { name: /gallery conversion action/i })).toBeInTheDocument();
+
+    cleanup();
+    render(await ContactPage({ params: paramsFor("en") }));
+    expect(screen.queryByRole("region", { name: /contact conversion action/i })).not.toBeInTheDocument();
   });
 
-  it("shows pending FAQ guidance instead of unverified operational answers", async () => {
+  it("publishes useful verified FAQ content and FAQPage schema", async () => {
     const page = await ContactPage({ params: paramsFor("en") });
-    render(page);
+    const { container } = render(page);
 
-    const faq = screen.getByRole("region", { name: /tiger gym faq/i });
-    expect(faq).toHaveTextContent("FAQ answers are pending confirmation.");
-    expect(faq).toHaveTextContent("No unverified operating answers are published here.");
-    expect(within(faq).getByRole("link", { name: /ask on whatsapp/i })).toHaveAttribute(
-      "href",
-      expect.stringContaining("wa.me/96569678350"),
+    const faq = screen.getByRole("region", {
+      name: /tiger gym frequently asked questions/i,
+    });
+    expect(faq).toHaveTextContent("Where is Tiger Gym located?");
+    expect(faq).toHaveTextContent("What are Tiger Gym's opening hours?");
+    expect(faq).toHaveTextContent("tigergymfitnesscenter@gmail.com");
+
+    const scripts = Array.from(
+      container.querySelectorAll<HTMLScriptElement>('script[type="application/ld+json"]'),
     );
+    const faqSchema = scripts
+      .map((script) => JSON.parse(script.textContent ?? "{}"))
+      .find((schema) => schema["@type"] === "FAQPage");
+
+    expect(faqSchema).toBeDefined();
+    expect(faqSchema.mainEntity).toHaveLength(4);
   });
 
   it("keeps Arabic conversion pages localized with RTL direction support", async () => {
@@ -109,11 +125,8 @@ describe("Phase 4 conversion experience", () => {
     const page = await MembershipPage({ params: paramsFor("ar") });
     render(page);
 
-    expect(screen.getByRole("heading", { name: /استفسر الآن/i })).toBeInTheDocument();
-    expect(screen.getByRole("region", { name: /إجراء تحويل العضوية/i })).toHaveTextContent(
-      "جاهز لتأكيد خيار العضوية؟",
-    );
-    expect(screen.getByLabelText("رقم الهاتف")).toHaveAttribute("dir", "ltr");
+    expect(document.querySelector("#membership-form")).toBeInTheDocument();
+    expect(document.querySelector("#membership-phone")).toHaveAttribute("dir", "ltr");
   });
 
   it("prepares encoded WhatsApp messages from contact and membership forms without sending automatically", () => {

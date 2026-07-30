@@ -8,7 +8,7 @@ import { createLocalBusinessJsonLd, createLocalizedMetadata } from "@/i18n/metad
 import { pageContent } from "@/data/pages";
 
 describe("Phase 1 conversion shell", () => {
-  it("renders mobile WhatsApp, call, and directions actions with accessible labels", () => {
+  it("keeps the mobile conversion bar focused on WhatsApp and calling", () => {
     render(<MobileActionBar locale="en" />);
 
     expect(screen.getByRole("link", { name: /whatsapp/i })).toHaveAttribute(
@@ -19,16 +19,14 @@ describe("Phase 1 conversion shell", () => {
       "href",
       site.phoneHref,
     );
-    expect(screen.getByRole("link", { name: /get directions/i })).toHaveAttribute(
-      "href",
-      expect.stringContaining("google.com/maps"),
-    );
+    expect(screen.queryByRole("link", { name: /get directions/i })).not.toBeInTheDocument();
+    expect(screen.getAllByRole("link")).toHaveLength(2);
   });
 
   it("builds localized Arabic metadata with canonical and Open Graph locale data", () => {
     const metadata = createLocalizedMetadata("ar", "/", pageContent.home.metadata);
 
-    expect(metadata.title).toBe("Tiger Gym | مركز لياقة بدنية في السالمية، الكويت");
+    expect(metadata.title).toBe(pageContent.home.metadata.title.ar);
     expect(metadata.alternates?.canonical).toBe("/ar");
     expect(metadata.alternates?.languages).toMatchObject({ en: "/en", ar: "/ar" });
     expect(metadata.openGraph).toMatchObject({ locale: "ar_KW", alternateLocale: ["en_KW"] });
@@ -55,5 +53,4 @@ describe("Phase 1 conversion shell", () => {
     expect(structuredData.telephone).not.toContain("*");
     expect(structuredData.address.streetAddress).toContain("Amman Street");
   });
-
 });

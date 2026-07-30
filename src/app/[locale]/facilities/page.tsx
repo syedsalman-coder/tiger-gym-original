@@ -8,7 +8,7 @@ import {
 
 import MagneticButton from "@/components/shared/MagneticButton";
 import ContentStatusNotice from "@/components/shared/ContentStatusNotice";
-import FinalCta from "@/components/shared/FinalCta";
+
 import PageHero from "@/components/shared/PageHero";
 import SectionHeading from "@/components/shared/SectionHeading";
 import {
@@ -181,15 +181,6 @@ export default async function FacilitiesPage({
           </MagneticButton>
         </div>
       </section>
-
-      <FinalCta
-        locale={locale}
-        ariaLabel={locale === "ar" ? "إجراء تحويل مرافق التدريب" : "Facilities conversion action"}
-        eyebrow={content.finalCta.eyebrow}
-        title={content.finalCta.title}
-        description={content.finalCta.description}
-        primaryLabel={content.finalCta.label}
-      />
     </main>
   );
 }

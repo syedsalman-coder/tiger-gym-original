@@ -4,7 +4,6 @@ import {
   Clock3,
   Mail,
   MapPin,
-  MessageCircle,
   Phone,
 } from "lucide-react";
 
@@ -33,28 +32,24 @@ export default function Footer({
     locale === "ar"
       ? {
           sectionNumber: "06",
-          sectionLabel: "ابدأ الآن",
-          titleLineOne: "تدريبك يبدأ",
-          titleLineTwo: "من هنا.",
-          membership: "استكشف العضوية",
-          navigation: "استكشف الموقع",
-          visit: "زيارة النادي",
-          address: "العنوان",
-          hours: "ساعات العمل",
-          saturdayThursday: "السبت إلى الخميس",
-          friday: "الجمعة",
-          phone: "الهاتف",
-          email: "البريد الإلكتروني",
-          instagram: "إنستغرام",
-          officialWebsite: "الموقع الرسمي",
+          sectionLabel: "Ø§Ø¨Ø¯Ø£ Ø§Ù„Ø¢Ù†",
+          titleLineOne: "ØªØ¯Ø±ÙŠØ¨Ùƒ ÙŠØ¨Ø¯Ø£",
+          titleLineTwo: "Ù…Ù† Ù‡Ù†Ø§.",          navigation: "Ø§Ø³ØªÙƒØ´Ù Ø§Ù„Ù…ÙˆÙ‚Ø¹",
+          visit: "Ø²ÙŠØ§Ø±Ø© Ø§Ù„Ù†Ø§Ø¯ÙŠ",
+          address: "Ø§Ù„Ø¹Ù†ÙˆØ§Ù†",
+          hours: "Ø³Ø§Ø¹Ø§Øª Ø§Ù„Ø¹Ù…Ù„",
+          saturdayThursday: "Ø§Ù„Ø³Ø¨Øª Ø¥Ù„Ù‰ Ø§Ù„Ø®Ù…ÙŠØ³",
+          friday: "Ø§Ù„Ø¬Ù…Ø¹Ø©",
+          phone: "Ø§Ù„Ù‡Ø§ØªÙ",
+          email: "Ø§Ù„Ø¨Ø±ÙŠØ¯ Ø§Ù„Ø¥Ù„ÙƒØªØ±ÙˆÙ†ÙŠ",
+          instagram: "Ø¥Ù†Ø³ØªØºØ±Ø§Ù…",
+          officialWebsite: "Ø§Ù„Ù…ÙˆÙ‚Ø¹ Ø§Ù„Ø±Ø³Ù…ÙŠ",
         }
       : {
           sectionNumber: "06",
           sectionLabel: "Start now",
           titleLineOne: "Your training",
-          titleLineTwo: "starts here.",
-          membership: "Explore membership",
-          navigation: "Explore the site",
+          titleLineTwo: "starts here.",          navigation: "Explore the site",
           visit: "Visit the gym",
           address: "Address",
           hours: "Opening hours",
@@ -69,73 +64,6 @@ export default function Footer({
   return (
     <footer className="premium-footer">
       <div className="page-shell">
-        <section className="premium-footer__cta">
-          <div className="premium-footer__meta">
-            <span>
-              {labels.sectionNumber}
-            </span>
-
-            <span data-divider />
-
-            <strong>
-              {labels.sectionLabel}
-            </strong>
-          </div>
-
-          <div className="premium-footer__cta-content">
-            <div>
-              <span className="eyebrow">
-                {text(pageContent.footer.contactLabel)}
-              </span>
-
-              <h2>
-                {labels.titleLineOne}
-                <br />
-                {labels.titleLineTwo}
-              </h2>
-            </div>
-
-            <div className="premium-footer__cta-actions">
-              <Link
-                className="premium-footer__primary-link"
-                href={localizePath(locale, "/membership")}
-              >
-                <span>
-                  {labels.membership}
-                </span>
-
-                <ArrowUpRight
-                  size={21}
-                  strokeWidth={1.5}
-                  aria-hidden="true"
-                />
-              </Link>
-
-              <a
-                className="premium-footer__secondary-link"
-                href={site.whatsappHref}
-                target="_blank"
-                rel="noreferrer"
-              >
-                <MessageCircle
-                  size={19}
-                  strokeWidth={1.5}
-                  aria-hidden="true"
-                />
-
-                <span>
-                  {dictionary.common.whatsapp}
-                </span>
-
-                <ArrowUpRight
-                  size={17}
-                  strokeWidth={1.5}
-                  aria-hidden="true"
-                />
-              </a>
-            </div>
-          </div>
-        </section>
 
         <div className="premium-footer__main">
           <div className="premium-footer__identity">
@@ -231,11 +159,6 @@ export default function Footer({
                   rel="noreferrer"
                 >
                   {dictionary.common.getDirections}
-                  <ArrowUpRight
-                    size={14}
-                    strokeWidth={1.6}
-                    aria-hidden="true"
-                  />
                 </a>
               </div>
             </div>
@@ -352,7 +275,7 @@ export default function Footer({
 
         <div className="premium-footer__bottom">
           <span>
-            © {new Date().getFullYear()}{" "}
+            Â© {new Date().getFullYear()}{" "}
             {text(site.fullName)}
           </span>
 
@@ -361,7 +284,7 @@ export default function Footer({
           </span>
 
           <span>
-            {text(site.city)} · {text(site.country)}
+            {text(site.city)} Â· {text(site.country)}
           </span>
         </div>
       </div>
