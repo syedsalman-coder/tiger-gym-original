@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { Clock3, MapPin, MessageCircle, Phone } from "lucide-react";
+import Image from "next/image";
+import { Clock3, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
 import ContactForm from "@/components/contact/ContactForm";
 import MapEmbed from "@/components/contact/MapEmbed";
 import FinalCta from "@/components/shared/FinalCta";
@@ -24,6 +25,10 @@ export default async function ContactPage({ params }: { params: LocaleParams }) 
   const content = pageContent.contact;
   const dictionary = getDictionary(locale);
   const text = (value: Parameters<typeof getLocalizedValue>[0]) => getLocalizedValue(value, locale);
+  const labels =
+    locale === "ar"
+      ? { email: "البريد الإلكتروني", instagram: "إنستغرام" }
+      : { email: "Email", instagram: "Instagram" };
 
   return (
     <main id="main-content">
@@ -33,9 +38,38 @@ export default async function ContactPage({ params }: { params: LocaleParams }) 
           <SectionHeading number={text(content.location.number)} eyebrow={text(content.location.eyebrow)} title={text(content.location.title)} />
           <div className="contact-details__grid">
             <div className="contact-details__copy" data-reveal>
+              <figure
+                style={{
+                  position: "relative",
+                  aspectRatio: "4 / 3",
+                  margin: "0 0 1.5rem",
+                  overflow: "hidden",
+                  border: "1px solid rgba(255, 255, 255, 0.12)",
+                }}
+              >
+                <Image
+                  src="/images/tiger-gym-building.webp"
+                  alt={
+                    locale === "ar"
+                      ? "واجهة مبنى Tiger Gym في شارع عمّان بالسالمية"
+                      : "Exterior of the Tiger Gym building on Amman Street in Salmiya"
+                  }
+                  fill
+                  sizes="(max-width: 900px) 100vw, 46vw"
+                  style={{ objectFit: "cover" }}
+                />
+              </figure>
               <span className="eyebrow">{text(site.fullName)}</span>
               <address><MapPin size={24} aria-hidden="true" /> {text(site.address)}</address>
               <a className="contact-details__phone bidi-isolate" href={site.phoneHref}>{site.phoneDisplay}</a>
+              <div style={{ display: "grid", gap: ".65rem", marginBlock: "1rem 1.5rem" }}>
+                <a className="text-link bidi-isolate" href={site.emailHref}>
+                  <Mail size={17} aria-hidden="true" /> {site.email}
+                </a>
+                <a className="text-link" href={site.instagramHref} target="_blank" rel="noreferrer">
+                  <span aria-hidden="true">@</span> {site.instagramHandle}
+                </a>
+              </div>
               <div className="contact-hours" aria-label={dictionary.accessibility.openingHours}>
                 <div className="contact-hours__icon"><Clock3 size={22} aria-hidden="true" /></div>
                 <div className="contact-hours__schedule">
@@ -46,6 +80,8 @@ export default async function ContactPage({ params }: { params: LocaleParams }) 
               <div>
                 <MagneticButton href={site.phoneHref} variant="outline"><Phone size={17} aria-hidden="true" /> {dictionary.common.callNow}</MagneticButton>
                 <MagneticButton href={site.whatsappHref} target="_blank" rel="noreferrer"><MessageCircle size={17} aria-hidden="true" /> {dictionary.common.whatsapp}</MagneticButton>
+                <MagneticButton href={site.emailHref} variant="outline"><Mail size={17} aria-hidden="true" /> {labels.email}</MagneticButton>
+                <MagneticButton href={site.instagramHref} target="_blank" rel="noreferrer" variant="outline"><span aria-hidden="true">@</span> {labels.instagram}</MagneticButton>
                 <MagneticButton href={site.directionsUrl} target="_blank" rel="noreferrer" variant="outline"><MapPin size={17} aria-hidden="true" /> {dictionary.common.getDirections}</MagneticButton>
               </div>
             </div>

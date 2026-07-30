@@ -1,6 +1,6 @@
 import { localized, type GalleryImage, type GalleryPlaceholder } from "./types";
 
-// Only the supplied logo is confirmed. Replace pending slots with owner-approved gym photography.
+// Owner-supplied and approved Tiger Gym photography.
 export const galleryImages = [
   {
     status: "confirmed",
@@ -18,113 +18,91 @@ export const galleryImages = [
     width: 1233,
     height: 865,
   },
+  {
+    status: "confirmed",
+    id: "tiger-gym-interior",
+    src: "/images/tiger-gym-interior.webp",
+    alt: localized(
+      "Elevated view of the Tiger Gym training floor with yellow strength machines, benches, free weights and black flooring.",
+      "منظر علوي لمساحة التدريب في Tiger Gym مع أجهزة القوة الصفراء والمقاعد والأوزان الحرة والأرضية السوداء.",
+    ),
+    title: localized("The Tiger Gym training floor", "مساحة التدريب في Tiger Gym"),
+    description: localized(
+      "A wide view of the strength-focused training floor and its yellow-and-black equipment layout.",
+      "منظر واسع لمساحة التدريب المخصصة للقوة وتوزيع المعدات باللونين الأصفر والأسود.",
+    ),
+    width: 1000,
+    height: 562,
+  },
+  {
+    status: "confirmed",
+    id: "tiger-gym-building",
+    src: "/images/tiger-gym-building.webp",
+    alt: localized(
+      "Exterior of Building 15 on Amman Street in Salmiya with the Tiger Gym sign on the facade.",
+      "واجهة مبنى 15 في شارع عمّان بالسالمية مع لافتة Tiger Gym على الواجهة.",
+    ),
+    title: localized("Tiger Gym building in Salmiya", "مبنى Tiger Gym في السالمية"),
+    description: localized(
+      "The exterior of the building where Tiger Gym is located on Amman Street in Salmiya.",
+      "الواجهة الخارجية للمبنى الذي يقع فيه Tiger Gym في شارع عمّان بالسالمية.",
+    ),
+    width: 1000,
+    height: 1000,
+  },
+  {
+    status: "confirmed",
+    id: "tiger-gym-dumbbells",
+    src: "/images/tiger-gym-dumbbells.webp",
+    alt: localized(
+      "Rows of black and red dumbbells in front of mirrors inside Tiger Gym with yellow benches and equipment.",
+      "صفوف من الدمبل الأسود والأحمر أمام المرايا داخل Tiger Gym مع مقاعد ومعدات صفراء.",
+    ),
+    title: localized("Free-weight and dumbbell area", "منطقة الأوزان الحرة والدمبل"),
+    description: localized(
+      "The mirrored dumbbell area with a broad range of free weights and dedicated benches.",
+      "منطقة الدمبل المحاطة بالمرايا مع مجموعة واسعة من الأوزان الحرة والمقاعد المخصصة.",
+    ),
+    width: 1000,
+    height: 1000,
+  },
 ] as const satisfies readonly GalleryImage[];
 
-export const galleryPlaceholders = [
-  {
-    status: "pending",
-    number: "01",
-    title: localized("Future facility photo", "صورة مستقبلية لمرافق التدريب"),
-    description: localized(
-      "Reserved for a verified Tiger Gym facility photograph.",
-      "مساحة محجوزة لصورة موثّقة لمرافق Tiger Gym.",
-    ),
-    size: "tall",
-    tone: "yellow",
-  },
-  {
-    status: "pending",
-    number: "02",
-    title: localized("Future training photo", "صورة تدريب مستقبلية"),
-    description: localized(
-      "Reserved for a verified Tiger Gym training photograph.",
-      "مساحة محجوزة لصورة تدريب موثّقة من Tiger Gym.",
-    ),
-    size: "standard",
-    tone: "black",
-  },
-  {
-    status: "pending",
-    number: "03",
-    title: localized("Future facility photo", "صورة مستقبلية لمرافق التدريب"),
-    description: localized(
-      "Reserved for another verified Tiger Gym facility photograph.",
-      "مساحة محجوزة لصورة إضافية موثّقة لمرافق Tiger Gym.",
-    ),
-    size: "compact",
-    tone: "black",
-  },
-  {
-    status: "pending",
-    number: "04",
-    title: localized("Future training photo", "صورة تدريب مستقبلية"),
-    description: localized(
-      "Reserved for another verified Tiger Gym training photograph.",
-      "مساحة محجوزة لصورة تدريب إضافية موثّقة من Tiger Gym.",
-    ),
-    size: "wide",
-    tone: "yellow",
-  },
-  {
-    status: "pending",
-    number: "05",
-    title: localized("Future gallery photo", "صورة مستقبلية للمعرض"),
-    description: localized(
-      "Reserved until an approved Tiger Gym photograph is supplied.",
-      "مساحة محجوزة إلى حين توفير صورة معتمدة من Tiger Gym.",
-    ),
-    size: "standard",
-    tone: "black",
-  },
-] as const satisfies readonly GalleryPlaceholder[];
+export const galleryPlaceholders: readonly GalleryPlaceholder[] = [];
 
-// Demo marketing copy, including Arabic, requires final owner and native-speaker approval before launch.
+// Marketing copy, including Arabic, should receive final owner and native-speaker approval before launch.
 export const galleryContent = {
-  status: "demo",
+  status: "confirmed",
   metadata: {
     title: localized("Gallery | Tiger Gym Salmiya", "المعرض | Tiger Gym السالمية"),
     description: localized(
-      "View the verified Tiger Gym brand asset and prepared spaces for future approved gym photography.",
-      "شاهد العلامة الموثّقة لـ Tiger Gym والمساحات المجهّزة لصور النادي المعتمدة مستقبلًا.",
+      "Explore official photos of Tiger Gym's training floor, building and free-weight area in Salmiya, Kuwait.",
+      "شاهد الصور الرسمية لمساحة تدريب Tiger Gym والمبنى ومنطقة الأوزان الحرة في السالمية، الكويت.",
     ),
   },
   hero: {
     index: localized("05 / Gallery", "05 / المعرض"),
-    eyebrow: localized("Tiger Gym visuals", "هوية Tiger Gym البصرية"),
-    title: localized("The brand. The floor—coming next.", "الهوية أولًا. وصور النادي قريبًا."),
+    eyebrow: localized("Inside Tiger Gym", "داخل Tiger Gym"),
+    title: localized("The floor. The equipment. The place.", "المساحة. المعدات. المكان."),
     description: localized(
-      "The official Tiger Gym mark leads a gallery prepared for future approved photography from the training floor.",
-      "تتصدّر علامة Tiger Gym الرسمية معرضًا مجهّزًا لاستقبال صور معتمدة من مساحة التدريب مستقبلًا.",
+      "See the real Tiger Gym environment, from the Salmiya building to the strength floor and dumbbell area.",
+      "شاهد بيئة Tiger Gym الحقيقية، من مبنى السالمية إلى مساحة القوة ومنطقة الدمبل.",
     ),
   },
   note: localized(
-    "One verified brand image is available. Future photo spaces are clearly marked and contain no stock or invented imagery.",
-    "تتوفر صورة واحدة موثّقة للعلامة. أما مساحات الصور المستقبلية فمحددة بوضوح ولا تحتوي على صور مخزّنة أو مختلقة.",
+    "These official photographs were supplied for the Tiger Gym website and optimized for fast loading.",
+    "تم توفير هذه الصور الرسمية لموقع Tiger Gym وتحسينها للتحميل السريع.",
   ),
-  readiness: {
-    title: localized(
-      "Gallery photography is still pending.",
-      "صور المعرض قيد الإضافة.",
-    ),
-    description: localized(
-      "No stock or invented gym photos are being used. The gallery shows only the verified Tiger Gym brand asset and clearly marked future photo spaces until owner-approved photography is supplied.",
-      "لا تُستخدم صور مخزّنة أو مختلقة للنادي. يعرض المعرض عنصر الهوية الموثّق فقط ومساحات صور مستقبلية واضحة إلى حين توفير صور معتمدة من المالك.",
-    ),
-    note: localized(
-      "Use the verified logo and contact Tiger Gym for current training-floor details before relying on future photo slots.",
-      "استخدم الشعار الموثّق وتواصل مع Tiger Gym لمعرفة تفاصيل مساحة التدريب الحالية قبل الاعتماد على مساحات الصور المستقبلية.",
-    ),
-  },
-  verifiedLabel: localized("Verified image", "صورة موثّقة"),
-  lightboxEyebrow: localized("Verified Tiger Gym asset", "عنصر موثّق من Tiger Gym"),
+  verifiedLabel: localized("Official Tiger Gym photo", "صورة رسمية من Tiger Gym"),
+  lightboxEyebrow: localized("Tiger Gym gallery", "معرض Tiger Gym"),
   placeholderLabel: localized("Photo placeholder", "مساحة صورة مستقبلية"),
   viewLabel: localized("View full screen", "عرض بملء الشاشة"),
   finalCta: {
-    eyebrow: localized("Need current visuals?", "تحتاج صورًا حالية؟"),
-    title: localized("Ask the team for the latest floor details.", "اسأل الفريق عن أحدث تفاصيل مساحة التدريب."),
+    eyebrow: localized("See it in person", "شاهد المكان بنفسك"),
+    title: localized("Ready to visit the Tiger Gym floor?", "جاهز لزيارة مساحة Tiger Gym؟"),
     description: localized(
-      "Only the supplied logo is verified here. Contact Tiger Gym for current facility details until approved photography is added.",
-      "الشعار المزوّد هو العنصر الموثّق الوحيد هنا. تواصل مع Tiger Gym لمعرفة تفاصيل المرافق الحالية إلى حين إضافة صور معتمدة.",
+      "Use WhatsApp, phone, email or directions to confirm your visit and current membership options.",
+      "استخدم واتساب أو الهاتف أو البريد الإلكتروني أو الاتجاهات لتأكيد زيارتك وخيارات العضوية الحالية.",
     ),
     label: localized("Prepare membership enquiry", "جهّز استفسار العضوية"),
   },

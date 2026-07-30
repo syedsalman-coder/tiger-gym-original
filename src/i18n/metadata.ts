@@ -71,6 +71,8 @@ export function createLocalBusinessJsonLd(locale: Locale) {
     description: text(site.description),
     url: absoluteSiteUrl(localizePath(locale, "/")),
     telephone: site.phoneHref.replace(/^tel:/, ""),
+    email: site.email,
+    sameAs: [site.instagramHref],
     image: absoluteSiteUrl("/tiger-logo.png"),
     address: {
       "@type": "PostalAddress",

@@ -37,24 +37,63 @@ const paramsFor = (locale: "en" | "ar") => Promise.resolve({ locale });
 afterEach(() => cleanup());
 
 describe("Phase 3 gallery content readiness", () => {
-  it("surfaces pending gallery photography guidance for English visitors", async () => {
+  it("shows the owner-approved Tiger Gym photography for English visitors", async () => {
     const page = await GalleryPage({ params: paramsFor("en") });
 
     render(page);
 
-    const notice = screen.getByRole("status", { name: /content status/i });
-    expect(notice).toHaveTextContent("Gallery photography is still pending.");
-    expect(notice).toHaveTextContent("No stock or invented gym photos are being used");
-    expect(notice).toHaveTextContent("Use the verified logo and contact Tiger Gym for current training-floor details");
+    expect(
+      screen.getByRole("heading", { name: "The floor. The equipment. The place." }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        "These official photographs were supplied for the Tiger Gym website and optimized for fast loading.",
+      ),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("img", {
+        name: /elevated view of the tiger gym training floor/i,
+      }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("img", {
+        name: /exterior of building 15 on amman street/i,
+      }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("img", {
+        name: /rows of black and red dumbbells/i,
+      }),
+    ).toBeInTheDocument();
+    expect(screen.queryByText(/gallery photography is still pending/i)).not.toBeInTheDocument();
   });
 
-  it("localizes pending gallery photography guidance for Arabic visitors", async () => {
+  it("localizes the approved gallery photography for Arabic visitors", async () => {
     const page = await GalleryPage({ params: paramsFor("ar") });
 
     render(page);
 
-    const notice = screen.getByRole("status", { name: /حالة المحتوى/i });
-    expect(notice).toHaveTextContent("صور المعرض قيد الإضافة.");
-    expect(notice).toHaveTextContent("لا تُستخدم صور مخزّنة أو مختلقة للنادي");
+    expect(
+      screen.getByRole("heading", { name: "المساحة. المعدات. المكان." }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText("تم توفير هذه الصور الرسمية لموقع Tiger Gym وتحسينها للتحميل السريع."),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("img", {
+        name: /منظر علوي لمساحة التدريب في Tiger Gym/i,
+      }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("img", {
+        name: /واجهة مبنى 15 في شارع عمّان بالسالمية/i,
+      }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("img", {
+        name: /صفوف من الدمبل الأسود والأحمر/i,
+      }),
+    ).toBeInTheDocument();
+    expect(screen.queryByText("صور المعرض قيد الإضافة.")).not.toBeInTheDocument();
   });
 });

@@ -91,6 +91,12 @@ export default function FacilityPreview({
               <div
                 className="training-experiences__visual"
                 aria-hidden="true"
+                style={{
+                  backgroundImage:
+                    "linear-gradient(180deg, rgba(0,0,0,.08), rgba(0,0,0,.78)), url('/images/tiger-gym-interior.webp')",
+                  backgroundPosition: "center",
+                  backgroundSize: "cover",
+                }}
               >
                 <span className="training-experiences__visual-line" />
 

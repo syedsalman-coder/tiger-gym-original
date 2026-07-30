@@ -17,6 +17,10 @@ export const site = {
   phoneHref: "tel:+96569678350",
   whatsappNumber: "96569678350",
   whatsappHref: "https://wa.me/96569678350",
+  email: "tigergymfitnesscenter@gmail.com",
+  emailHref: "mailto:tigergymfitnesscenter@gmail.com",
+  instagramHandle: "@tigergymkw",
+  instagramHref: "https://www.instagram.com/tigergymkw/",
   openingHours: {
     status: "confirmed",
     regularDays: localized("Saturday to Thursday", "السبت إلى الخميس"),
@@ -47,5 +51,11 @@ export const navigation = [
   { label: localized("Contact", "تواصل معنا"), href: "/contact" },
 ] as const satisfies readonly NavigationItem[];
 
-// No social accounts have been confirmed. Add only owner-approved public profiles.
-export const socialLinks = [] as const satisfies readonly SocialLink[];
+// Owner-confirmed public social profiles.
+export const socialLinks = [
+  {
+    platform: localized("Instagram", "إنستغرام"),
+    href: site.instagramHref,
+    status: "confirmed",
+  },
+] as const satisfies readonly SocialLink[];

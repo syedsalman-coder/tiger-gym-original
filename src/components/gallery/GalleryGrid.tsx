@@ -9,6 +9,13 @@ import { getLocalizedValue, type Locale } from "@/i18n/config";
 import { getDictionary, interpolate } from "@/i18n/dictionaries";
 import GalleryLightbox, { type GalleryLightboxImage } from "./GalleryLightbox";
 
+const imageLayoutClasses: Record<string, string> = {
+  "tiger-gym-logo": "gallery-grid__item--logo",
+  "tiger-gym-interior": "gallery-grid__item--wide",
+  "tiger-gym-building": "gallery-grid__item--tall",
+  "tiger-gym-dumbbells": "gallery-grid__item--standard",
+};
+
 export function GalleryGrid({ locale }: { locale: Locale }) {
   const dictionary = getDictionary(locale);
   const text = (value: Parameters<typeof getLocalizedValue>[0]) => getLocalizedValue(value, locale);
@@ -41,42 +48,57 @@ export function GalleryGrid({ locale }: { locale: Locale }) {
       </p>
 
       <ul className="gallery-grid" aria-describedby={galleryNoteId}>
-        <motion.li
-          className="gallery-grid__item gallery-grid__item--logo gallery-card--black"
-          {...revealProps(0)}
-        >
-          <figure className="gallery-card gallery-card--image">
-            <button
-              className="gallery-card__image-button"
-              type="button"
-              onClick={() => setActiveIndex(0)}
-              aria-label={interpolate(dictionary.gallery.openFullScreen, { title: verifiedImages[0].title })}
+        {galleryImages.map((image, index) => {
+          const verifiedImage = verifiedImages[index];
+          const layoutClass =
+            imageLayoutClasses[image.id] ?? "gallery-grid__item--standard";
+
+          return (
+            <motion.li
+              className={`gallery-grid__item ${layoutClass} gallery-card--black`}
+              key={image.id}
+              {...revealProps(index)}
             >
-              <span className="gallery-card__media">
-                <Image
-                  className="gallery-card__image"
-                  src={verifiedImages[0].src}
-                  alt={verifiedImages[0].alt}
-                  width={verifiedImages[0].width}
-                  height={verifiedImages[0].height}
-                  sizes="(max-width: 720px) 100vw, (max-width: 1100px) 62vw, 46vw"
-                  loading="lazy"
-                  draggable={false}
-                />
-                <span className="gallery-card__expand" aria-hidden="true">
-                  <Expand />
-                </span>
-              </span>
-              <span className="gallery-card__caption">
-                <span className="gallery-card__eyebrow">{text(galleryContent.verifiedLabel)}</span>
-                <span className="gallery-card__title">
-                  {verifiedImages[0].title}
-                </span>
-                <span className="gallery-card__action">{text(galleryContent.viewLabel)}</span>
-              </span>
-            </button>
-          </figure>
-        </motion.li>
+              <figure className="gallery-card gallery-card--image">
+                <button
+                  className="gallery-card__image-button"
+                  type="button"
+                  onClick={() => setActiveIndex(index)}
+                  aria-label={interpolate(dictionary.gallery.openFullScreen, {
+                    title: verifiedImage.title,
+                  })}
+                >
+                  <span className="gallery-card__media">
+                    <Image
+                      className="gallery-card__image"
+                      src={verifiedImage.src}
+                      alt={verifiedImage.alt}
+                      width={verifiedImage.width}
+                      height={verifiedImage.height}
+                      sizes="(max-width: 720px) 100vw, (max-width: 1100px) 62vw, 46vw"
+                      loading="lazy"
+                      draggable={false}
+                    />
+                    <span className="gallery-card__expand" aria-hidden="true">
+                      <Expand />
+                    </span>
+                  </span>
+                  <span className="gallery-card__caption">
+                    <span className="gallery-card__eyebrow">
+                      {text(galleryContent.verifiedLabel)}
+                    </span>
+                    <span className="gallery-card__title">
+                      {verifiedImage.title}
+                    </span>
+                    <span className="gallery-card__action">
+                      {text(galleryContent.viewLabel)}
+                    </span>
+                  </span>
+                </button>
+              </figure>
+            </motion.li>
+          );
+        })}
 
         {galleryPlaceholders.map((slot, index) => {
           const titleId = `future-gallery-photo-${slot.number}`;
@@ -85,7 +107,7 @@ export function GalleryGrid({ locale }: { locale: Locale }) {
             <motion.li
               className={`gallery-grid__item gallery-grid__item--${slot.size} gallery-card--${slot.tone}`}
               key={slot.number}
-              {...revealProps(index + 1)}
+              {...revealProps(galleryImages.length + index)}
             >
               <article
                 className="gallery-card gallery-card--placeholder"
@@ -96,7 +118,9 @@ export function GalleryGrid({ locale }: { locale: Locale }) {
                   <span>{slot.number}</span>
                 </div>
                 <div className="gallery-card__placeholder-copy">
-                  <p className="gallery-card__eyebrow">{text(galleryContent.placeholderLabel)}</p>
+                  <p className="gallery-card__eyebrow">
+                    {text(galleryContent.placeholderLabel)}
+                  </p>
                   <h3 id={titleId}>{text(slot.title)}</h3>
                   <p>{text(slot.description)}</p>
                 </div>

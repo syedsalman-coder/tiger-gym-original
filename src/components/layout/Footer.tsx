@@ -2,6 +2,7 @@ import Link from "next/link";
 import {
   ArrowUpRight,
   Clock3,
+  Mail,
   MapPin,
   MessageCircle,
   Phone,
@@ -43,6 +44,8 @@ export default function Footer({
           saturdayThursday: "السبت إلى الخميس",
           friday: "الجمعة",
           phone: "الهاتف",
+          email: "البريد الإلكتروني",
+          instagram: "إنستغرام",
           officialWebsite: "الموقع الرسمي",
         }
       : {
@@ -58,6 +61,8 @@ export default function Footer({
           saturdayThursday: "Saturday to Thursday",
           friday: "Friday",
           phone: "Phone",
+          email: "Email",
+          instagram: "Instagram",
           officialWebsite: "Official website",
         };
 
@@ -286,6 +291,46 @@ export default function Footer({
                   href={site.phoneHref}
                 >
                   {site.phoneDisplay}
+                </a>
+              </div>
+            </div>
+
+            <div className="premium-footer__visit-item">
+              <Mail
+                size={19}
+                strokeWidth={1.5}
+                aria-hidden="true"
+              />
+
+              <div>
+                <span>
+                  {labels.email}
+                </span>
+
+                <a
+                  className="bidi-isolate"
+                  href={site.emailHref}
+                  style={{ overflowWrap: "anywhere" }}
+                >
+                  {site.email}
+                </a>
+              </div>
+            </div>
+
+            <div className="premium-footer__visit-item">
+              <span aria-hidden="true">@</span>
+
+              <div>
+                <span>
+                  {labels.instagram}
+                </span>
+
+                <a
+                  href={site.instagramHref}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {site.instagramHandle}
                 </a>
               </div>
             </div>

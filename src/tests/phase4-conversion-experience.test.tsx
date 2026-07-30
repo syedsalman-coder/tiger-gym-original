@@ -7,6 +7,10 @@ vi.mock("next/dynamic", () => ({
   },
 }));
 
+vi.mock("next/image", () => ({
+  default: ({ alt }: { alt: string }) => <span role="img" aria-label={alt} />,
+}));
+
 vi.mock("@/components/shared/Logo", () => ({
   default: () => <div data-testid="mock-logo" />,
 }));
