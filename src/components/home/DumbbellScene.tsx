@@ -33,6 +33,7 @@ type DumbbellSceneProps = {
 type SceneProps = {
   compact: boolean;
   reducedMotion: boolean;
+  active: boolean;
 };
 
 type BoundaryProps = {
@@ -293,6 +294,7 @@ function MobileFloorShadow({
 function StudioScene({
   compact,
   reducedMotion,
+  active,
 }: SceneProps) {
   const floorY = compact
     ? -0.8
@@ -330,12 +332,12 @@ function StudioScene({
       <spotLight
         position={[
           compact ? 2.15 : 2.55,
-          compact ? 4.6 : 5.25,
-          compact ? 3.25 : 3.8,
+          compact ? 4.25 : 5.25,
+          compact ? 3.1 : 3.8,
         ]}
         angle={0.4}
         penumbra={0.96}
-        intensity={compact ? 36 : 68}
+        intensity={compact ? 28 : 68}
         distance={14}
         color="#FFF8D6"
         castShadow={!compact}
@@ -348,25 +350,25 @@ function StudioScene({
         }
       />
 
-      <pointLight
-        position={[-3.4, 0.35, 1.2]}
-        intensity={compact ? 20 : 42}
-        distance={8.5}
-        color={TIGER_YELLOW}
-      />
+      {!compact && (
+        <>
+          <pointLight
+            position={[-3.4, 0.35, 1.2]}
+            intensity={42}
+            distance={8.5}
+            color={TIGER_YELLOW}
+          />
 
-      <rectAreaLight
-        position={[
-          compact ? -1.9 : -2.35,
-          compact ? 2.05 : 2.65,
-          compact ? 2.4 : 2.75,
-        ]}
-        rotation={[-0.55, -0.42, 0.24]}
-        width={compact ? 2.7 : 3.8}
-        height={compact ? 3.2 : 4.6}
-        intensity={compact ? 7 : 13}
-        color="#FFE66D"
-      />
+          <rectAreaLight
+            position={[-2.35, 2.65, 2.75]}
+            rotation={[-0.55, -0.42, 0.24]}
+            width={3.8}
+            height={4.6}
+            intensity={13}
+            color="#FFE66D"
+          />
+        </>
+      )}
 
       {!compact && (
         <>
@@ -389,6 +391,7 @@ function StudioScene({
       <DumbbellModel
         compact={compact}
         reducedMotion={reducedMotion}
+        active={active}
       />
 
       <mesh
@@ -457,6 +460,9 @@ export default function DumbbellScene({
   ] = useState(0);
 
   const [inView, setInView] =
+    useState(true);
+
+  const [pageVisible, setPageVisible] =
     useState(true);
 
   const containerRef =
@@ -543,6 +549,26 @@ export default function DumbbellScene({
     };
   }, []);
 
+  useEffect(() => {
+    const updateVisibility = () => {
+      setPageVisible(!document.hidden);
+    };
+
+    updateVisibility();
+
+    document.addEventListener(
+      "visibilitychange",
+      updateVisibility,
+    );
+
+    return () => {
+      document.removeEventListener(
+        "visibilitychange",
+        updateVisibility,
+      );
+    };
+  }, []);
+
   useEffect(
     () => () => {
       removeContextListenerRef.current();
@@ -565,6 +591,8 @@ export default function DumbbellScene({
   const fallback = (
     <StaticFallback locale={locale} />
   );
+
+  const sceneActive = inView && pageVisible;
 
   return (
     <div
@@ -589,7 +617,7 @@ export default function DumbbellScene({
             }}
             dpr={[
               1,
-              compact ? 1.1 : 1.5,
+              compact ? 1 : 1.25,
             ]}
             resize={{
               scroll: false,
@@ -600,11 +628,7 @@ export default function DumbbellScene({
                   : 50,
               },
             }}
-            frameloop={
-              reducedMotion || !inView
-                ? "demand"
-                : "always"
-            }
+            frameloop="demand"
             shadows={!compact}
             camera={{
               position: [
@@ -774,6 +798,7 @@ export default function DumbbellScene({
             >
               <StudioScene
                 compact={compact}
+                active={sceneActive}
                 reducedMotion={
                   reducedMotion
                 }

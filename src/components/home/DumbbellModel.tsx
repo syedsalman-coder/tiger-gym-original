@@ -7,7 +7,7 @@ import {
   useRef,
   type ForwardedRef,
 } from "react";
-import { useFrame } from "@react-three/fiber";
+import { useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
 
 const TIGER_YELLOW = "#FFEA00";
@@ -20,6 +20,7 @@ type Side = -1 | 1;
 export type DumbbellModelProps = {
   compact: boolean;
   reducedMotion: boolean;
+  active: boolean;
 };
 
 type PlateBlueprint = {
@@ -628,9 +629,14 @@ function ChalkParticles({
 export default function DumbbellModel({
   compact,
   reducedMotion,
+  active,
 }: DumbbellModelProps) {
   const rootRef =
     useRef<THREE.Group>(null);
+
+  const invalidate = useThree(
+    (state) => state.invalidate,
+  );
 
   const plateRefs = useRef<
     Array<THREE.Group | null>
@@ -667,6 +673,30 @@ export default function DumbbellModel({
     y: 0,
   });
 
+  const renderUntilRef = useRef(0);
+
+  const firstFrameRenderedRef = useRef(false);
+
+  const previousPointerRef = useRef({
+    x: 0,
+    y: 0,
+  });
+
+  const previousModelStateRef = useRef({
+    x: 0,
+    y: 0,
+    z: 0,
+    rx: 0.08,
+    ry: -0.4,
+    rz: -0.1,
+    scale: compact ? 0.78 : 0.96,
+    particlesX: 0,
+    particlesY: 0,
+    particlesZ: 0,
+    particlesRy: 0,
+    particlesRz: 0,
+  });
+
   const knurlTexture = useMemo(
     () => createKnurlTexture(),
     [],
@@ -678,6 +708,48 @@ export default function DumbbellModel({
     },
     [knurlTexture],
   );
+
+  useEffect(() => {
+    if (!active) {
+      return;
+    }
+
+    renderUntilRef.current = Math.max(
+      renderUntilRef.current,
+      performance.now() + (compact ? 820 : 1300),
+    );
+    firstFrameRenderedRef.current = false;
+    invalidate();
+  }, [active, compact, invalidate]);
+
+  useEffect(() => {
+    if (!active || compact || reducedMotion) {
+      return;
+    }
+
+    const requestPointerRender = () => {
+      renderUntilRef.current = Math.max(
+        renderUntilRef.current,
+        performance.now() + 420,
+      );
+      invalidate();
+    };
+
+    window.addEventListener(
+      "pointermove",
+      requestPointerRender,
+      {
+        passive: true,
+      },
+    );
+
+    return () => {
+      window.removeEventListener(
+        "pointermove",
+        requestPointerRender,
+      );
+    };
+  }, [active, compact, invalidate, reducedMotion]);
 
   /*
    * Track scroll progress and scroll speed.
@@ -733,6 +805,14 @@ export default function DumbbellModel({
           0,
           1.15,
         );
+
+      if (active) {
+        renderUntilRef.current = Math.max(
+          renderUntilRef.current,
+          performance.now() + 520,
+        );
+        invalidate();
+      }
     };
 
     previousScrollRef.current = {
@@ -756,7 +836,7 @@ export default function DumbbellModel({
         updateScrollInformation,
       );
     };
-  }, []);
+  }, [active, invalidate]);
 
   /*
    * Track finger position without preventing native scrolling.
@@ -806,6 +886,12 @@ export default function DumbbellModel({
           1,
         ),
       };
+
+      renderUntilRef.current = Math.max(
+        renderUntilRef.current,
+        performance.now() + 520,
+      );
+      invalidate();
     };
 
     const releaseTouch = () => {
@@ -813,6 +899,12 @@ export default function DumbbellModel({
         x: 0,
         y: 0,
       };
+
+      renderUntilRef.current = Math.max(
+        renderUntilRef.current,
+        performance.now() + 420,
+      );
+      invalidate();
     };
 
     window.addEventListener(
@@ -868,16 +960,34 @@ export default function DumbbellModel({
         releaseTouch,
       );
     };
-  }, [compact, reducedMotion]);
+  }, [compact, invalidate, reducedMotion]);
 
   useFrame((state, frameDelta) => {
     const root = rootRef.current;
+    const now = performance.now();
 
     if (!root) {
       return;
     }
 
+    const pointer = state.pointer;
+    const previousPointer =
+      previousPointerRef.current;
+    previousPointer.x = pointer.x;
+    previousPointer.y = pointer.y;
+
+    if (!active) {
+      firstFrameRenderedRef.current = false;
+      return;
+    }
+
     if (reducedMotion) {
+      if (firstFrameRenderedRef.current) {
+        return;
+      }
+
+      firstFrameRenderedRef.current = true;
+
       root.position.set(0, 0, 0);
 
       root.rotation.set(
@@ -915,6 +1025,18 @@ export default function DumbbellModel({
         },
       );
 
+      return;
+    }
+
+    if (!firstFrameRenderedRef.current) {
+      renderUntilRef.current = Math.max(
+        renderUntilRef.current,
+        now + (compact ? 820 : 1300),
+      );
+      firstFrameRenderedRef.current = true;
+    }
+
+    if (now > renderUntilRef.current) {
       return;
     }
 
@@ -1001,43 +1123,26 @@ export default function DumbbellModel({
     /*
      * Strong mobile idle animation.
      */
-    const mobileFloatX =
-      Math.sin(elapsed * 0.72) *
-      0.1 *
-      intro;
+    const mobileFloatX = scrollEnergy * 0.035;
 
     const mobileFloatY =
-      Math.sin(elapsed * 1.04) *
-      0.21 *
-      intro;
+      scrollEnergy * -0.055;
 
     const mobileFloatZ =
-      Math.sin(elapsed * 0.63) *
-      0.24 *
-      intro;
+      scrollEnergy * 0.12;
 
     const mobileRotationX =
-      Math.sin(elapsed * 0.74) *
-      0.17 *
-      intro;
+      scrollImpulse * -0.04;
 
     const mobileRotationY =
-      Math.sin(elapsed * 0.49) *
-      0.24 *
-      intro;
+      scrollImpulse * 0.08;
 
     const mobileRotationZ =
-      Math.sin(elapsed * 0.91) *
-      0.13 *
-      intro;
+      scrollImpulse * 0.045;
 
-    const mobileContinuousSpin =
-      elapsed * 0.15 * intro;
+    const mobileContinuousSpin = 0;
 
-    const mobileScalePulse =
-      Math.sin(elapsed * 0.82) *
-      0.025 *
-      intro;
+    const mobileScalePulse = 0;
 
     /*
      * Desktop animation.
@@ -1240,32 +1345,103 @@ export default function DumbbellModel({
       particlesRef.current;
 
     if (particles) {
-      const mobilePower =
-        compact ? 1.65 : 1;
+      if (compact) {
+        particles.position.y =
+          scrollEnergy * 0.035;
 
-      particles.position.y =
-        Math.sin(elapsed * 0.42) *
-        0.06 *
-        mobilePower;
+        particles.position.x =
+          scrollImpulse * 0.025;
 
-      particles.position.x =
-        Math.sin(elapsed * 0.31) *
-        0.045 *
-        mobilePower;
+        particles.position.z =
+          scrollEnergy * 0.06;
 
-      particles.position.z =
-        scrollEnergy *
-        0.08 *
-        mobilePower;
+        particles.rotation.y +=
+          scrollImpulse * delta * 0.28;
 
-      particles.rotation.y =
-        elapsed *
-        (compact ? 0.052 : 0.018);
+        particles.rotation.z =
+          scrollImpulse * 0.025;
+      } else {
+        particles.position.y =
+          Math.sin(elapsed * 0.42) * 0.06;
 
-      particles.rotation.z =
-        Math.sin(elapsed * 0.22) *
-        0.04 *
-        mobilePower;
+        particles.position.x =
+          Math.sin(elapsed * 0.31) * 0.045;
+
+        particles.position.z =
+          scrollEnergy * 0.08;
+
+        particles.rotation.y =
+          elapsed * 0.018;
+
+        particles.rotation.z =
+          Math.sin(elapsed * 0.22) * 0.04;
+      }
+    }
+
+    const previousState =
+      previousModelStateRef.current;
+    const particlesChanged = particles
+      ? Math.abs(
+          particles.position.x -
+            previousState.particlesX,
+        ) > 0.0008 ||
+        Math.abs(
+          particles.position.y -
+            previousState.particlesY,
+        ) > 0.0008 ||
+        Math.abs(
+          particles.position.z -
+            previousState.particlesZ,
+        ) > 0.0008 ||
+        Math.abs(
+          particles.rotation.y -
+            previousState.particlesRy,
+        ) > 0.0008 ||
+        Math.abs(
+          particles.rotation.z -
+            previousState.particlesRz,
+        ) > 0.0008
+      : false;
+
+    const modelChanged =
+      Math.abs(root.position.x - previousState.x) >
+        0.0008 ||
+      Math.abs(root.position.y - previousState.y) >
+        0.0008 ||
+      Math.abs(root.position.z - previousState.z) >
+        0.0008 ||
+      Math.abs(root.rotation.x - previousState.rx) >
+        0.0008 ||
+      Math.abs(root.rotation.y - previousState.ry) >
+        0.0008 ||
+      Math.abs(root.rotation.z - previousState.rz) >
+        0.0008 ||
+      Math.abs(root.scale.x - previousState.scale) >
+        0.0008 ||
+      particlesChanged;
+
+    previousState.x = root.position.x;
+    previousState.y = root.position.y;
+    previousState.z = root.position.z;
+    previousState.rx = root.rotation.x;
+    previousState.ry = root.rotation.y;
+    previousState.rz = root.rotation.z;
+    previousState.scale = root.scale.x;
+
+    if (particles) {
+      previousState.particlesX = particles.position.x;
+      previousState.particlesY = particles.position.y;
+      previousState.particlesZ = particles.position.z;
+      previousState.particlesRy = particles.rotation.y;
+      previousState.particlesRz = particles.rotation.z;
+    }
+
+    if (
+      modelChanged &&
+      active &&
+      now <= renderUntilRef.current
+    ) {
+      invalidate();
     }
   });
 
