@@ -1,27 +1,292 @@
 import Link from "next/link";
-import Logo from "@/components/shared/Logo";
-import { navigation, site } from "@/data/site";
+import {
+  ArrowUpRight,
+  Clock3,
+  Mail,
+  MapPin,
+  Phone,
+} from "lucide-react";
 
-export default function Footer() {
+import Logo from "@/components/shared/Logo";
+import { pageContent } from "@/data/pages";
+import { navigation, site } from "@/data/site";
+import {
+  getLocalizedValue,
+  localizePath,
+  type Locale,
+} from "@/i18n/config";
+import { getDictionary } from "@/i18n/dictionaries";
+
+export default function Footer({
+  locale,
+}: {
+  locale: Locale;
+}) {
+  const dictionary = getDictionary(locale);
+
+  const text = (
+    value: Parameters<typeof getLocalizedValue>[0],
+  ) => getLocalizedValue(value, locale);
+
+  const labels =
+    locale === "ar"
+      ? {
+          sectionNumber: "06",
+          sectionLabel: "Ø§Ø¨Ø¯Ø£ Ø§Ù„Ø¢Ù†",
+          titleLineOne: "ØªØ¯Ø±ÙŠØ¨Ùƒ ÙŠØ¨Ø¯Ø£",
+          titleLineTwo: "Ù…Ù† Ù‡Ù†Ø§.",          navigation: "Ø§Ø³ØªÙƒØ´Ù Ø§Ù„Ù…ÙˆÙ‚Ø¹",
+          visit: "Ø²ÙŠØ§Ø±Ø© Ø§Ù„Ù†Ø§Ø¯ÙŠ",
+          address: "Ø§Ù„Ø¹Ù†ÙˆØ§Ù†",
+          hours: "Ø³Ø§Ø¹Ø§Øª Ø§Ù„Ø¹Ù…Ù„",
+          saturdayThursday: "Ø§Ù„Ø³Ø¨Øª Ø¥Ù„Ù‰ Ø§Ù„Ø®Ù…ÙŠØ³",
+          friday: "Ø§Ù„Ø¬Ù…Ø¹Ø©",
+          phone: "Ø§Ù„Ù‡Ø§ØªÙ",
+          email: "Ø§Ù„Ø¨Ø±ÙŠØ¯ Ø§Ù„Ø¥Ù„ÙƒØªØ±ÙˆÙ†ÙŠ",
+          instagram: "Ø¥Ù†Ø³ØªØºØ±Ø§Ù…",
+          officialWebsite: "Ø§Ù„Ù…ÙˆÙ‚Ø¹ Ø§Ù„Ø±Ø³Ù…ÙŠ",
+        }
+      : {
+          sectionNumber: "06",
+          sectionLabel: "Start now",
+          titleLineOne: "Your training",
+          titleLineTwo: "starts here.",          navigation: "Explore the site",
+          visit: "Visit the gym",
+          address: "Address",
+          hours: "Opening hours",
+          saturdayThursday: "Saturday to Thursday",
+          friday: "Friday",
+          phone: "Phone",
+          email: "Email",
+          instagram: "Instagram",
+          officialWebsite: "Official website",
+        };
+
   return (
-    <footer className="site-footer">
-      <div className="page-shell site-footer__main">
-        <div className="site-footer__identity">
-          <Link href="/" aria-label="Tiger Gym home"><Logo decorative /></Link>
-          <p>Built for strength.<br />Made for progress.</p>
+    <footer className="premium-footer">
+      <div className="page-shell">
+
+        <div className="premium-footer__main">
+          <div className="premium-footer__identity">
+            <Link
+              className="premium-footer__logo"
+              href={localizePath(locale, "/")}
+              aria-label={dictionary.accessibility.home}
+            >
+              <Logo
+                locale={locale}
+                decorative
+              />
+            </Link>
+
+            <p>
+              {text(pageContent.footer.taglineLineOne)}
+              <br />
+              {text(pageContent.footer.taglineLineTwo)}
+            </p>
+
+            <div className="premium-footer__identity-location">
+              <MapPin
+                size={18}
+                strokeWidth={1.5}
+                aria-hidden="true"
+              />
+
+              <span>
+                {text(site.city)}, {text(site.country)}
+              </span>
+            </div>
+          </div>
+
+          <nav
+            className="premium-footer__navigation"
+            aria-label={
+              dictionary.accessibility.footerNavigation
+            }
+          >
+            <span className="premium-footer__column-label">
+              {labels.navigation}
+            </span>
+
+            <div className="premium-footer__navigation-list">
+              {navigation.map((item, index) => (
+                <Link
+                  href={localizePath(locale, item.href)}
+                  key={item.href}
+                >
+                  <span>
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+
+                  <strong>
+                    {text(item.label)}
+                  </strong>
+
+                  <ArrowUpRight
+                    size={16}
+                    strokeWidth={1.5}
+                    aria-hidden="true"
+                  />
+                </Link>
+              ))}
+            </div>
+          </nav>
+
+          <div className="premium-footer__visit">
+            <span className="premium-footer__column-label">
+              {labels.visit}
+            </span>
+
+            <div className="premium-footer__visit-item">
+              <MapPin
+                size={19}
+                strokeWidth={1.5}
+                aria-hidden="true"
+              />
+
+              <div>
+                <span>
+                  {labels.address}
+                </span>
+
+                <strong>
+                  {text(site.address)}
+                </strong>
+
+                <a
+                  className="premium-footer__directions"
+                  href={site.directionsUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {dictionary.common.getDirections}
+                </a>
+              </div>
+            </div>
+
+            <div className="premium-footer__visit-item">
+              <Clock3
+                size={19}
+                strokeWidth={1.5}
+                aria-hidden="true"
+              />
+
+              <div>
+                <span>
+                  {labels.hours}
+                </span>
+
+                <p>
+                  <span>
+                    {labels.saturdayThursday}
+                  </span>
+
+                  <strong className="bidi-isolate">
+                    {text(site.openingHours.regularTime)}
+                  </strong>
+                </p>
+
+                <p>
+                  <span>
+                    {labels.friday}
+                  </span>
+
+                  <strong className="bidi-isolate">
+                    {text(site.openingHours.fridayTime)}
+                  </strong>
+                </p>
+              </div>
+            </div>
+
+            <div className="premium-footer__visit-item">
+              <Phone
+                size={19}
+                strokeWidth={1.5}
+                aria-hidden="true"
+              />
+
+              <div>
+                <span>
+                  {labels.phone}
+                </span>
+
+                <a
+                  className="bidi-isolate"
+                  href={site.phoneHref}
+                >
+                  {site.phoneDisplay}
+                </a>
+              </div>
+            </div>
+
+            <div className="premium-footer__visit-item">
+              <Mail
+                size={19}
+                strokeWidth={1.5}
+                aria-hidden="true"
+              />
+
+              <div>
+                <span>
+                  {labels.email}
+                </span>
+
+                <a
+                  className="bidi-isolate"
+                  href={site.emailHref}
+                  style={{ overflowWrap: "anywhere" }}
+                >
+                  {site.email}
+                </a>
+              </div>
+            </div>
+
+            <div className="premium-footer__visit-item">
+              <span aria-hidden="true">@</span>
+
+              <div>
+                <span>
+                  {labels.instagram}
+                </span>
+
+                <a
+                  href={site.instagramHref}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {site.instagramHandle}
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
-        <nav aria-label="Footer navigation">
-          {navigation.map((item) => <Link href={item.href} key={item.href}>{item.label}</Link>)}
-        </nav>
-        <div className="site-footer__contact">
-          <span>Speak with the gym</span>
-          <a href={site.phoneHref}>{site.phoneDisplay}</a>
-          <a href={site.whatsappHref} target="_blank" rel="noreferrer">WhatsApp ↗</a>
+
+        <div
+          className="premium-footer__wordmark"
+          aria-hidden="true"
+        >
+          <span>
+            TIGER
+          </span>
+
+          <span>
+            GYM
+          </span>
         </div>
-      </div>
-      <div className="page-shell site-footer__bottom">
-        <span>© {new Date().getFullYear()} Tiger Gym Fitness Center</span>
-        <span>Salmiya · Kuwait</span>
+
+        <div className="premium-footer__bottom">
+          <span>
+            Â© {new Date().getFullYear()}{" "}
+            {text(site.fullName)}
+          </span>
+
+          <span>
+            {labels.officialWebsite}
+          </span>
+
+          <span>
+            {text(site.city)} Â· {text(site.country)}
+          </span>
+        </div>
       </div>
     </footer>
   );

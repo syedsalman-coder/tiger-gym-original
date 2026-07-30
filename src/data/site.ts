@@ -1,15 +1,41 @@
+import { localized, type NavigationItem, type SocialLink } from "./types";
+
+// Confirmed shared details. Update this file only after the gym owner verifies a change.
 export const site = {
-  name: "Tiger Gym",
-  fullName: "Tiger Gym Fitness Center",
-  locality: "Salmiya, Kuwait",
-  address: "Building 15, Floor 1, Amman Street, Salmiya, Kuwait",
+  status: "confirmed",
+  name: localized("Tiger Gym", "Tiger Gym"),
+  fullName: localized("Tiger Gym Fitness Center", "مركز Tiger Gym للياقة البدنية"),
+  descriptor: localized("Fitness Center", "مركز للياقة البدنية"),
+  locality: localized("Salmiya, Kuwait", "السالمية، الكويت"),
+  city: localized("Salmiya", "السالمية"),
+  country: localized("Kuwait", "الكويت"),
+  address: localized(
+    "Building 15, Floor 1, Amman Street, Salmiya, Kuwait",
+    "مبنى 15، الطابق الأول، شارع عمّان، السالمية، الكويت",
+  ),
   phoneDisplay: "+965 6967 8350",
   phoneHref: "tel:+96569678350",
   whatsappNumber: "96569678350",
   whatsappHref: "https://wa.me/96569678350",
-  socialLinks: [],
-  description:
+  email: "tigergymfitnesscenter@gmail.com",
+  emailHref: "mailto:tigergymfitnesscenter@gmail.com",
+  instagramHandle: "@tigergymkw",
+  instagramHref: "https://www.instagram.com/tigergymkw/",
+  openingHours: {
+    status: "confirmed",
+    regularDays: localized("Saturday to Thursday", "السبت إلى الخميس"),
+    regularTime: localized("5:00 AM – 2:00 AM", "5:00 ص – 2:00 ص"),
+    fridayDays: localized("Friday", "الجمعة"),
+    fridayTime: localized("12:00 PM – 2:00 AM", "12:00 م – 2:00 ص"),
+    shortDisplay: localized(
+      "Sat–Thu: 5:00 AM–2:00 AM | Fri: 12:00 PM–2:00 AM",
+      "السبت–الخميس: 5:00 ص–2:00 ص | الجمعة: 12:00 م–2:00 ص",
+    ),
+  },
+  description: localized(
     "A focused training environment for strength, fitness and serious progress in Salmiya, Kuwait.",
+    "بيئة تدريب مركّزة للقوة واللياقة والتقدّم الجاد في السالمية، الكويت.",
+  ),
   mapEmbedUrl:
     "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3306.4774735900473!2d48.05703127531609!3d29.323539475294567!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3fcf9de0ff4906e1%3A0xf9ade87108900d05!2sTIGER%20GYM!5e1!3m2!1sen!2skw!4v1784395125224!5m2!1sen!2skw",
   directionsUrl:
@@ -17,76 +43,19 @@ export const site = {
 } as const;
 
 export const navigation = [
-  { label: "Home", href: "/" },
-  { label: "About", href: "/about" },
-  { label: "Facilities", href: "/facilities" },
-  { label: "Membership", href: "/membership" },
-  { label: "Gallery", href: "/gallery" },
-  { label: "Contact", href: "/contact" },
-] as const;
+  { label: localized("Home", "الرئيسية"), href: "/" },
+  { label: localized("About", "من نحن"), href: "/about" },
+  { label: localized("Facilities", "مرافق التدريب"), href: "/facilities" },
+  { label: localized("Membership", "العضوية"), href: "/membership" },
+  { label: localized("Gallery", "المعرض"), href: "/gallery" },
+  { label: localized("Contact", "تواصل معنا"), href: "/contact" },
+] as const satisfies readonly NavigationItem[];
 
-// These categories and descriptions are carried forward from the existing site.
-// The gym owner should confirm exact equipment availability before adding more detail.
-export const facilities = [
+// Owner-confirmed public social profiles.
+export const socialLinks = [
   {
-    number: "01",
-    slug: "strength-zone",
-    title: "Strength Zone",
-    shortTitle: "Strength Training",
-    description: "Heavy racks, benches, machines, and focused lifting space.",
-    detail:
-      "A dedicated training category for structured strength work and focused lifting sessions.",
-    icon: "dumbbell",
+    platform: localized("Instagram", "إنستغرام"),
+    href: site.instagramHref,
+    status: "confirmed",
   },
-  {
-    number: "02",
-    slug: "free-weights",
-    title: "Free Weights",
-    shortTitle: "Free Weight Training",
-    description:
-      "Dumbbells, barbells, plates, and classic bodybuilding equipment.",
-    detail:
-      "An open training category centred on free-weight movement and bodybuilding fundamentals.",
-    icon: "weight",
-  },
-  {
-    number: "03",
-    slug: "cardio-area",
-    title: "Cardio Area",
-    shortTitle: "Cardio Training",
-    description:
-      "Conditioning tools for fat loss, stamina, and daily fitness.",
-    detail:
-      "A conditioning category for members building general fitness and training consistency.",
-    icon: "activity",
-  },
-  {
-    number: "04",
-    slug: "functional-training",
-    title: "Functional Training",
-    shortTitle: "Personal Fitness",
-    description:
-      "Explosive movement, circuits, and athletic performance work.",
-    detail:
-      "A flexible category for movement-focused sessions and individual fitness goals.",
-    icon: "zap",
-  },
-] as const;
-
-export const philosophy = [
-  {
-    number: "01",
-    title: "Strength",
-    text: "Build capability through focused, purposeful training.",
-  },
-  {
-    number: "02",
-    title: "Discipline",
-    text: "Make the work consistent, clear, and repeatable.",
-  },
-  {
-    number: "03",
-    title: "Progress",
-    text: "Move forward one deliberate session at a time.",
-  },
-] as const;
+] as const satisfies readonly SocialLink[];

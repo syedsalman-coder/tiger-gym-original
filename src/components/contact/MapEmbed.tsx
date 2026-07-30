@@ -1,6 +1,8 @@
 import { site } from "@/data/site";
+import type { Locale } from "@/i18n/config";
+import { getDictionary } from "@/i18n/dictionaries";
 
-export default function MapEmbed() {
+export default function MapEmbed({ locale }: { locale: Locale }) {
   return (
     <div className="map-embed">
       <iframe
@@ -12,7 +14,7 @@ export default function MapEmbed() {
         allowFullScreen
         loading="lazy"
         referrerPolicy="strict-origin-when-cross-origin"
-        title="Tiger Gym location in Salmiya, Kuwait"
+        title={getDictionary(locale).accessibility.map}
       />
     </div>
   );

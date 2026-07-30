@@ -2,7 +2,10 @@
 
 import { type FormEvent, useState } from "react";
 
+import { membershipOptions } from "@/data/membership-options";
 import { site } from "@/data/site";
+import { getLocalizedValue, type Locale } from "@/i18n/config";
+import { getDictionary, type Dictionary } from "@/i18n/dictionaries";
 
 type MembershipValues = {
   name: string;
@@ -28,44 +31,44 @@ const initialValues: MembershipValues = {
   message: "",
 };
 
-const requiredMessages: Record<Exclude<MembershipField, "phone">, string> = {
-  name: "Enter your name.",
-  preferredTrainingTime: "Enter your preferred training time.",
-  membershipInterest: "Select a membership interest.",
-  message: "Enter a message.",
-};
-
-function validatePhone(phone: string) {
+function validatePhone(phone: string, dictionary: Dictionary) {
   const digitCount = phone.replace(/\D/g, "").length;
 
   if (!phone.trim()) {
-    return "Enter your phone number.";
+    return dictionary.membershipForm.errors.phone;
   }
 
   if (digitCount < 7 || digitCount > 15) {
-    return "Enter a phone number containing 7 to 15 digits.";
+    return dictionary.membershipForm.errors.phoneFormat;
   }
 
   return undefined;
 }
 
-function validateField(field: MembershipField, value: string) {
+function validateField(field: MembershipField, value: string, dictionary: Dictionary) {
   if (field === "phone") {
-    return validatePhone(value);
+    return validatePhone(value, dictionary);
   }
 
   if (!value.trim()) {
+    const errors = dictionary.membershipForm.errors;
+    const requiredMessages: Record<Exclude<MembershipField, "phone">, string> = {
+      name: errors.name,
+      preferredTrainingTime: errors.preferredTime,
+      membershipInterest: errors.interest,
+      message: errors.message,
+    };
     return requiredMessages[field];
   }
 
   return undefined;
 }
 
-function validate(values: MembershipValues) {
+function validate(values: MembershipValues, dictionary: Dictionary) {
   const errors: MembershipErrors = {};
 
   (Object.keys(values) as MembershipField[]).forEach((field) => {
-    const error = validateField(field, values[field]);
+    const error = validateField(field, values[field], dictionary);
     if (error) errors[field] = error;
   });
 
@@ -80,7 +83,10 @@ function createWhatsappUrl(message: string) {
   return `${baseUrl}${separator}text=${encodeURIComponent(message)}`;
 }
 
-export default function MembershipForm() {
+export default function MembershipForm({ locale }: { locale: Locale }) {
+  const dictionary = getDictionary(locale);
+  const copy = dictionary.membershipForm;
+  const text = (value: Parameters<typeof getLocalizedValue>[0]) => getLocalizedValue(value, locale);
   const [values, setValues] = useState<MembershipValues>(initialValues);
   const [errors, setErrors] = useState<MembershipErrors>({});
   const [submissionStatus, setSubmissionStatus] =
@@ -93,7 +99,7 @@ export default function MembershipForm() {
     if (errors[field]) {
       setErrors((current) => ({
         ...current,
-        [field]: validateField(field, value),
+        [field]: validateField(field, value, dictionary),
       }));
     }
   }
@@ -101,14 +107,14 @@ export default function MembershipForm() {
   function handleBlur(field: MembershipField) {
     setErrors((current) => ({
       ...current,
-      [field]: validateField(field, values[field]),
+      [field]: validateField(field, values[field], dictionary),
     }));
   }
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    const nextErrors = validate(values);
+    const nextErrors = validate(values, dictionary);
     setErrors(nextErrors);
 
     if (Object.keys(nextErrors).length > 0) {
@@ -125,13 +131,13 @@ export default function MembershipForm() {
 
     const whatsappUrl = createWhatsappUrl(
       [
-        "Hello Tiger Gym, I would like to ask about membership.",
+        copy.template.greeting,
         "",
-        `Name: ${values.name.trim()}`,
-        `Phone: ${values.phone.trim()}`,
-        `Preferred training time: ${values.preferredTrainingTime.trim()}`,
-        `Membership interest: ${values.membershipInterest}`,
-        `Message: ${values.message.trim()}`,
+        `${copy.template.name}: ${values.name.trim()}`,
+        `${copy.template.phone}: ${values.phone.trim()}`,
+        `${copy.template.preferredTime}: ${values.preferredTrainingTime.trim()}`,
+        `${copy.template.interest}: ${values.membershipInterest}`,
+        `${copy.template.message}: ${values.message.trim()}`,
       ].join("\n"),
     );
     const whatsappWindow = window.open(whatsappUrl, "_blank");
@@ -152,7 +158,7 @@ export default function MembershipForm() {
       onSubmit={handleSubmit}
     >
       <div className="enquiry-form__field">
-        <label htmlFor="membership-name">Name</label>
+        <label htmlFor="membership-name">{copy.name}</label>
         <input
           id="membership-name"
           name="name"
@@ -177,13 +183,14 @@ export default function MembershipForm() {
       </div>
 
       <div className="enquiry-form__field">
-        <label htmlFor="membership-phone">Phone</label>
+        <label htmlFor="membership-phone">{copy.phone}</label>
         <input
           id="membership-phone"
           name="phone"
           type="tel"
           inputMode="tel"
           autoComplete="tel"
+          dir="ltr"
           value={values.phone}
           required
           aria-invalid={Boolean(errors.phone)}
@@ -204,13 +211,13 @@ export default function MembershipForm() {
 
       <div className="enquiry-form__field">
         <label htmlFor="preferred-training-time">
-          Preferred training time
+          {copy.preferredTime}
         </label>
         <input
           id="preferred-training-time"
           name="preferredTrainingTime"
           type="text"
-          placeholder="For example, morning or evening"
+          placeholder={copy.preferredTimePlaceholder}
           value={values.preferredTrainingTime}
           required
           aria-invalid={Boolean(errors.preferredTrainingTime)}
@@ -236,7 +243,7 @@ export default function MembershipForm() {
       </div>
 
       <div className="enquiry-form__field">
-        <label htmlFor="membership-interest">Membership interest</label>
+        <label htmlFor="membership-interest">{copy.interest}</label>
         <select
           id="membership-interest"
           name="membershipInterest"
@@ -254,13 +261,11 @@ export default function MembershipForm() {
           }
         >
           <option value="" disabled>
-            Select an option
+            {copy.selectOption}
           </option>
-          <option value="Monthly Membership">Monthly Membership</option>
-          <option value="Flexible Training Access">
-            Flexible Training Access
-          </option>
-          <option value="Membership Enquiry">Membership Enquiry</option>
+          {membershipOptions.map((option) => (
+            <option value={text(option.title)} key={option.id}>{text(option.title)}</option>
+          ))}
         </select>
         {errors.membershipInterest ? (
           <span
@@ -274,7 +279,7 @@ export default function MembershipForm() {
       </div>
 
       <div className="enquiry-form__field enquiry-form__field--full">
-        <label htmlFor="membership-message">Message</label>
+        <label htmlFor="membership-message">{copy.message}</label>
         <textarea
           id="membership-message"
           name="message"
@@ -301,17 +306,16 @@ export default function MembershipForm() {
 
       <div className="enquiry-form__footer">
         <button className="enquiry-form__submit" type="submit">
-          Prepare membership enquiry
+          {copy.submit}
         </button>
         <p className="enquiry-form__note">
-          This form prepares a WhatsApp message for you to review and send.
+          {copy.note}
         </p>
       </div>
 
       {submissionStatus.kind === "opened" ? (
         <p className="enquiry-form__status" role="status" aria-live="polite">
-          WhatsApp opened with your enquiry. Review it there and tap Send;
-          nothing was sent by this form.
+          {copy.opened}
         </p>
       ) : null}
 
@@ -321,17 +325,14 @@ export default function MembershipForm() {
           role="status"
           aria-live="polite"
         >
-          <p>
-            WhatsApp could not open automatically. Nothing was sent. Use the
-            link below to review and send your prepared enquiry.
-          </p>
+          <p>{copy.blocked}</p>
           <a
             className="enquiry-form__whatsapp-link"
             href={submissionStatus.whatsappUrl}
             target="_blank"
             rel="noreferrer"
           >
-            Open WhatsApp
+            {copy.openWhatsapp}
           </a>
         </div>
       ) : null}

@@ -13,6 +13,7 @@ export default function RouteMotion() {
   useLayoutEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
     const context = gsap.context(() => {
+      const inlineStart = document.documentElement.dir === "rtl" ? "right" : "left";
       const reveals = gsap.utils.toArray<HTMLElement>("[data-reveal]");
       const lines = gsap.utils.toArray<HTMLElement>("[data-heading-line]");
       const dividers = gsap.utils.toArray<HTMLElement>("[data-divider]");
@@ -42,7 +43,7 @@ export default function RouteMotion() {
         });
       });
       dividers.forEach((element) => {
-        gsap.fromTo(element, { scaleX: 0, transformOrigin: "left" }, {
+        gsap.fromTo(element, { scaleX: 0, transformOrigin: inlineStart }, {
           scaleX: 1,
           duration: 1,
           ease: "power3.inOut",
