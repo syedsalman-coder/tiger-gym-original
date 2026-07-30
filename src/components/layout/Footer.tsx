@@ -32,24 +32,26 @@ export default function Footer({
     locale === "ar"
       ? {
           sectionNumber: "06",
-          sectionLabel: "Ø§Ø¨Ø¯Ø£ Ø§Ù„Ø¢Ù†",
-          titleLineOne: "ØªØ¯Ø±ÙŠØ¨Ùƒ ÙŠØ¨Ø¯Ø£",
-          titleLineTwo: "Ù…Ù† Ù‡Ù†Ø§.",          navigation: "Ø§Ø³ØªÙƒØ´Ù Ø§Ù„Ù…ÙˆÙ‚Ø¹",
-          visit: "Ø²ÙŠØ§Ø±Ø© Ø§Ù„Ù†Ø§Ø¯ÙŠ",
-          address: "Ø§Ù„Ø¹Ù†ÙˆØ§Ù†",
-          hours: "Ø³Ø§Ø¹Ø§Øª Ø§Ù„Ø¹Ù…Ù„",
-          saturdayThursday: "Ø§Ù„Ø³Ø¨Øª Ø¥Ù„Ù‰ Ø§Ù„Ø®Ù…ÙŠØ³",
-          friday: "Ø§Ù„Ø¬Ù…Ø¹Ø©",
-          phone: "Ø§Ù„Ù‡Ø§ØªÙ",
-          email: "Ø§Ù„Ø¨Ø±ÙŠØ¯ Ø§Ù„Ø¥Ù„ÙƒØªØ±ÙˆÙ†ÙŠ",
-          instagram: "Ø¥Ù†Ø³ØªØºØ±Ø§Ù…",
-          officialWebsite: "Ø§Ù„Ù…ÙˆÙ‚Ø¹ Ø§Ù„Ø±Ø³Ù…ÙŠ",
+          sectionLabel: "ابدأ الآن",
+          titleLineOne: "تدريبك يبدأ",
+          titleLineTwo: "من هنا.",
+          navigation: "استكشف الموقع",
+          visit: "زيارة النادي",
+          address: "العنوان",
+          hours: "ساعات العمل",
+          saturdayThursday: "السبت إلى الخميس",
+          friday: "الجمعة",
+          phone: "الهاتف",
+          email: "البريد الإلكتروني",
+          instagram: "إنستغرام",
+          officialWebsite: "الموقع الرسمي",
         }
       : {
           sectionNumber: "06",
           sectionLabel: "Start now",
           titleLineOne: "Your training",
-          titleLineTwo: "starts here.",          navigation: "Explore the site",
+          titleLineTwo: "starts here.",
+          navigation: "Explore the site",
           visit: "Visit the gym",
           address: "Address",
           hours: "Opening hours",
@@ -275,7 +277,7 @@ export default function Footer({
 
         <div className="premium-footer__bottom">
           <span>
-            Â© {new Date().getFullYear()}{" "}
+            © {new Date().getFullYear()}{" "}
             {text(site.fullName)}
           </span>
 
@@ -284,7 +286,7 @@ export default function Footer({
           </span>
 
           <span>
-            {text(site.city)} Â· {text(site.country)}
+            {text(site.city)} · {text(site.country)}
           </span>
         </div>
       </div>
