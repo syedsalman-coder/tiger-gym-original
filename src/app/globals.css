@@ -4303,3 +4303,13 @@ html[lang="en"] .visit-finale__title h2 {
     font-size: clamp(4rem, 7.5vw, 5.75rem);
   }
 }
+
+/* Compact footer contact details */
+.premium-footer__visit-item a:not(.premium-footer__directions) {
+  max-width: 100%;
+  font-size: clamp(0.88rem, 1vw, 1rem);
+  font-weight: 700;
+  line-height: 1.45;
+  letter-spacing: 0;
+  overflow-wrap: anywhere;
+}
