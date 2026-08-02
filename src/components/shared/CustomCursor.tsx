@@ -1,56 +1,197 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useRef } from "react";
 import { useReducedMotion } from "framer-motion";
 
 export default function CustomCursor() {
-  const dotRef = useRef<HTMLSpanElement>(null);
-  const ringRef = useRef<HTMLSpanElement>(null);
+  const dumbbellRef = useRef<HTMLSpanElement>(null);
+  const haloRef = useRef<HTMLSpanElement>(null);
   const reduceMotion = useReducedMotion();
 
   useEffect(() => {
-    if (reduceMotion || !window.matchMedia("(pointer: fine)").matches) return;
-    const dot = dotRef.current;
-    const ring = ringRef.current;
-    if (!dot || !ring) return;
-    document.documentElement.classList.add("custom-cursor-active");
-    let x = -80;
-    let y = -80;
-    let ringX = -80;
-    let ringY = -80;
-    let frame = 0;
+    const finePointer = window.matchMedia(
+      "(pointer: fine) and (hover: hover)",
+    ).matches;
+
+    if (reduceMotion || !finePointer) {
+      return;
+    }
+
+    const dumbbell = dumbbellRef.current;
+    const halo = haloRef.current;
+
+    if (!dumbbell || !halo) {
+      return;
+    }
+
+    document.documentElement.classList.add(
+      "custom-cursor-active",
+    );
+
+    let pointerX = -100;
+    let pointerY = -100;
+    let haloX = -100;
+    let haloY = -100;
+    let animationFrame = 0;
+
     const render = () => {
-      ringX += (x - ringX) * 0.17;
-      ringY += (y - ringY) * 0.17;
-      dot.style.transform = `translate3d(${x}px,${y}px,0)`;
-      ring.style.transform = `translate3d(${ringX}px,${ringY}px,0)`;
-      frame = window.requestAnimationFrame(render);
+      haloX += (pointerX - haloX) * 0.16;
+      haloY += (pointerY - haloY) * 0.16;
+
+      dumbbell.style.transform =
+        `translate3d(${pointerX}px, ${pointerY}px, 0) ` +
+        "translate(-50%, -50%) rotate(-24deg)";
+
+      halo.style.transform =
+        `translate3d(${haloX}px, ${haloY}px, 0) ` +
+        "translate(-50%, -50%)";
+
+      animationFrame =
+        window.requestAnimationFrame(render);
     };
-    const move = (event: PointerEvent) => {
-      x = event.clientX;
-      y = event.clientY;
-      dot.style.opacity = "1";
-      ring.style.opacity = "1";
+
+    const showCursor = () => {
+      dumbbell.classList.add("is-visible");
+      halo.classList.add("is-visible");
     };
-    const over = (event: PointerEvent) => {
-      const target = event.target instanceof Element ? event.target : null;
-      ring.classList.toggle("is-active", Boolean(target?.closest("a,button,[data-cursor]")));
+
+    const hideCursor = () => {
+      dumbbell.classList.remove("is-visible");
+      halo.classList.remove("is-visible");
     };
-    frame = window.requestAnimationFrame(render);
-    window.addEventListener("pointermove", move, { passive: true });
-    document.addEventListener("pointerover", over, { passive: true });
+
+    const handleMove = (event: PointerEvent) => {
+      pointerX = event.clientX;
+      pointerY = event.clientY;
+      showCursor();
+    };
+
+    const handleHover = (event: PointerEvent) => {
+      const target =
+        event.target instanceof Element
+          ? event.target
+          : null;
+
+      const interactive = Boolean(
+        target?.closest(
+          "a, button, input, textarea, select, label, [data-cursor]",
+        ),
+      );
+
+      dumbbell.classList.toggle(
+        "is-active",
+        interactive,
+      );
+
+      halo.classList.toggle(
+        "is-active",
+        interactive,
+      );
+    };
+
+    const handlePointerDown = () => {
+      dumbbell.classList.add("is-pressed");
+      halo.classList.add("is-pressed");
+    };
+
+    const handlePointerUp = () => {
+      dumbbell.classList.remove("is-pressed");
+      halo.classList.remove("is-pressed");
+    };
+
+    animationFrame =
+      window.requestAnimationFrame(render);
+
+    window.addEventListener(
+      "pointermove",
+      handleMove,
+      { passive: true },
+    );
+
+    document.addEventListener(
+      "pointerover",
+      handleHover,
+      { passive: true },
+    );
+
+    document.addEventListener(
+      "pointerdown",
+      handlePointerDown,
+      { passive: true },
+    );
+
+    document.addEventListener(
+      "pointerup",
+      handlePointerUp,
+      { passive: true },
+    );
+
+    document.documentElement.addEventListener(
+      "mouseleave",
+      hideCursor,
+    );
+
+    document.documentElement.addEventListener(
+      "mouseenter",
+      showCursor,
+    );
+
     return () => {
-      window.cancelAnimationFrame(frame);
-      window.removeEventListener("pointermove", move);
-      document.removeEventListener("pointerover", over);
-      document.documentElement.classList.remove("custom-cursor-active");
+      window.cancelAnimationFrame(animationFrame);
+
+      window.removeEventListener(
+        "pointermove",
+        handleMove,
+      );
+
+      document.removeEventListener(
+        "pointerover",
+        handleHover,
+      );
+
+      document.removeEventListener(
+        "pointerdown",
+        handlePointerDown,
+      );
+
+      document.removeEventListener(
+        "pointerup",
+        handlePointerUp,
+      );
+
+      document.documentElement.removeEventListener(
+        "mouseleave",
+        hideCursor,
+      );
+
+      document.documentElement.removeEventListener(
+        "mouseenter",
+        showCursor,
+      );
+
+      document.documentElement.classList.remove(
+        "custom-cursor-active",
+      );
     };
   }, [reduceMotion]);
 
   return (
     <div className="cursor" aria-hidden="true">
-      <span className="cursor__dot" ref={dotRef} />
-      <span className="cursor__ring" ref={ringRef} />
+      <span
+        className="cursor__halo"
+        ref={haloRef}
+      />
+
+      <span
+        className="cursor__dumbbell"
+        ref={dumbbellRef}
+      >
+        <span className="cursor__bar" />
+
+        <span className="cursor__plate cursor__plate--left" />
+
+        <span className="cursor__plate cursor__plate--right" />
+      </span>
     </div>
   );
 }
