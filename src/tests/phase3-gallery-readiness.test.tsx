@@ -62,7 +62,7 @@ describe("Phase 3 gallery content readiness", () => {
     ).toBeInTheDocument();
     expect(
       screen.getByRole("img", {
-        name: /rows of black and red dumbbells/i,
+        name: /close perspective of Tiger Gym's mirrored free-weight area/i,
       }),
     ).toBeInTheDocument();
     expect(screen.queryByText(/gallery photography is still pending/i)).not.toBeInTheDocument();
@@ -91,7 +91,7 @@ describe("Phase 3 gallery content readiness", () => {
     ).toBeInTheDocument();
     expect(
       screen.getByRole("img", {
-        name: /صفوف من الدمبل الأسود والأحمر/i,
+        name: /منظور قريب لمنطقة الأوزان الحرة/i,
       }),
     ).toBeInTheDocument();
     expect(screen.queryByText("صور المعرض قيد الإضافة.")).not.toBeInTheDocument();

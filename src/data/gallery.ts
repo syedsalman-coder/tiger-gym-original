@@ -4,22 +4,6 @@ import { localized, type GalleryImage, type GalleryPlaceholder } from "./types";
 export const galleryImages = [
   {
     status: "confirmed",
-    id: "tiger-gym-logo",
-    src: "/tiger-logo.png",
-    alt: localized(
-      "Tiger Gym Fitness Center logo with a yellow tiger and kettlebell emblem on a black circular badge.",
-      "شعار مركز Tiger Gym للياقة البدنية، ويظهر نمر أصفر ورمز كرة حديدية داخل شارة دائرية سوداء.",
-    ),
-    title: localized("Tiger Gym Fitness Center logo", "شعار مركز Tiger Gym للياقة البدنية"),
-    description: localized(
-      "The official yellow-and-black Tiger Gym brand mark supplied with this website.",
-      "العلامة الرسمية الصفراء والسوداء لـ Tiger Gym والمزوّدة مع هذا الموقع.",
-    ),
-    width: 1233,
-    height: 865,
-  },
-  {
-    status: "confirmed",
     id: "tiger-gym-interior",
     src: "/images/tiger-gym-interior.webp",
     alt: localized(
@@ -46,22 +30,6 @@ export const galleryImages = [
     description: localized(
       "The exterior of the building where Tiger Gym is located on Amman Street in Salmiya.",
       "الواجهة الخارجية للمبنى الذي يقع فيه Tiger Gym في شارع عمّان بالسالمية.",
-    ),
-    width: 1000,
-    height: 1000,
-  },
-  {
-    status: "confirmed",
-    id: "tiger-gym-dumbbells",
-    src: "/images/tiger-gym-dumbbells.webp",
-    alt: localized(
-      "Rows of black and red dumbbells in front of mirrors inside Tiger Gym with yellow benches and equipment.",
-      "صفوف من الدمبل الأسود والأحمر أمام المرايا داخل Tiger Gym مع مقاعد ومعدات صفراء.",
-    ),
-    title: localized("Free-weight and dumbbell area", "منطقة الأوزان الحرة والدمبل"),
-    description: localized(
-      "The mirrored dumbbell area with a broad range of free weights and dedicated benches.",
-      "منطقة الدمبل المحاطة بالمرايا مع مجموعة واسعة من الأوزان الحرة والمقاعد المخصصة.",
     ),
     width: 1000,
     height: 1000,

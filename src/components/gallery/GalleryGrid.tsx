@@ -10,10 +10,8 @@ import { getDictionary, interpolate } from "@/i18n/dictionaries";
 import GalleryLightbox, { type GalleryLightboxImage } from "./GalleryLightbox";
 
 const imageLayoutClasses: Record<string, string> = {
-  "tiger-gym-logo": "gallery-grid__item--logo",
   "tiger-gym-interior": "gallery-grid__item--wide",
   "tiger-gym-building": "gallery-grid__item--tall",
-  "tiger-gym-dumbbells": "gallery-grid__item--standard",
   "tiger-gym-strength-floor": "gallery-grid__item--standard",
   "tiger-gym-free-weights-floor": "gallery-grid__item--standard",
   "tiger-gym-cardio-treadmills": "gallery-grid__item--standard",
@@ -55,10 +53,7 @@ export function GalleryGrid({ locale }: { locale: Locale }) {
           const verifiedImage = verifiedImages[index];
           const layoutClass =
             imageLayoutClasses[image.id] ?? "gallery-grid__item--standard";
-          const imageModeClass =
-            image.id === "tiger-gym-logo"
-              ? "gallery-card--logo"
-              : "gallery-card--photo";
+          const imageModeClass = "gallery-card--photo";
 
           return (
             <motion.li
