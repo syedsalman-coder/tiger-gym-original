@@ -66,7 +66,63 @@ export const galleryImages = [
     width: 1000,
     height: 1000,
   },
-] as const satisfies readonly GalleryImage[];
+  {
+    status: "confirmed",
+    id: "tiger-gym-strength-floor",
+    src: "/images/tiger-gym-strength-floor.webp",
+    alt: localized(
+      "Low-angle view through Tiger Gym's strength floor with yellow plate-loaded stations, benches and black rubber flooring.",
+      "منظر منخفض عبر مساحة تدريبات القوة في Tiger Gym مع أجهزة صفراء ومقاعد وأرضية مطاطية سوداء.",
+    ),
+    title: localized(
+      "Strength floor and plate-loaded stations",
+      "مساحة القوة وأجهزة الأوزان",
+    ),
+    description: localized(
+      "A floor-level view showing the depth of Tiger Gym's black-and-yellow strength-training space.",
+      "منظر من مستوى الأرض يوضح امتداد مساحة تدريبات القوة باللونين الأسود والأصفر في Tiger Gym.",
+    ),
+    width: 900,
+    height: 1600,
+  },
+  {
+    status: "confirmed",
+    id: "tiger-gym-free-weights-floor",
+    src: "/images/tiger-gym-free-weights.webp",
+    alt: localized(
+      "Close perspective of Tiger Gym's mirrored free-weight area with red and black dumbbells.",
+      "منظور قريب لمنطقة الأوزان الحرة المزودة بالمرايا في Tiger Gym مع دمبل حمراء وسوداء.",
+    ),
+    title: localized(
+      "Mirrored free-weight and dumbbell area",
+      "منطقة الأوزان الحرة والدمبل",
+    ),
+    description: localized(
+      "A long view along Tiger Gym's dumbbell racks, benches and mirrored training wall.",
+      "منظر ممتد على رفوف الدمبل والمقاعد والجدار المزود بالمرايا داخل Tiger Gym.",
+    ),
+    width: 900,
+    height: 1600,
+  },
+  {
+    status: "confirmed",
+    id: "tiger-gym-cardio-treadmills",
+    src: "/images/tiger-gym-cardio-treadmills.webp",
+    alt: localized(
+      "A line of treadmills in Tiger Gym's black-and-yellow cardio area.",
+      "صف من أجهزة المشي في منطقة الكارديو السوداء والصفراء داخل Tiger Gym.",
+    ),
+    title: localized(
+      "Tiger Gym treadmill area",
+      "منطقة أجهزة المشي في Tiger Gym",
+    ),
+    description: localized(
+      "The dedicated treadmill line inside the gym's black-and-yellow cardio section.",
+      "صف أجهزة المشي المخصص داخل منطقة الكارديو باللونين الأسود والأصفر.",
+    ),
+    width: 900,
+    height: 1600,
+  },] as const satisfies readonly GalleryImage[];
 
 export const galleryPlaceholders: readonly GalleryPlaceholder[] = [];
 
@@ -76,8 +132,8 @@ export const galleryContent = {
   metadata: {
     title: localized("Gallery | Tiger Gym Salmiya", "المعرض | Tiger Gym السالمية"),
     description: localized(
-      "Explore official photos of Tiger Gym's training floor, building and free-weight area in Salmiya, Kuwait.",
-      "شاهد الصور الرسمية لمساحة تدريب Tiger Gym والمبنى ومنطقة الأوزان الحرة في السالمية، الكويت.",
+      "Explore official photos of Tiger Gym's strength floor, free-weight area, treadmills and building in Salmiya, Kuwait.",
+      "شاهد الصور الرسمية لمساحة القوة ومنطقة الأوزان الحرة وأجهزة المشي ومبنى Tiger Gym في السالمية، الكويت.",
     ),
   },
   hero: {

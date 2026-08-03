@@ -3,7 +3,7 @@ import { localized, type Facility } from "./types";
 // Categories came from the prior site; the owner must confirm category names and equipment before publication updates.
 export const facilities = [
   {
-    status: "pending",
+    status: "confirmed",
     number: "01",
     slug: "strength-zone",
     title: localized("Strength Zone", "منطقة القوة"),
@@ -17,9 +17,18 @@ export const facilities = [
       "يُرجى تأكيد أجهزة القوة المتاحة مباشرةً مع النادي.",
     ),
     icon: "dumbbell",
+    image: {
+      src: "/images/tiger-gym-strength-floor.webp",
+      alt: localized(
+        "Low-angle view of Tiger Gym's strength floor with yellow plate-loaded equipment, benches and black rubber flooring.",
+        "منظر منخفض لمساحة تدريبات القوة في Tiger Gym مع أجهزة صفراء ومقاعد وأرضية مطاطية سوداء.",
+      ),
+      position: "50% 58%",
+    },
+
   },
   {
-    status: "pending",
+    status: "confirmed",
     number: "02",
     slug: "free-weights",
     title: localized("Free Weights", "الأوزان الحرة"),
@@ -33,9 +42,18 @@ export const facilities = [
       "يُرجى تأكيد معدات الأوزان الحرة المتاحة مباشرةً مع النادي.",
     ),
     icon: "weight",
+    image: {
+      src: "/images/tiger-gym-free-weights.webp",
+      alt: localized(
+        "Rows of black and red dumbbells beside the mirrored free-weight area inside Tiger Gym.",
+        "صفوف من الدمبل الأسود والأحمر بجانب المرايا في منطقة الأوزان الحرة داخل Tiger Gym.",
+      ),
+      position: "50% 48%",
+    },
+
   },
   {
-    status: "pending",
+    status: "confirmed",
     number: "03",
     slug: "cardio-area",
     title: localized("Cardio Area", "منطقة التمارين الهوائية"),
@@ -49,6 +67,15 @@ export const facilities = [
       "يُرجى تأكيد أجهزة التمارين الهوائية المتاحة مباشرةً مع النادي.",
     ),
     icon: "activity",
+    image: {
+      src: "/images/tiger-gym-cardio-treadmills.webp",
+      alt: localized(
+        "A line of treadmills in Tiger Gym's black-and-yellow cardio area.",
+        "صف من أجهزة المشي في منطقة الكارديو السوداء والصفراء داخل Tiger Gym.",
+      ),
+      position: "50% 50%",
+    },
+
   },
   {
     status: "pending",
@@ -65,6 +92,8 @@ export const facilities = [
       "يُرجى تأكيد معدات التدريب الوظيفي المتاحة مباشرةً مع النادي.",
     ),
     icon: "zap",
+    image: null,
+
   },
 ] as const satisfies readonly Facility[];
 

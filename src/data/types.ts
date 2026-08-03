@@ -35,6 +35,11 @@ export type Facility = Readonly<{
   description: LocalizedText;
   detail: LocalizedText;
   icon: FacilityIconName;
+  image: Readonly<{
+    src: string;
+    alt: LocalizedText;
+    position?: string;
+  }> | null;
 }>;
 
 export type MembershipIconName = "message" | "phone" | "location";

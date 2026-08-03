@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import {
   Activity,
   BicepsFlexed,
@@ -106,22 +107,49 @@ export default async function FacilitiesPage({
                 >
                   <div
                     className="facility-row__visual"
-                    aria-hidden="true"
+                    aria-hidden={
+                      facility.image
+                        ? undefined
+                        : true
+                    }
                   >
+                    {facility.image ? (
+                      <>
+                        <Image
+                          className="facility-row__image"
+                          src={facility.image.src}
+                          alt={text(facility.image.alt)}
+                          fill
+                          sizes="(max-width: 767px) 100vw, 50vw"
+                          style={{
+                            objectPosition:
+                              facility.image.position ??
+                              "center",
+                          }}
+                        />
+
+                        <span
+                          className="facility-row__image-shade"
+                          aria-hidden="true"
+                        />
+                      </>
+                    ) : (
+                      <div className="facility-row__plates">
+                        <span />
+                        <span />
+                        <span />
+                        <strong>TG</strong>
+                      </div>
+                    )}
+
                     <span className="facility-row__number">
                       {facility.number}
                     </span>
 
-                    <div className="facility-row__plates">
-                      <span />
-                      <span />
-                      <span />
-                      <strong>TG</strong>
-                    </div>
-
                     <Icon
                       size={32}
                       strokeWidth={1.25}
+                      aria-hidden="true"
                     />
                   </div>
 
