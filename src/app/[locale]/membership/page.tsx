@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { MapPin, MessageCircle, Phone } from "lucide-react";
 import MembershipForm from "@/components/contact/MembershipForm";
-import ContentStatusNotice from "@/components/shared/ContentStatusNotice";
 
 import MagneticButton from "@/components/shared/MagneticButton";
 import PageHero from "@/components/shared/PageHero";
@@ -32,7 +31,6 @@ export default async function MembershipPage({ params }: { params: LocaleParams 
       <section className="membership-options section-space" id="membership-options">
         <div className="page-shell">
           <SectionHeading number={text(content.section.number)} eyebrow={text(content.section.eyebrow)} title={text(content.section.title)} />
-          <ContentStatusNotice locale={locale} status="pending" title={content.section.readiness.title} description={content.section.readiness.description} note={content.section.readiness.note} />
           <div className="membership-options__grid">
             {membershipOptions.map((option, index) => {
               const Icon = icons[option.icon];

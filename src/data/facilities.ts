@@ -13,8 +13,8 @@ export const facilities = [
       "فئة مخصّصة لتدريبات القوة المنظّمة.",
     ),
     detail: localized(
-      "Confirm the available strength equipment directly with the gym.",
-      "يُرجى تأكيد أجهزة القوة المتاحة مباشرةً مع النادي.",
+      "A dedicated space for structured strength and plate-loaded training.",
+      "مساحة مخصصة لتدريبات القوة المنظمة وتمارين الأوزان المحملة.",
     ),
     icon: "dumbbell",
     image: {
@@ -38,8 +38,8 @@ export const facilities = [
       "فئة لحركات الأوزان الحرة وأساسيات كمال الأجسام.",
     ),
     detail: localized(
-      "Confirm the available free-weight equipment directly with the gym.",
-      "يُرجى تأكيد معدات الأوزان الحرة المتاحة مباشرةً مع النادي.",
+      "A mirrored free-weight and dumbbell area for strength and bodybuilding sessions.",
+      "منطقة مزودة بالمرايا للأوزان الحرة والدمبل وتدريبات القوة وكمال الأجسام.",
     ),
     icon: "weight",
     image: {
@@ -63,8 +63,8 @@ export const facilities = [
       "فئة لرفع القدرة على التحمّل وتعزيز اللياقة العامة.",
     ),
     detail: localized(
-      "Confirm the available cardio equipment directly with the gym.",
-      "يُرجى تأكيد أجهزة التمارين الهوائية المتاحة مباشرةً مع النادي.",
+      "A dedicated treadmill area for cardio, stamina and general conditioning.",
+      "منطقة مخصصة لأجهزة المشي وتمارين الكارديو والتحمل واللياقة العامة.",
     ),
     icon: "activity",
     image: {
@@ -88,8 +88,8 @@ export const facilities = [
       "فئة مرنة للتدريب الذي يركّز على الحركة.",
     ),
     detail: localized(
-      "Confirm the available functional-training equipment directly with the gym.",
-      "يُرجى تأكيد معدات التدريب الوظيفي المتاحة مباشرةً مع النادي.",
+      "A flexible area for movement-focused and personal fitness training.",
+      "مساحة مرنة للتدريب الحركي وتمارين اللياقة الشخصية.",
     ),
     icon: "zap",
     image: null,
@@ -112,8 +112,8 @@ export const facilitiesContent = {
     eyebrow: localized("The training floor", "مساحة التدريب"),
     title: localized("Space for serious sessions.", "مساحة لحصص جادّة."),
     description: localized(
-      "Four training categories carried forward from Tiger Gym's existing information.",
-      "أربع فئات تدريب منقولة من المعلومات الحالية لـ Tiger Gym.",
+      "Explore strength, free-weight, cardio and functional-training areas at Tiger Gym.",
+      "استكشف مناطق القوة والأوزان الحرة والكارديو والتدريب الوظيفي في Tiger Gym.",
     ),
     nextLabel: localized("View training areas", "عرض مناطق التدريب"),
     nextHref: "#training-areas",
@@ -123,24 +123,10 @@ export const facilitiesContent = {
     eyebrow: localized("Listed categories", "الفئات المدرجة"),
     title: localized("Choose the work.", "اختر نوع التدريب."),
     description: localized(
-      "Category and equipment details remain pending until confirmed by the gym owner.",
-      "تبقى تفاصيل الفئات والمعدات قيد التأكيد من مالك النادي.",
+      "Explore the main training areas available at Tiger Gym.",
+      "استكشف مناطق التدريب الرئيسية المتاحة في Tiger Gym.",
     ),
     detailLabel: localized("Training focus", "محور التدريب"),
-    readiness: {
-      title: localized(
-        "Training details are being verified.",
-        "تفاصيل التدريب قيد التأكيد.",
-      ),
-      description: localized(
-        "Some details are pending owner confirmation, so each area is shown as a training category instead of a final equipment list.",
-        "بعض التفاصيل قيد تأكيد المالك، لذلك تُعرض كل منطقة كفئة تدريب وليس كقائمة نهائية بالمعدات.",
-      ),
-      note: localized(
-        "Confirm equipment availability with the Tiger Gym team before planning a specific workout.",
-        "تأكّد من توفر المعدات مع فريق Tiger Gym قبل التخطيط لتمرين محدد.",
-      ),
-    },
   },
   preview: {
     number: localized("03", "03"),
