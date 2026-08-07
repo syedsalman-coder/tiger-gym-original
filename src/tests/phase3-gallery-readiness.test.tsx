@@ -43,7 +43,7 @@ describe("Phase 3 gallery content readiness", () => {
     render(page);
 
     expect(
-      screen.getByRole("heading", { name: "The floor. The equipment. The place." }),
+      screen.getByRole("heading", { name: "See Tiger Gym before you visit." }),
     ).toBeInTheDocument();
     expect(
       screen.getByText(
@@ -74,7 +74,7 @@ describe("Phase 3 gallery content readiness", () => {
     render(page);
 
     expect(
-      screen.getByRole("heading", { name: "المساحة. المعدات. المكان." }),
+      screen.getByRole("heading", { name: "شاهد Tiger Gym قبل زيارتك." }),
     ).toBeInTheDocument();
     expect(
       screen.getByText("تم توفير هذه الصور الرسمية لموقع Tiger Gym وتحسينها للتحميل السريع."),

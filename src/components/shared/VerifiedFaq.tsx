@@ -1,46 +1,96 @@
 import { site } from "@/data/site";
-import { getLocalizedValue, type Locale } from "@/i18n/config";
+import {
+  getLocalizedValue,
+  type Locale,
+} from "@/i18n/config";
 
-export default function VerifiedFaq({ locale }: { locale: Locale }) {
-  const text = (value: Parameters<typeof getLocalizedValue>[0]) =>
-    getLocalizedValue(value, locale);
+export default function VerifiedFaq({
+  locale,
+}: {
+  locale: Locale;
+}) {
+  const text = (
+    value: Parameters<
+      typeof getLocalizedValue
+    >[0],
+  ) => getLocalizedValue(value, locale);
 
   const items =
     locale === "ar"
       ? [
           {
-            question: "Ø£ÙŠÙ† ÙŠÙ‚Ø¹ Tiger GymØŸ",
-            answer: `ÙŠÙ‚Ø¹ Tiger Gym ÙÙŠ ${text(site.address)}.`,
+            question:
+              "أين يقع Tiger Gym في السالمية؟",
+            answer:
+              `يقع Tiger Gym في ${text(site.address)}.`,
           },
           {
-            question: "Ù…Ø§ Ø³Ø§Ø¹Ø§Øª Ø¹Ù…Ù„ Tiger GymØŸ",
-            answer: `${text(site.openingHours.regularDays)}: ${text(site.openingHours.regularTime)}. ${text(site.openingHours.fridayDays)}: ${text(site.openingHours.fridayTime)}.`,
+            question:
+              "ما ساعات عمل Tiger Gym؟",
+            answer:
+              `${text(site.openingHours.regularDays)}: ${text(site.openingHours.regularTime)}. ${text(site.openingHours.fridayDays)}: ${text(site.openingHours.fridayTime)}.`,
           },
           {
-            question: "ÙƒÙŠÙ ÙŠÙ…ÙƒÙ†Ù†ÙŠ Ø§Ù„ØªÙˆØ§ØµÙ„ Ù…Ø¹ Tiger GymØŸ",
-            answer: `ÙŠÙ…ÙƒÙ†Ùƒ Ø§Ù„Ø§ØªØµØ§Ù„ Ø¹Ù„Ù‰ ${site.phoneDisplay} Ø£Ùˆ Ø§Ù„ØªÙˆØ§ØµÙ„ Ø¹Ø¨Ø± ÙˆØ§ØªØ³Ø§Ø¨ Ø£Ùˆ Ø§Ù„Ø¨Ø±ÙŠØ¯ Ø§Ù„Ø¥Ù„ÙƒØªØ±ÙˆÙ†ÙŠ ${site.email}.`,
+            question:
+              "ما مناطق التدريب المتوفرة في Tiger Gym؟",
+            answer:
+              "يعرض الموقع مناطق مخصصة لتدريبات القوة والأوزان الحرة والدمبل، إضافة إلى منطقة كارديو تضم أجهزة المشي.",
           },
           {
-            question: "Ù‡Ù„ Ù„Ø¯Ù‰ Tiger Gym Ø­Ø³Ø§Ø¨ Ø¥Ù†Ø³ØªØºØ±Ø§Ù…ØŸ",
-            answer: `Ù†Ø¹Ù…ØŒ Ø§Ù„Ø­Ø³Ø§Ø¨ Ø§Ù„Ø±Ø³Ù…ÙŠ Ù‡Ùˆ ${site.instagramHandle}.`,
+            question:
+              "كيف أعرف سعر اشتراك Tiger Gym الحالي؟",
+            answer:
+              `تواصل مباشرةً مع Tiger Gym عبر واتساب أو الهاتف على ${site.phoneDisplay} للاستفسار عن أسعار العضوية وخيارات الدخول الحالية.`,
+          },
+          {
+            question:
+              "هل يمكنني التواصل مع Tiger Gym عبر واتساب؟",
+            answer:
+              `نعم. يمكنك مراسلة Tiger Gym عبر واتساب على الرقم ${site.phoneDisplay}.`,
+          },
+          {
+            question:
+              "أين يمكنني مشاهدة صور Tiger Gym قبل الزيارة؟",
+            answer:
+              `يمكنك مشاهدة صور النادي الحقيقية في صفحة المعرض أو عبر حساب إنستغرام الرسمي ${site.instagramHandle}.`,
           },
         ]
       : [
           {
-            question: "Where is Tiger Gym located?",
-            answer: `Tiger Gym is located at ${text(site.address)}.`,
+            question:
+              "Where is Tiger Gym in Salmiya?",
+            answer:
+              `Tiger Gym is located at ${text(site.address)}.`,
           },
           {
-            question: "What are Tiger Gym's opening hours?",
-            answer: `${text(site.openingHours.regularDays)}: ${text(site.openingHours.regularTime)}. ${text(site.openingHours.fridayDays)}: ${text(site.openingHours.fridayTime)}.`,
+            question:
+              "What are Tiger Gym's opening hours?",
+            answer:
+              `${text(site.openingHours.regularDays)}: ${text(site.openingHours.regularTime)}. ${text(site.openingHours.fridayDays)}: ${text(site.openingHours.fridayTime)}.`,
           },
           {
-            question: "How can I contact Tiger Gym?",
-            answer: `Call ${site.phoneDisplay}, message on WhatsApp, or email ${site.email}.`,
+            question:
+              "What training areas are available at Tiger Gym?",
+            answer:
+              "The website shows dedicated strength-training areas, a mirrored free-weight and dumbbell section, and a cardio area with treadmills.",
           },
           {
-            question: "Does Tiger Gym have Instagram?",
-            answer: `Yes. The official Instagram account is ${site.instagramHandle}.`,
+            question:
+              "How do I check the current Tiger Gym membership price?",
+            answer:
+              `Contact Tiger Gym directly on WhatsApp or call ${site.phoneDisplay} to ask about current membership prices and access options.`,
+          },
+          {
+            question:
+              "Can I contact Tiger Gym on WhatsApp?",
+            answer:
+              `Yes. You can message Tiger Gym on WhatsApp using ${site.phoneDisplay}.`,
+          },
+          {
+            question:
+              "Where can I see Tiger Gym photos before visiting?",
+            answer:
+              `View the official gallery on this website or visit the Tiger Gym Instagram account ${site.instagramHandle}.`,
           },
         ];
 
@@ -60,38 +110,61 @@ export default function VerifiedFaq({ locale }: { locale: Locale }) {
   const labels =
     locale === "ar"
       ? {
-          ariaLabel: "Ø§Ù„Ø£Ø³Ø¦Ù„Ø© Ø§Ù„Ø´Ø§Ø¦Ø¹Ø© Ø¹Ù† Tiger Gym",
-          eyebrow: "Ù…Ø¹Ù„ÙˆÙ…Ø§Øª Ù…Ø¤ÙƒØ¯Ø©",
-          title: "Ø®Ø·Ù‘Ø· Ù„Ø²ÙŠØ§Ø±ØªÙƒ Ø¨Ø«Ù‚Ø©.",
+          ariaLabel:
+            "الأسئلة الشائعة عن Tiger Gym",
+          eyebrow:
+            "معلومات مفيدة قبل الزيارة",
+          title:
+            "كل ما تحتاجه قبل تدريبك.",
           description:
-            "Ø¥Ø¬Ø§Ø¨Ø§Øª Ù…Ø®ØªØµØ±Ø© Ù…Ø¨Ù†ÙŠØ© Ø¹Ù„Ù‰ ØªÙØ§ØµÙŠÙ„ Ø§Ù„ØªÙˆØ§ØµÙ„ ÙˆØ§Ù„Ù…ÙˆÙ‚Ø¹ ÙˆØ³Ø§Ø¹Ø§Øª Ø§Ù„Ø¹Ù…Ù„ Ø§Ù„Ù…Ø¤ÙƒØ¯Ø©.",
+            "إجابات سريعة حول موقع Tiger Gym وساعات العمل ومناطق التدريب والعضوية وطرق التواصل.",
         }
       : {
-          ariaLabel: "Tiger Gym frequently asked questions",
-          eyebrow: "Verified information",
-          title: "Plan your visit with confidence.",
+          ariaLabel:
+            "Tiger Gym frequently asked questions",
+          eyebrow:
+            "Plan your visit",
+          title:
+            "What to know before you train.",
           description:
-            "Quick answers based on confirmed location, contact, and opening-hour details.",
+            "Quick answers about the Tiger Gym location, opening hours, training areas, membership enquiries and contact options.",
         };
 
   return (
-    <section className="faq-section section-space" aria-label={labels.ariaLabel}>
+    <section
+      className="faq-section section-space"
+      aria-label={labels.ariaLabel}
+    >
       <script
         type="application/ld+json"
         suppressHydrationWarning
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(schema).replace(/</g, "\\u003c"),
+          __html: JSON.stringify(
+            schema,
+          ).replace(/</g, "\\u003c"),
         }}
       />
-      <div className="page-shell faq-section__panel" data-reveal>
+
+      <div
+        className="page-shell faq-section__panel"
+        data-reveal
+      >
         <div className="faq-section__copy">
-          <span className="eyebrow">{labels.eyebrow}</span>
+          <span className="eyebrow">
+            {labels.eyebrow}
+          </span>
+
           <h2>{labels.title}</h2>
+
           <p>{labels.description}</p>
         </div>
+
         <div className="responsive-grid">
           {items.map((item) => (
-            <article className="philosophy__card" key={item.question}>
+            <article
+              className="philosophy__card"
+              key={item.question}
+            >
               <h3>{item.question}</h3>
               <p>{item.answer}</p>
             </article>

@@ -9,12 +9,12 @@ export const facilities = [
     title: localized("Strength Zone", "منطقة القوة"),
     shortTitle: localized("Strength Training", "تدريبات القوة"),
     description: localized(
-      "A focused category for structured strength training.",
-      "فئة مخصّصة لتدريبات القوة المنظّمة.",
+      "Plate-loaded strength training with dedicated stations and benches.",
+      "تدريبات قوة باستخدام أجهزة محمّلة بالأوزان مع محطات ومقاعد مخصصة.",
     ),
     detail: localized(
-      "A dedicated space for structured strength and plate-loaded training.",
-      "مساحة مخصصة لتدريبات القوة المنظمة وتمارين الأوزان المحملة.",
+      "Train in a black-and-yellow strength area with plate-loaded stations and benches shown in official Tiger Gym photos.",
+      "تدرّب في منطقة قوة باللونين الأسود والأصفر مع أجهزة محمّلة بالأوزان ومقاعد تظهر في صور Tiger Gym الرسمية.",
     ),
     icon: "dumbbell",
     image: {
@@ -34,12 +34,12 @@ export const facilities = [
     title: localized("Free Weights", "الأوزان الحرة"),
     shortTitle: localized("Free Weight Training", "تدريبات الأوزان الحرة"),
     description: localized(
-      "A category for free-weight movement and bodybuilding fundamentals.",
-      "فئة لحركات الأوزان الحرة وأساسيات كمال الأجسام.",
+      "A mirrored dumbbell and free-weight area for strength and bodybuilding-style training.",
+      "منطقة مزودة بالمرايا للدمبل والأوزان الحرة وتدريبات القوة وأسلوب كمال الأجسام.",
     ),
     detail: localized(
-      "A mirrored free-weight and dumbbell area for strength and bodybuilding sessions.",
-      "منطقة مزودة بالمرايا للأوزان الحرة والدمبل وتدريبات القوة وكمال الأجسام.",
+      "Train with rows of dumbbells, free weights and benches beside the mirrored training wall.",
+      "تدرّب مع صفوف الدمبل والأوزان الحرة والمقاعد بجانب جدار التدريب المزود بالمرايا.",
     ),
     icon: "weight",
     image: {
@@ -59,12 +59,12 @@ export const facilities = [
     title: localized("Cardio Area", "منطقة التمارين الهوائية"),
     shortTitle: localized("Cardio Training", "التمارين الهوائية"),
     description: localized(
-      "A conditioning category for stamina and general fitness.",
-      "فئة لرفع القدرة على التحمّل وتعزيز اللياقة العامة.",
+      "Treadmill-based cardio for conditioning, stamina and general fitness.",
+      "كارديو على أجهزة المشي لتحسين التحمل واللياقة العامة.",
     ),
     detail: localized(
-      "A dedicated treadmill area for cardio, stamina and general conditioning.",
-      "منطقة مخصصة لأجهزة المشي وتمارين الكارديو والتحمل واللياقة العامة.",
+      "Use the dedicated treadmill line for cardio sessions, warm-ups and general conditioning.",
+      "استخدم صف أجهزة المشي المخصص للكارديو والإحماء وتحسين اللياقة العامة.",
     ),
     icon: "activity",
     image: {
@@ -101,10 +101,10 @@ export const facilities = [
 export const facilitiesContent = {
   status: "demo",
   metadata: {
-    title: localized("Gym Facilities | Tiger Gym Salmiya", "مرافق Tiger Gym | السالمية"),
+    title: localized("Gym Facilities in Salmiya | Tiger Gym Kuwait", "مرافق الجيم في السالمية | Tiger Gym الكويت"),
     description: localized(
-      "Explore the training categories currently listed by Tiger Gym in Salmiya.",
-      "استكشف فئات التدريب المدرجة حاليًا لدى Tiger Gym في السالمية.",
+      "Explore Tiger Gym's strength floor, free-weight and dumbbell area, and treadmill cardio section in Salmiya, Kuwait.",
+      "استكشف مساحة القوة ومنطقة الأوزان الحرة والدمبل وقسم الكارديو وأجهزة المشي في Tiger Gym بالسالمية، الكويت.",
     ),
   },
   hero: {
@@ -112,8 +112,8 @@ export const facilitiesContent = {
     eyebrow: localized("The training floor", "مساحة التدريب"),
     title: localized("Space for serious sessions.", "مساحة لحصص جادّة."),
     description: localized(
-      "Explore strength, free-weight, cardio and functional-training areas at Tiger Gym.",
-      "استكشف مناطق القوة والأوزان الحرة والكارديو والتدريب الوظيفي في Tiger Gym.",
+      "Explore the real Tiger Gym training floor in Salmiya, including strength stations, free weights, dumbbells and treadmills.",
+      "استكشف مساحة التدريب الحقيقية في Tiger Gym بالسالمية، بما في ذلك محطات القوة والأوزان الحرة والدمبل وأجهزة المشي.",
     ),
     nextLabel: localized("View training areas", "عرض مناطق التدريب"),
     nextHref: "#training-areas",
@@ -136,7 +136,7 @@ export const facilitiesContent = {
   },
   cta: {
     eyebrow: localized("Train at Tiger Gym", "تدرّب في Tiger Gym"),
-    title: localized("Ask the team about current access.", "اسأل الفريق عن خيارات الدخول الحالية."),
+    title: localized("Plan your training at Tiger Gym.", "خطط لتدريبك في Tiger Gym."),
     label: localized("Membership enquiry", "استفسار عن العضوية"),
     href: "/membership",
   },

@@ -104,9 +104,9 @@ describe("Phase 4 conversion experience", () => {
     const faq = screen.getByRole("region", {
       name: /tiger gym frequently asked questions/i,
     });
-    expect(faq).toHaveTextContent("Where is Tiger Gym located?");
+    expect(faq).toHaveTextContent("Where is Tiger Gym in Salmiya?");
     expect(faq).toHaveTextContent("What are Tiger Gym's opening hours?");
-    expect(faq).toHaveTextContent("tigergymfitnesscenter@gmail.com");
+    expect(faq).toHaveTextContent("+965 6967 8350");
 
     const scripts = Array.from(
       container.querySelectorAll<HTMLScriptElement>('script[type="application/ld+json"]'),
@@ -116,7 +116,7 @@ describe("Phase 4 conversion experience", () => {
       .find((schema) => schema["@type"] === "FAQPage");
 
     expect(faqSchema).toBeDefined();
-    expect(faqSchema.mainEntity).toHaveLength(4);
+    expect(faqSchema.mainEntity).toHaveLength(6);
   });
 
   it("keeps Arabic conversion pages localized with RTL direction support", async () => {

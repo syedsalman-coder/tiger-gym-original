@@ -33,8 +33,8 @@ export const site = {
     ),
   },
   description: localized(
-    "A focused training environment for strength, fitness and serious progress in Salmiya, Kuwait.",
-    "بيئة تدريب مركّزة للقوة واللياقة والتقدّم الجاد في السالمية، الكويت.",
+    "Tiger Gym is a strength-focused fitness center in Salmiya, Kuwait, with dedicated strength, free-weight and cardio training areas and extended opening hours.",
+    "Tiger Gym مركز لياقة بدنية يركّز على تدريبات القوة في السالمية، الكويت، ويضم مناطق مخصصة للقوة والأوزان الحرة والكارديو مع ساعات عمل ممتدة.",
   ),
   mapEmbedUrl:
     "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3306.4774735900473!2d48.05703127531609!3d29.323539475294567!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3fcf9de0ff4906e1%3A0xf9ade87108900d05!2sTIGER%20GYM!5e1!3m2!1sen!2skw!4v1784395125224!5m2!1sen!2skw",

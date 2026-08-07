@@ -98,16 +98,16 @@ export const galleryPlaceholders: readonly GalleryPlaceholder[] = [];
 export const galleryContent = {
   status: "confirmed",
   metadata: {
-    title: localized("Gallery | Tiger Gym Salmiya", "المعرض | Tiger Gym السالمية"),
+    title: localized("Tiger Gym Salmiya Photos | Gym Floor & Equipment", "صور Tiger Gym السالمية | مساحة الجيم والمعدات"),
     description: localized(
-      "Explore official photos of Tiger Gym's strength floor, free-weight area, treadmills and building in Salmiya, Kuwait.",
-      "شاهد الصور الرسمية لمساحة القوة ومنطقة الأوزان الحرة وأجهزة المشي ومبنى Tiger Gym في السالمية، الكويت.",
+      "See official Tiger Gym photos from Salmiya, including the strength floor, free-weight and dumbbell area, treadmills and the gym building.",
+      "شاهد صور Tiger Gym الرسمية في السالمية، بما في ذلك مساحة القوة ومنطقة الأوزان الحرة والدمبل وأجهزة المشي ومبنى النادي.",
     ),
   },
   hero: {
     index: localized("05 / Gallery", "05 / المعرض"),
     eyebrow: localized("Inside Tiger Gym", "داخل Tiger Gym"),
-    title: localized("The floor. The equipment. The place.", "المساحة. المعدات. المكان."),
+    title: localized("See Tiger Gym before you visit.", "شاهد Tiger Gym قبل زيارتك."),
     description: localized(
       "See the real Tiger Gym environment, from the Salmiya building to the strength floor and dumbbell area.",
       "شاهد بيئة Tiger Gym الحقيقية، من مبنى السالمية إلى مساحة القوة ومنطقة الدمبل.",

@@ -6,12 +6,12 @@ export const pageContent = {
     status: "demo",
     metadata: {
       title: localized(
-        "Tiger Gym | Fitness Center in Salmiya, Kuwait",
-        "Tiger Gym | مركز لياقة بدنية في السالمية، الكويت",
+        "Tiger Gym Salmiya | Strength & Fitness Center in Kuwait",
+        "Tiger Gym السالمية | مركز للقوة واللياقة في الكويت",
       ),
       description: localized(
-        "Tiger Gym is a focused strength and fitness center in Salmiya, Kuwait.",
-        "Tiger Gym مركز للقوة واللياقة البدنية في السالمية، الكويت، يوفّر بيئة تدريب مركّزة.",
+        "Train at Tiger Gym in Salmiya, Kuwait. Explore dedicated strength, free-weight and cardio areas, view real gym photos, check opening hours and contact the team directly.",
+        "تدرّب في Tiger Gym بالسالمية، الكويت. استكشف مناطق القوة والأوزان الحرة والكارديو، وشاهد صور النادي الحقيقية، وتعرّف إلى ساعات العمل وطرق التواصل المباشر.",
       ),
     },
     hero: {
@@ -30,12 +30,12 @@ export const pageContent = {
       eyebrow: localized("Tiger Gym", "Tiger Gym"),
       title: localized("Purpose in every rep.", "هدف واضح في كل تكرار."),
       description: localized(
-        "A strength and fitness center in Salmiya built around disciplined training and serious progress.",
-        "مركز للقوة واللياقة في السالمية يقوم على التدريب المنضبط والسعي الجاد نحو التقدّم.",
+        "Tiger Gym is a strength-focused gym in Salmiya for people who want structured training, free weights, cardio and consistent progress.",
+        "Tiger Gym نادٍ يركّز على القوة واللياقة في السالمية لمن يبحث عن تدريب منظم وأوزان حرة وكارديو وتقدّم مستمر.",
       ),
       body: localized(
-        "Strength training, free weights, cardio and functional training come together in one focused environment.",
-        "تجتمع تدريبات القوة والأوزان الحرة والتمارين الهوائية والتدريب الوظيفي في بيئة واحدة مركّزة.",
+        "Train across plate-loaded strength stations, a mirrored free-weight and dumbbell area, and a dedicated treadmill zone in one focused gym environment.",
+        "تدرّب بين أجهزة القوة المحمّلة بالأوزان ومنطقة الدمبل والأوزان الحرة المزودة بالمرايا ومنطقة أجهزة المشي في بيئة تدريب مركّزة واحدة.",
       ),
       linkLabel: localized("Discover Tiger Gym", "تعرّف إلى Tiger Gym"),
       ticker: localized(
@@ -56,24 +56,24 @@ export const pageContent = {
         "حصة تدريب تُروى بالحركة.",
       ),
       description: localized(
-        "A lightweight sticky sequence uses CSS transforms and opacity instead of scroll JavaScript, keeping the homepage cinematic without adding runtime listeners.",
-        "يستخدم هذا التسلسل الثابت مؤثرات CSS للحركة والشفافية بدل JavaScript أثناء التمرير، ليحافظ على الطابع السينمائي دون إضافة مستمعات تشغيلية.",
+        "A serious training session has a rhythm: arrive with a plan, move through the floor with intent, put in the work and leave ready for the next session.",
+        "للحصة الجادة إيقاع واضح: ادخل بخطة، وتحرك في مساحة التدريب بتركيز، وأنجز عملك، ثم اخرج جاهزًا للحصة التالية.",
       ),
       chapters: [
         {
           step: "01",
           title: localized("Enter the floor", "ادخل مساحة التدريب"),
           description: localized(
-            "The hero gives way to a focused training floor built around strength, discipline, and clear intent.",
-            "تنتقل المقدمة إلى مساحة تدريب مركّزة قائمة على القوة والانضباط والهدف الواضح.",
+            "Step into a black-and-yellow training floor built around strength work, free weights, cardio and focused sessions.",
+            "ادخل مساحة تدريب باللونين الأسود والأصفر مهيأة لتدريبات القوة والأوزان الحرة والكارديو والحصص المركّزة.",
           ),
         },
         {
           step: "02",
           title: localized("Set the work", "حدّد العمل"),
           description: localized(
-            "Training categories move into view as deliberate checkpoints rather than heavy media assets.",
-            "تظهر فئات التدريب كنقاط تقدّم مدروسة بدل الاعتماد على وسائط ثقيلة.",
+            "Use the real facility photos and training-area details to plan the kind of session you want before you arrive.",
+            "استخدم صور المرافق الحقيقية وتفاصيل مناطق التدريب لتخطط لنوع الحصة التي تريدها قبل وصولك.",
           ),
         },
         {
@@ -83,8 +83,8 @@ export const pageContent = {
             "اخرج جاهزًا للحصة التالية",
           ),
           description: localized(
-            "The sequence resolves into membership and visit actions so the cinematic moment stays conversion-focused.",
-            "ينتهي التسلسل إلى إجراءات العضوية والزيارة ليبقى المشهد السينمائي موجّهًا نحو التحويل.",
+            "Finish with a clear next step: ask about membership, message the team on WhatsApp or plan your visit to Salmiya.",
+            "اختم بخطوة واضحة: استفسر عن العضوية أو راسل الفريق عبر واتساب أو خطط لزيارتك إلى السالمية.",
           ),
         },
       ],
@@ -113,12 +113,12 @@ export const pageContent = {
     status: "demo",
     metadata: {
       title: localized(
-        "About Tiger Gym | Salmiya, Kuwait",
-        "عن Tiger Gym | السالمية، الكويت",
+        "About Tiger Gym Salmiya | Strength & Fitness Center Kuwait",
+        "عن Tiger Gym السالمية | مركز للقوة واللياقة في الكويت",
       ),
       description: localized(
-        "Learn about Tiger Gym's focused approach to strength, discipline and consistent training in Salmiya, Kuwait.",
-        "تعرّف إلى نهج Tiger Gym المركّز على القوة والانضباط والاستمرارية في التدريب في السالمية، الكويت.",
+        "Learn about Tiger Gym in Salmiya, Kuwait, a strength-focused fitness center with dedicated strength, free-weight and cardio training areas.",
+        "تعرّف إلى Tiger Gym في السالمية، الكويت، وهو مركز لياقة يركّز على القوة ويضم مناطق مخصصة لتدريبات القوة والأوزان الحرة والكارديو.",
       ),
     },
     hero: {
@@ -126,8 +126,8 @@ export const pageContent = {
       eyebrow: localized("Our approach", "نهجنا"),
       title: localized("Built around the work.", "العمل هو الأساس."),
       description: localized(
-        "Tiger Gym is a bodybuilding, strength and fitness center in Salmiya, Kuwait.",
-        "Tiger Gym مركز لكمال الأجسام والقوة واللياقة البدنية في السالمية، الكويت.",
+        "Located on Amman Street in Salmiya, Tiger Gym is a strength-focused fitness center with dedicated areas for strength training, free weights and cardio.",
+        "يقع Tiger Gym في شارع عمّان بالسالمية، وهو مركز لياقة يركّز على القوة ويضم مناطق مخصصة لتدريبات القوة والأوزان الحرة والكارديو.",
       ),
       nextLabel: localized("Our philosophy", "فلسفتنا"),
       nextHref: "#philosophy",
@@ -139,12 +139,12 @@ export const pageContent = {
       ),
       paragraphs: [
         localized(
-          "Tiger Gym brings strength training, free weights, cardio and functional training together in a focused environment for people who want purpose in every session.",
-          "يجمع Tiger Gym تدريبات القوة والأوزان الحرة والتمارين الهوائية والتدريب الوظيفي في بيئة مركّزة لمن يريد هدفًا واضحًا في كل حصة.",
+          "The training floor is built around the work people come to do: plate-loaded strength training, mirrored dumbbell and free-weight sessions, and treadmill-based cardio in one black-and-yellow gym environment.",
+          "صُممت مساحة التدريب حول التمارين التي يأتي الناس من أجلها: تدريبات القوة المحمّلة بالأوزان، والدمبل والأوزان الحرة أمام المرايا، وتمارين الكارديو على أجهزة المشي، ضمن بيئة النادي السوداء والصفراء.",
         ),
         localized(
-          "The philosophy is direct: show up, train with intent and give progress time to compound. Every session is a clear commitment to the work in front of you.",
-          "فلسفتنا واضحة: احضر، وتدرّب بتركيز، وامنح التقدّم وقته ليتراكم. كل حصة التزام صريح بالعمل الذي أمامك.",
+          "Tiger Gym is open from 5:00 AM to 2:00 AM Saturday to Thursday and from 12:00 PM to 2:00 AM on Friday, giving members a wide training window in Salmiya.",
+          "يفتح Tiger Gym من 5:00 صباحًا حتى 2:00 صباحًا من السبت إلى الخميس، ومن 12:00 ظهرًا حتى 2:00 صباحًا يوم الجمعة، ما يمنح الأعضاء وقتًا واسعًا للتدريب في السالمية.",
         ),
       ],
       linkLabel: localized("Explore the training areas", "استكشف مساحات التدريب"),
@@ -203,21 +203,21 @@ export const pageContent = {
     status: "demo",
     metadata: {
       title: localized(
-        "Contact Tiger Gym | Salmiya, Kuwait",
-        "تواصل مع Tiger Gym | السالمية، الكويت",
+        "Tiger Gym Salmiya | Location, Hours & Contact",
+        "Tiger Gym السالمية | الموقع وساعات العمل والتواصل",
       ),
       description: localized(
-        "Call, message, locate or visit Tiger Gym Fitness Center in Salmiya, Kuwait.",
-        "اتصل أو أرسل رسالة أو تعرّف إلى موقع مركز Tiger Gym للياقة البدنية في السالمية، الكويت.",
+        "Find Tiger Gym in Salmiya, Kuwait. Get the Amman Street location, opening hours, phone number, WhatsApp, email and directions for your visit.",
+        "اعثر على Tiger Gym في السالمية، الكويت، وتعرّف إلى موقع شارع عمّان وساعات العمل ورقم الهاتف وواتساب والبريد الإلكتروني والاتجاهات.",
       ),
     },
     hero: {
       index: localized("06 / Contact", "06 / تواصل معنا"),
       eyebrow: localized("Find Tiger Gym", "اعثر على Tiger Gym"),
-      title: localized("Salmiya. Your next session.", "السالمية. حصتك المقبلة."),
+      title: localized("Visit Tiger Gym in Salmiya.", "زُر Tiger Gym في السالمية."),
       description: localized(
-        "Call, message or use the verified map location to plan your visit.",
-        "اتصل أو أرسل رسالة أو استخدم الموقع الموثّق على الخريطة للتخطيط لزيارتك.",
+        "Tiger Gym is located in Building 15, Floor 1 on Amman Street in Salmiya. Call, message on WhatsApp or use the map to plan your visit.",
+        "يقع Tiger Gym في مبنى 15، الطابق الأول، شارع عمّان في السالمية. اتصل أو راسلنا عبر واتساب أو استخدم الخريطة للتخطيط لزيارتك.",
       ),
       nextLabel: localized("Location details", "تفاصيل الموقع"),
       nextHref: "#location",
@@ -225,14 +225,14 @@ export const pageContent = {
     location: {
       number: localized("06.1", "06.1"),
       eyebrow: localized("Location", "الموقع"),
-      title: localized("Get here. Get to work.", "تصل إلى هنا. وتبدأ العمل."),
+      title: localized("Building 15. Amman Street. Salmiya.", "مبنى 15. شارع عمّان. السالمية."),
     },
     formIntro: {
       eyebrow: localized("Contact form", "نموذج التواصل"),
-      title: localized("Prepare a message.", "جهّز رسالتك."),
+      title: localized("Message Tiger Gym.", "راسل Tiger Gym."),
       description: localized(
-        "This form validates your details and opens WhatsApp for you to review and send the message yourself.",
-        "يتحقق هذا النموذج من بياناتك ثم يفتح واتساب لتراجع الرسالة وترسلها بنفسك.",
+        "Enter your details and the form prepares a WhatsApp message for you to review before you send it.",
+        "أدخل بياناتك وسيجهّز النموذج رسالة واتساب لتراجعها قبل إرسالها.",
       ),
     },
     finalCta: {

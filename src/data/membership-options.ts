@@ -7,8 +7,8 @@ export const membershipOptions: readonly MembershipOption[] = [
     id: "monthly-membership",
     title: localized("Monthly Membership", "العضوية الشهرية"),
     description: localized(
-      "Contact Tiger Gym to confirm current monthly membership availability.",
-      "تواصل مع Tiger Gym لتأكيد توفّر العضوية الشهرية حاليًا.",
+      "Ask Tiger Gym for the current monthly membership price, access terms and available start options.",
+      "اسأل Tiger Gym عن السعر الحالي للعضوية الشهرية وشروط الدخول وخيارات بدء الاشتراك.",
     ),
     price: null,
     priceLabel: localized("Contact for current price", "تواصل لمعرفة السعر الحالي"),
@@ -19,8 +19,8 @@ export const membershipOptions: readonly MembershipOption[] = [
     id: "flexible-training-access",
     title: localized("Flexible Training Access", "خيارات دخول مرنة للتدريب"),
     description: localized(
-      "Ask the team which training-access options are currently available.",
-      "اسأل الفريق عن خيارات الدخول إلى التدريب المتاحة حاليًا.",
+      "Tell the team when you plan to train and ask which current access option best fits your schedule.",
+      "أخبر الفريق بوقت تدريبك المعتاد واسأل عن خيار الدخول الحالي الأنسب لجدولك.",
     ),
     price: null,
     priceLabel: localized("Contact for current price", "تواصل لمعرفة السعر الحالي"),
@@ -31,8 +31,8 @@ export const membershipOptions: readonly MembershipOption[] = [
     id: "membership-enquiry",
     title: localized("Membership Enquiry", "استفسار عن العضوية"),
     description: localized(
-      "Visit the gym or prepare a WhatsApp enquiry using the form below.",
-      "زُر النادي أو جهّز استفسارًا عبر واتساب باستخدام النموذج أدناه.",
+      "Message Tiger Gym on WhatsApp or visit the Salmiya gym to ask about current membership details.",
+      "راسل Tiger Gym عبر واتساب أو زُر النادي في السالمية للاستفسار عن تفاصيل العضوية الحالية.",
     ),
     price: null,
     priceLabel: localized("Contact for current price", "تواصل لمعرفة السعر الحالي"),
@@ -44,19 +44,19 @@ export const membershipOptions: readonly MembershipOption[] = [
 export const membershipContent = {
   status: "demo",
   metadata: {
-    title: localized("Membership | Tiger Gym Kuwait", "العضوية | Tiger Gym الكويت"),
+    title: localized("Gym Membership in Salmiya | Tiger Gym Kuwait", "اشتراك الجيم في السالمية | Tiger Gym الكويت"),
     description: localized(
-      "Ask Tiger Gym in Salmiya about current membership options through phone, WhatsApp or an enquiry form.",
-      "استفسر من Tiger Gym في السالمية عن خيارات العضوية الحالية عبر الهاتف أو واتساب أو نموذج الاستفسار.",
+      "Ask Tiger Gym in Salmiya for current gym membership prices and access options. Contact the team by WhatsApp or phone and plan your visit.",
+      "استفسر من Tiger Gym في السالمية عن أسعار اشتراك الجيم وخيارات الدخول الحالية، وتواصل مع الفريق عبر واتساب أو الهاتف وخطط لزيارتك.",
     ),
   },
   hero: {
     index: localized("04 / Membership", "04 / العضوية"),
     eyebrow: localized("Start training", "ابدأ التدريب"),
-    title: localized("Make the enquiry. Do the work.", "استفسر الآن. ثم ابدأ العمل."),
+    title: localized("Start training at Tiger Gym.", "ابدأ التدريب في Tiger Gym."),
     description: localized(
-      "Current membership rates and access options are available directly from the Tiger Gym team.",
-      "يمكن معرفة أسعار العضوية وخيارات الدخول الحالية مباشرةً من فريق Tiger Gym.",
+      "For current membership prices and gym access options, contact the Tiger Gym team directly by WhatsApp, phone or the enquiry form below.",
+      "لمعرفة أسعار العضوية وخيارات دخول الجيم الحالية، تواصل مباشرةً مع فريق Tiger Gym عبر واتساب أو الهاتف أو نموذج الاستفسار أدناه.",
     ),
     nextLabel: localized("Membership options", "خيارات العضوية"),
     nextHref: "#membership-options",
@@ -70,8 +70,8 @@ export const membershipContent = {
     eyebrow: localized("Membership · Speak with our team", "العضوية · تحدّث مع فريقنا"),
     title: localized("Put your next session on the calendar.", "حدّد موعد حصتك المقبلة."),
     description: localized(
-      "Contact Tiger Gym for current membership options and training access details.",
-      "تواصل مع Tiger Gym لمعرفة خيارات العضوية الحالية وتفاصيل الدخول إلى التدريب.",
+      "Message Tiger Gym for current membership prices, access options and visit details in Salmiya.",
+      "راسل Tiger Gym لمعرفة أسعار العضوية الحالية وخيارات الدخول وتفاصيل الزيارة في السالمية.",
     ),
     label: localized("Ask about membership", "استفسر عن العضوية"),
   },
@@ -79,8 +79,8 @@ export const membershipContent = {
     eyebrow: localized("Membership form", "نموذج العضوية"),
     title: localized("Prepare your enquiry.", "جهّز استفسارك."),
     description: localized(
-      "The form validates your details and opens a message for you to review in WhatsApp. Nothing is sent automatically.",
-      "يتحقق النموذج من بياناتك ثم يفتح رسالة لتراجعها في واتساب. لن يُرسل أي شيء تلقائيًا.",
+      "Enter your details and the form prepares a WhatsApp membership message for you to review and send yourself.",
+      "أدخل بياناتك وسيجهّز النموذج رسالة عضوية عبر واتساب لتراجعها وترسلها بنفسك.",
     ),
   },
   finalCta: {
