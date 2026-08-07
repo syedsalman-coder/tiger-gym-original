@@ -4560,3 +4560,151 @@ html[lang="en"] .visit-finale__title h2 {
   }
 }
 /* OFFICIAL GYM PHOTO INTEGRATION END */
+
+/* MOBILE HERO PERFORMANCE AND FOOTER FIX START */
+@media (max-width: 767px) {
+  body {
+    padding-bottom:
+      env(safe-area-inset-bottom) !important;
+  }
+
+  .mobile-action-bar {
+    position: fixed !important;
+    z-index: 155 !important;
+
+    right:
+      max(
+        0.85rem,
+        env(safe-area-inset-right)
+      ) !important;
+
+    left: auto !important;
+
+    bottom:
+      max(
+        0.9rem,
+        calc(
+          env(safe-area-inset-bottom) +
+          0.7rem
+        )
+      ) !important;
+
+    inset-inline: auto !important;
+    inset-block-end: auto !important;
+
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    grid-auto-flow: row !important;
+
+    width: auto !important;
+    padding: 0 !important;
+    gap: 0.5rem !important;
+
+    border: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+
+    transition:
+      opacity 180ms ease,
+      transform 220ms
+        cubic-bezier(
+          0.22,
+          1,
+          0.36,
+          1
+        ) !important;
+  }
+
+  .mobile-action-bar__item {
+    display: grid !important;
+
+    width: 3rem !important;
+    height: 3rem !important;
+    min-width: 3rem !important;
+    min-height: 3rem !important;
+
+    place-items: center !important;
+
+    padding: 0 !important;
+    gap: 0 !important;
+
+    border:
+      1px solid
+      rgba(255, 234, 0, 0.34) !important;
+
+    border-radius: 999px !important;
+
+    background:
+      rgba(7, 7, 7, 0.94) !important;
+
+    color: var(--yellow) !important;
+
+    box-shadow:
+      0 0.75rem 2rem
+        rgba(0, 0, 0, 0.46) !important;
+
+    backdrop-filter: blur(8px) !important;
+
+    font-size: 0 !important;
+  }
+
+  .mobile-action-bar__item > span {
+    display: none !important;
+  }
+
+  .mobile-action-bar__item--whatsapp {
+    width: 3.5rem !important;
+    height: 3.5rem !important;
+    min-width: 3.5rem !important;
+    min-height: 3.5rem !important;
+
+    border-color:
+      var(--yellow) !important;
+
+    background:
+      radial-gradient(
+        circle at 35% 28%,
+        #fff76a,
+        var(--yellow) 48%,
+        #d8c900 100%
+      ) !important;
+
+    color: #050505 !important;
+
+    box-shadow:
+      0 0.85rem 2rem
+        rgba(0, 0, 0, 0.5),
+      0 0 1.4rem
+        rgba(255, 234, 0, 0.16) !important;
+  }
+
+  .mobile-action-bar__item--call {
+    margin-inline: auto !important;
+  }
+
+  .mobile-action-bar--footer-visible {
+    opacity: 0 !important;
+
+    transform:
+      translateY(0.8rem)
+      scale(0.94) !important;
+
+    pointer-events: none !important;
+  }
+
+  .route-wipe {
+    display: none !important;
+  }
+}
+
+@media (max-width: 767px), (pointer: coarse) {
+  .home-hero__grain {
+    display: none !important;
+  }
+
+  .home-hero__scene {
+    contain: layout paint;
+  }
+}
+/* MOBILE HERO PERFORMANCE AND FOOTER FIX END */

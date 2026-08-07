@@ -615,10 +615,7 @@ export default function DumbbellScene({
             style={{
               touchAction: "pan-y",
             }}
-            dpr={[
-              1,
-              compact ? 1 : 1.25,
-            ]}
+            dpr={compact ? 0.78 : [1, 1.25]}
             resize={{
               scroll: false,
               debounce: {

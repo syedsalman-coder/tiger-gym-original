@@ -227,7 +227,7 @@ const WeightPlate = forwardRef(function WeightPlate(
   }: WeightPlateProps,
   ref: ForwardedRef<THREE.Group>,
 ) {
-  const radialSegments = compact ? 26 : 44;
+  const radialSegments = compact ? 16 : 44;
 
   return (
     <group ref={ref}>
@@ -293,7 +293,7 @@ const WeightPlate = forwardRef(function WeightPlate(
               ringRadius,
               compact ? 0.022 : 0.027,
               6,
-              compact ? 26 : 40,
+              compact ? 16 : 40,
             ]}
           />
 
@@ -328,7 +328,7 @@ function MetalCollar({
             0.43,
             0.43,
             0.2,
-            compact ? 22 : 36,
+            compact ? 14 : 36,
           ]}
         />
 
@@ -350,7 +350,7 @@ function MetalCollar({
             0.34,
             0.035,
             8,
-            compact ? 22 : 36,
+            compact ? 14 : 36,
           ]}
         />
 
@@ -578,7 +578,7 @@ function ChalkParticles({
   compact: boolean;
   particlesRef: ForwardedRef<THREE.Points>;
 }) {
-  const count = compact ? 34 : 88;
+  const count = 88;
 
   const positions = useMemo(() => {
     const values =
@@ -604,6 +604,10 @@ function ChalkParticles({
 
     return values;
   }, [count]);
+
+  if (compact) {
+    return null;
+  }
 
   return (
     <points ref={particlesRef}>
@@ -716,7 +720,7 @@ export default function DumbbellModel({
 
     renderUntilRef.current = Math.max(
       renderUntilRef.current,
-      performance.now() + (compact ? 820 : 1300),
+      performance.now() + (compact ? 520 : 1300),
     );
     firstFrameRenderedRef.current = false;
     invalidate();
@@ -730,7 +734,7 @@ export default function DumbbellModel({
     const requestPointerRender = () => {
       renderUntilRef.current = Math.max(
         renderUntilRef.current,
-        performance.now() + 420,
+        performance.now() + (compact ? 240 : 420),
       );
       invalidate();
     };
@@ -809,7 +813,7 @@ export default function DumbbellModel({
       if (active) {
         renderUntilRef.current = Math.max(
           renderUntilRef.current,
-          performance.now() + 520,
+          performance.now() + (compact ? 300 : 520),
         );
         invalidate();
       }
@@ -836,7 +840,7 @@ export default function DumbbellModel({
         updateScrollInformation,
       );
     };
-  }, [active, invalidate]);
+  }, [active, compact, invalidate]);
 
   /*
    * Track finger position without preventing native scrolling.
@@ -889,7 +893,7 @@ export default function DumbbellModel({
 
       renderUntilRef.current = Math.max(
         renderUntilRef.current,
-        performance.now() + 520,
+        performance.now() + (compact ? 300 : 520),
       );
       invalidate();
     };
@@ -902,7 +906,7 @@ export default function DumbbellModel({
 
       renderUntilRef.current = Math.max(
         renderUntilRef.current,
-        performance.now() + 420,
+        performance.now() + (compact ? 240 : 420),
       );
       invalidate();
     };
@@ -1031,7 +1035,7 @@ export default function DumbbellModel({
     if (!firstFrameRenderedRef.current) {
       renderUntilRef.current = Math.max(
         renderUntilRef.current,
-        now + (compact ? 820 : 1300),
+        now + (compact ? 520 : 1300),
       );
       firstFrameRenderedRef.current = true;
     }
@@ -1470,7 +1474,7 @@ export default function DumbbellModel({
               0.16,
               0.16,
               2.22,
-              compact ? 22 : 36,
+              compact ? 14 : 36,
               1,
             ]}
           />
@@ -1506,7 +1510,7 @@ export default function DumbbellModel({
                   0.22,
                   0.22,
                   0.66,
-                  compact ? 20 : 32,
+                  compact ? 14 : 32,
                 ]}
               />
 
