@@ -1,5 +1,6 @@
 import { Barlow_Condensed, Manrope, Noto_Sans_Arabic } from "next/font/google";
 import { notFound } from "next/navigation";
+import SiteAnalytics from "@/components/analytics/SiteAnalytics";
 import Footer from "@/components/layout/Footer";
 import MobileActionBar from "@/components/layout/MobileActionBar";
 import Navigation from "@/components/layout/Navigation";
@@ -79,6 +80,7 @@ export default async function LocaleLayout({
         <PageTransition>{children}</PageTransition>
         <Footer locale={locale} />
         <MobileActionBar locale={locale} />
+        <SiteAnalytics />
       </body>
     </html>
   );

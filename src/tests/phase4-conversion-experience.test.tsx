@@ -1,6 +1,14 @@
 import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
+const { trackMock } = vi.hoisted(() => ({
+  trackMock: vi.fn(),
+}));
+
+vi.mock("@vercel/analytics", () => ({
+  track: trackMock,
+}));
+
 vi.mock("next/dynamic", () => ({
   default: () => function MockDumbbellScene() {
     return <div data-testid="dumbbell-scene" />;
@@ -44,6 +52,7 @@ const mockOpen = vi.fn((url?: string | URL) => {
 beforeEach(() => {
   openedUrls = [];
   mockOpen.mockClear();
+  trackMock.mockClear();
   Object.assign(window, { open: mockOpen });
 });
 
@@ -140,6 +149,11 @@ describe("Phase 4 conversion experience", () => {
     expect(contactUrl.origin + contactUrl.pathname).toBe("https://wa.me/96569678350");
     expect(contactUrl.searchParams.get("text")).toContain("Can I visit today?");
     expect(screen.getByRole("status")).toHaveTextContent("tap Send when you are ready");
+    expect(trackMock).toHaveBeenLastCalledWith("Contact Form Submitted", {
+      locale: "en",
+      page: "/",
+      placement: "contact-form",
+    });
 
     cleanup();
     render(<MembershipForm locale="en" />);
@@ -154,5 +168,13 @@ describe("Phase 4 conversion experience", () => {
     expect(membershipUrl.origin + membershipUrl.pathname).toBe("https://wa.me/96569678350");
     expect(membershipUrl.searchParams.get("text")).toContain("Message the team");
     expect(membershipUrl.searchParams.get("text")).toContain("Please confirm current price.");
+    expect(trackMock).toHaveBeenLastCalledWith("Membership Form Submitted", {
+      locale: "en",
+      page: "/",
+      placement: "membership-form",
+    });
+    expect(JSON.stringify(trackMock.mock.calls)).not.toContain("Dana");
+    expect(JSON.stringify(trackMock.mock.calls)).not.toContain("5555");
+    expect(JSON.stringify(trackMock.mock.calls)).not.toContain("current price");
   });
 });

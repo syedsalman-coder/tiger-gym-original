@@ -5,6 +5,7 @@ import { type FormEvent, useState } from "react";
 import { site } from "@/data/site";
 import type { Locale } from "@/i18n/config";
 import { getDictionary, type Dictionary } from "@/i18n/dictionaries";
+import { trackConversion } from "@/lib/analytics";
 
 type ContactValues = {
   name: string;
@@ -127,6 +128,12 @@ export default function ContactForm({ locale }: { locale: Locale }) {
         `${copy.template.message}: ${values.message.trim()}`,
       ].join("\n"),
     );
+
+    trackConversion("contact_form_submitted", {
+      locale,
+      placement: "contact-form",
+    });
+
     const whatsappWindow = window.open(whatsappUrl, "_blank");
 
     if (whatsappWindow) {

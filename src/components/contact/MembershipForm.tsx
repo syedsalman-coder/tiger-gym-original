@@ -6,6 +6,7 @@ import { membershipEnquirySteps } from "@/data/membership-options";
 import { site } from "@/data/site";
 import { getLocalizedValue, type Locale } from "@/i18n/config";
 import { getDictionary, type Dictionary } from "@/i18n/dictionaries";
+import { trackConversion } from "@/lib/analytics";
 
 type MembershipValues = {
   name: string;
@@ -140,6 +141,12 @@ export default function MembershipForm({ locale }: { locale: Locale }) {
         `${copy.template.message}: ${values.message.trim()}`,
       ].join("\n"),
     );
+
+    trackConversion("membership_form_submitted", {
+      locale,
+      placement: "membership-form",
+    });
+
     const whatsappWindow = window.open(whatsappUrl, "_blank");
 
     if (whatsappWindow) {
