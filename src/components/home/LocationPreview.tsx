@@ -30,7 +30,7 @@ export default function LocationPreview({
   const labels =
     locale === "ar"
       ? {
-          sectionNumber: "05",
+          sectionNumber: "06",
           sectionLabel: "زيارة النادي",
           address: "العنوان",
           openingHours: "ساعات العمل",
@@ -44,7 +44,7 @@ export default function LocationPreview({
           mapLabel: "موقع Tiger Gym على الخريطة",
         }
       : {
-          sectionNumber: "05",
+          sectionNumber: "06",
           sectionLabel: "Visit the gym",
           address: "Address",
           openingHours: "Opening hours",

@@ -46,8 +46,27 @@ export default function CustomCursor() {
         `translate3d(${haloX}px, ${haloY}px, 0) ` +
         "translate(-50%, -50%)";
 
-      animationFrame =
-        window.requestAnimationFrame(render);
+      const settled =
+        Math.abs(pointerX - haloX) < 0.1
+        && Math.abs(pointerY - haloY) < 0.1;
+
+      if (settled) {
+        haloX = pointerX;
+        haloY = pointerY;
+        halo.style.transform =
+          `translate3d(${haloX}px, ${haloY}px, 0) ` +
+          "translate(-50%, -50%)";
+        animationFrame = 0;
+        return;
+      }
+
+      animationFrame = window.requestAnimationFrame(render);
+    };
+
+    const requestRender = () => {
+      if (!animationFrame) {
+        animationFrame = window.requestAnimationFrame(render);
+      }
     };
 
     const showCursor = () => {
@@ -64,6 +83,7 @@ export default function CustomCursor() {
       pointerX = event.clientX;
       pointerY = event.clientY;
       showCursor();
+      requestRender();
     };
 
     const handleHover = (event: PointerEvent) => {
@@ -98,9 +118,6 @@ export default function CustomCursor() {
       dumbbell.classList.remove("is-pressed");
       halo.classList.remove("is-pressed");
     };
-
-    animationFrame =
-      window.requestAnimationFrame(render);
 
     window.addEventListener(
       "pointermove",

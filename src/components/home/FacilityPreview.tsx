@@ -4,7 +4,6 @@ import {
   ArrowUpRight,
   BicepsFlexed,
   Dumbbell,
-  Zap,
 } from "lucide-react";
 
 import SectionHeading from "@/components/shared/SectionHeading";
@@ -22,7 +21,6 @@ const icons = {
   activity: Activity,
   dumbbell: Dumbbell,
   weight: BicepsFlexed,
-  zap: Zap,
 } as const;
 
 export default function FacilityPreview({

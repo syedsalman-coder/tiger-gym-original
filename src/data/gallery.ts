@@ -114,10 +114,10 @@ export const galleryContent = {
     ),
   },
   note: localized(
-    "These official photographs were supplied for the Tiger Gym website and optimized for fast loading.",
-    "تم توفير هذه الصور الرسمية لموقع Tiger Gym وتحسينها للتحميل السريع.",
+    "Take a closer look at the training floor, free weights, cardio area and Salmiya location.",
+    "ألقِ نظرة أقرب على مساحة التدريب والأوزان الحرة ومنطقة الكارديو وموقع النادي في السالمية.",
   ),
-  verifiedLabel: localized("Official Tiger Gym photo", "صورة رسمية من Tiger Gym"),
+  verifiedLabel: localized("Inside Tiger Gym", "داخل Tiger Gym"),
   lightboxEyebrow: localized("Tiger Gym gallery", "معرض Tiger Gym"),
   placeholderLabel: localized("Photo placeholder", "مساحة صورة مستقبلية"),
   viewLabel: localized("View full screen", "عرض بملء الشاشة"),

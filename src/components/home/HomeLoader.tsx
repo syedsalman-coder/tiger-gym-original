@@ -66,7 +66,7 @@ export default function HomeLoader({
     document.body.style.overflow = "hidden";
 
     const start = performance.now();
-    const duration = reduceMotion ? 160 : 900;
+    const duration = reduceMotion ? 80 : 480;
 
     let animationFrame = 0;
     let exitTimer = 0;
@@ -155,6 +155,7 @@ export default function HomeLoader({
             <Logo
               locale={locale}
               priority
+              sizes="160px"
             />
 
             <p>

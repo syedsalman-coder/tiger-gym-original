@@ -1,44 +1,41 @@
-import { localized, type MembershipOption } from "./types";
+import { localized, type MembershipEnquiryStep } from "./types";
 
-// The owner must confirm available plans, access terms, and prices. Null prices are intentional.
-export const membershipOptions: readonly MembershipOption[] = [
+// These are enquiry steps, not advertised plans. Prices and access terms are confirmed directly by the gym.
+export const membershipEnquirySteps: readonly MembershipEnquiryStep[] = [
   {
-    status: "pending",
-    id: "monthly-membership",
-    title: localized("Monthly Membership", "العضوية الشهرية"),
+    status: "confirmed",
+    id: "message-the-team",
+    title: localized("Message the team", "راسل الفريق"),
     description: localized(
-      "Ask Tiger Gym for the current monthly membership price, access terms and available start options.",
-      "اسأل Tiger Gym عن السعر الحالي للعضوية الشهرية وشروط الدخول وخيارات بدء الاشتراك.",
+      "Ask Tiger Gym directly for current membership prices and access terms.",
+      "اسأل Tiger Gym مباشرةً عن أسعار العضوية الحالية وشروط الدخول.",
     ),
-    price: null,
-    priceLabel: localized("Contact for current price", "تواصل لمعرفة السعر الحالي"),
+    detailLabel: localized("WhatsApp or phone", "واتساب أو الهاتف"),
     icon: "message",
   },
   {
-    status: "pending",
-    id: "flexible-training-access",
-    title: localized("Flexible Training Access", "خيارات دخول مرنة للتدريب"),
+    status: "confirmed",
+    id: "share-your-schedule",
+    title: localized("Share your schedule", "شارك وقت تدريبك"),
     description: localized(
-      "Tell the team when you plan to train and ask which current access option best fits your schedule.",
-      "أخبر الفريق بوقت تدريبك المعتاد واسأل عن خيار الدخول الحالي الأنسب لجدولك.",
+      "Tell the team when you prefer to train so they can explain the current access details.",
+      "أخبر الفريق بوقت التدريب المفضّل ليشرح لك تفاصيل الدخول الحالية.",
     ),
-    price: null,
-    priceLabel: localized("Contact for current price", "تواصل لمعرفة السعر الحالي"),
-    icon: "phone",
+    detailLabel: localized("Your preferred time", "وقت التدريب المفضّل"),
+    icon: "clock",
   },
   {
-    status: "pending",
-    id: "membership-enquiry",
-    title: localized("Membership Enquiry", "استفسار عن العضوية"),
+    status: "confirmed",
+    id: "plan-your-visit",
+    title: localized("Plan your visit", "خطّط لزيارتك"),
     description: localized(
-      "Message Tiger Gym on WhatsApp or visit the Salmiya gym to ask about current membership details.",
-      "راسل Tiger Gym عبر واتساب أو زُر النادي في السالمية للاستفسار عن تفاصيل العضوية الحالية.",
+      "Check the Salmiya location and opening hours before you come to the gym.",
+      "تعرّف إلى موقع النادي في السالمية وساعات العمل قبل زيارتك.",
     ),
-    price: null,
-    priceLabel: localized("Contact for current price", "تواصل لمعرفة السعر الحالي"),
+    detailLabel: localized("Amman Street, Salmiya", "شارع عمّان، السالمية"),
     icon: "location",
   },
-] as const;
+] as const satisfies readonly MembershipEnquiryStep[];
 
 // Demo marketing copy, including Arabic, requires final owner and native-speaker approval before launch.
 export const membershipContent = {
@@ -58,13 +55,13 @@ export const membershipContent = {
       "For current membership prices and gym access options, contact the Tiger Gym team directly by WhatsApp, phone or the enquiry form below.",
       "لمعرفة أسعار العضوية وخيارات دخول الجيم الحالية، تواصل مباشرةً مع فريق Tiger Gym عبر واتساب أو الهاتف أو نموذج الاستفسار أدناه.",
     ),
-    nextLabel: localized("Membership options", "خيارات العضوية"),
+    nextLabel: localized("How to get started", "كيف تبدأ"),
     nextHref: "#membership-options",
   },
   section: {
     number: localized("04.1", "04.1"),
-    eyebrow: localized("Enquiry options", "خيارات الاستفسار"),
-    title: localized("Talk to the team.", "تحدّث مع الفريق."),
+    eyebrow: localized("Three simple steps", "ثلاث خطوات بسيطة"),
+    title: localized("A clear way to get started.", "طريقة واضحة للبدء."),
   },
   homeCta: {
     eyebrow: localized("Membership · Speak with our team", "العضوية · تحدّث مع فريقنا"),

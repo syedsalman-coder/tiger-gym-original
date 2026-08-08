@@ -54,7 +54,7 @@ describe("Phase 4 conversion experience", () => {
     const page = await HomePage({ params: paramsFor("en") });
     render(page);
 
-    expect(screen.getByRole("region", { name: /cinematic training sequence/i })).toHaveAttribute(
+    expect(screen.getByRole("region", { name: /plan a session at tiger gym/i })).toHaveAttribute(
       "data-home-scroll-story",
     );
     expect(
@@ -139,20 +139,20 @@ describe("Phase 4 conversion experience", () => {
     const contactUrl = new URL(openedUrls.at(-1) ?? "");
     expect(contactUrl.origin + contactUrl.pathname).toBe("https://wa.me/96569678350");
     expect(contactUrl.searchParams.get("text")).toContain("Can I visit today?");
-    expect(screen.getByRole("status")).toHaveTextContent("nothing was sent by this form");
+    expect(screen.getByRole("status")).toHaveTextContent("tap Send when you are ready");
 
     cleanup();
     render(<MembershipForm locale="en" />);
     fireEvent.change(screen.getByLabelText("Name"), { target: { value: "Dana" } });
     fireEvent.change(screen.getByLabelText("Phone"), { target: { value: "+965 5555 5555" } });
     fireEvent.change(screen.getByLabelText("Preferred training time"), { target: { value: "Evening" } });
-    fireEvent.change(screen.getByLabelText("Membership interest"), { target: { value: "Monthly Membership" } });
+    fireEvent.change(screen.getByLabelText("What would you like to ask?"), { target: { value: "Message the team" } });
     fireEvent.change(screen.getByLabelText("Message"), { target: { value: "Please confirm current price." } });
     fireEvent.click(screen.getByRole("button", { name: /prepare membership enquiry/i }));
 
     const membershipUrl = new URL(openedUrls.at(-1) ?? "");
     expect(membershipUrl.origin + membershipUrl.pathname).toBe("https://wa.me/96569678350");
-    expect(membershipUrl.searchParams.get("text")).toContain("Monthly Membership");
+    expect(membershipUrl.searchParams.get("text")).toContain("Message the team");
     expect(membershipUrl.searchParams.get("text")).toContain("Please confirm current price.");
   });
 });

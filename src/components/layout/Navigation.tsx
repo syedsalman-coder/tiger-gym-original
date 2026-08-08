@@ -39,11 +39,20 @@ export default function Navigation({ locale }: { locale: Locale }) {
   useEffect(() => {
     if (!menuOpen) return;
     const previousOverflow = document.body.style.overflow;
-    const targets = [document.querySelector<HTMLElement>("main"), document.querySelector<HTMLElement>("footer")]
+    const targets = [
+      document.querySelector<HTMLElement>("main"),
+      document.querySelector<HTMLElement>("footer"),
+      document.querySelector<HTMLElement>(".mobile-action-bar"),
+    ]
       .filter((element): element is HTMLElement => element !== null);
     const previousInert = targets.map((element) => element.inert);
+    const previousAriaHidden = targets.map((element) => element.getAttribute("aria-hidden"));
     document.body.style.overflow = "hidden";
-    targets.forEach((element) => { element.inert = true; });
+    document.documentElement.dataset.mobileMenuOpen = "true";
+    targets.forEach((element) => {
+      element.inert = true;
+      element.setAttribute("aria-hidden", "true");
+    });
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") closeMenu();
@@ -51,7 +60,16 @@ export default function Navigation({ locale }: { locale: Locale }) {
     window.addEventListener("keydown", handleKeyDown);
     return () => {
       document.body.style.overflow = previousOverflow;
-      targets.forEach((element, index) => { element.inert = previousInert[index]; });
+      delete document.documentElement.dataset.mobileMenuOpen;
+      targets.forEach((element, index) => {
+        element.inert = previousInert[index];
+        const previousValue = previousAriaHidden[index];
+        if (previousValue === null) {
+          element.removeAttribute("aria-hidden");
+        } else {
+          element.setAttribute("aria-hidden", previousValue);
+        }
+      });
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, [closeMenu, menuOpen]);
@@ -78,7 +96,7 @@ export default function Navigation({ locale }: { locale: Locale }) {
           aria-hidden={menuOpen}
           tabIndex={menuOpen ? -1 : undefined}
         >
-          <Logo locale={locale} decorative priority />
+          <Logo locale={locale} decorative priority sizes="64px" />
           <span><strong>{text(site.name)}</strong><small>{text(site.descriptor)}</small></span>
         </Link>
 

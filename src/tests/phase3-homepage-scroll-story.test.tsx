@@ -28,7 +28,7 @@ describe("Phase 3 homepage cinematic scroll storytelling", () => {
     const { container } = render(page);
 
     const story = screen.getByRole("region", {
-      name: /cinematic training sequence/i,
+      name: /plan a session at tiger gym/i,
     });
 
     expect(story).toHaveAttribute("data-home-scroll-story");
@@ -43,9 +43,9 @@ describe("Phase 3 homepage cinematic scroll storytelling", () => {
       "02",
       "03",
     ]);
-    expect(story).toHaveTextContent("Enter the floor");
-    expect(story).toHaveTextContent("Set the work");
-    expect(story).toHaveTextContent("Leave ready for the next session");
+    expect(story).toHaveTextContent("Explore the floor");
+    expect(story).toHaveTextContent("Choose your focus");
+    expect(story).toHaveTextContent("Contact the team");
 
     const intro = container.querySelector("#home-intro");
     const facilities = container.querySelector(".training-experiences");
@@ -63,12 +63,12 @@ describe("Phase 3 homepage cinematic scroll storytelling", () => {
     render(page);
 
     const story = screen.getByRole("region", {
-      name: /تسلسل تدريبي سينمائي/i,
+      name: /خطّط لحصة في Tiger Gym/i,
     });
 
     expect(story).toHaveAttribute("data-performance-mode", "css-sticky");
-    expect(story).toHaveTextContent("ادخل مساحة التدريب");
-    expect(story).toHaveTextContent("حدّد العمل");
-    expect(story).toHaveTextContent("اخرج جاهزًا للحصة التالية");
+    expect(story).toHaveTextContent("استكشف مساحة التدريب");
+    expect(story).toHaveTextContent("اختر تركيزك");
+    expect(story).toHaveTextContent("تواصل مع الفريق");
   });
 });

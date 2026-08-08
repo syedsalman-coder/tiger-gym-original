@@ -38,7 +38,7 @@ export default async function AboutPage({ params }: { params: LocaleParams }) {
         <div className="page-shell about-story__grid">
           <div className="about-story__logo" data-logo-parallax data-reveal>
             <div className="plate-rings" aria-hidden="true"><span /><span /><span /></div>
-            <Logo locale={locale} />
+            <Logo locale={locale} sizes="(max-width: 767px) 72vw, 34vw" />
           </div>
           <div className="about-story__copy" data-reveal>
             <span className="eyebrow">{text(site.fullName)}</span>

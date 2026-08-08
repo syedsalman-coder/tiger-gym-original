@@ -13,7 +13,18 @@ const localeOpenGraph: Record<Locale, string> = {
   ar: "ar_KW",
 };
 
-export const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://tigergym.kw";
+const fallbackSiteUrl = "https://tiger-gym-original.vercel.app";
+
+function getProductionSiteUrl(): string {
+  const configuredUrl = process.env.NEXT_PUBLIC_SITE_URL?.trim();
+  const vercelProductionUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL?.trim();
+  const candidate = configuredUrl
+    || (vercelProductionUrl ? `https://${vercelProductionUrl}` : fallbackSiteUrl);
+
+  return candidate.replace(/\/$/, "");
+}
+
+export const siteUrl = getProductionSiteUrl();
 
 export function absoluteSiteUrl(path: string): string {
   return new URL(path, siteUrl).toString();
@@ -40,6 +51,7 @@ export function createLocalizedMetadata(
       languages: {
         en: localizePath("en", route),
         ar: localizePath("ar", route),
+        "x-default": localizePath("en", route),
       },
     },
     openGraph: {
@@ -50,11 +62,22 @@ export function createLocalizedMetadata(
       locale: localeOpenGraph[locale],
       alternateLocale,
       type: "website",
+      images: [
+        {
+          url: "/images/tiger-gym-interior.webp",
+          width: 1000,
+          height: 562,
+          alt: locale === "ar"
+            ? "مساحة التدريب في Tiger Gym بالسالمية"
+            : "Tiger Gym strength training floor in Salmiya",
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
+      images: ["/images/tiger-gym-interior.webp"],
     },
   };
 }
@@ -73,12 +96,19 @@ export function createLocalBusinessJsonLd(locale: Locale) {
     telephone: site.phoneHref.replace(/^tel:/, ""),
     email: site.email,
     sameAs: [site.instagramHref],
-    image: absoluteSiteUrl("/tiger-logo.png"),
+    image: [
+      absoluteSiteUrl("/images/tiger-gym-interior.webp"),
+      absoluteSiteUrl("/images/tiger-gym-strength-floor.webp"),
+      absoluteSiteUrl("/images/tiger-gym-building.webp"),
+    ],
+    logo: absoluteSiteUrl("/tiger-logo.png"),
     address: {
       "@type": "PostalAddress",
-      streetAddress: text(site.address),
+      streetAddress: locale === "ar"
+        ? "مبنى 15، الطابق الأول، شارع عمّان"
+        : "Building 15, Floor 1, Amman Street",
       addressLocality: text(site.city),
-      addressCountry: text(site.country),
+      addressCountry: "KW",
     },
     geo: {
       "@type": "GeoCoordinates",
@@ -86,9 +116,27 @@ export function createLocalBusinessJsonLd(locale: Locale) {
       longitude: 48.05703127531609,
     },
     hasMap: site.directionsUrl,
-    openingHours: [
-      `Sa-Th ${text(site.openingHours.regularTime)}`,
-      `Fr ${text(site.openingHours.fridayTime)}`,
+    openingHoursSpecification: [
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: [
+          "https://schema.org/Saturday",
+          "https://schema.org/Sunday",
+          "https://schema.org/Monday",
+          "https://schema.org/Tuesday",
+          "https://schema.org/Wednesday",
+          "https://schema.org/Thursday",
+        ],
+        opens: "05:00",
+        closes: "02:00",
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: "https://schema.org/Friday",
+        opens: "12:00",
+        closes: "02:00",
+      },
     ],
+    inLanguage: locale,
   };
 }

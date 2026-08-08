@@ -47,7 +47,7 @@ describe("Phase 3 gallery content readiness", () => {
     ).toBeInTheDocument();
     expect(
       screen.getByText(
-        "These official photographs were supplied for the Tiger Gym website and optimized for fast loading.",
+        "Take a closer look at the training floor, free weights, cardio area and Salmiya location.",
       ),
     ).toBeInTheDocument();
     expect(
@@ -77,7 +77,7 @@ describe("Phase 3 gallery content readiness", () => {
       screen.getByRole("heading", { name: "شاهد Tiger Gym قبل زيارتك." }),
     ).toBeInTheDocument();
     expect(
-      screen.getByText("تم توفير هذه الصور الرسمية لموقع Tiger Gym وتحسينها للتحميل السريع."),
+      screen.getByText("ألقِ نظرة أقرب على مساحة التدريب والأوزان الحرة ومنطقة الكارديو وموقع النادي في السالمية."),
     ).toBeInTheDocument();
     expect(
       screen.getByRole("img", {

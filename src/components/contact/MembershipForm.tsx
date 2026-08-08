@@ -2,7 +2,7 @@
 
 import { type FormEvent, useState } from "react";
 
-import { membershipOptions } from "@/data/membership-options";
+import { membershipEnquirySteps } from "@/data/membership-options";
 import { site } from "@/data/site";
 import { getLocalizedValue, type Locale } from "@/i18n/config";
 import { getDictionary, type Dictionary } from "@/i18n/dictionaries";
@@ -263,8 +263,8 @@ export default function MembershipForm({ locale }: { locale: Locale }) {
           <option value="" disabled>
             {copy.selectOption}
           </option>
-          {membershipOptions.map((option) => (
-            <option value={text(option.title)} key={option.id}>{text(option.title)}</option>
+          {membershipEnquirySteps.map((step) => (
+            <option value={text(step.title)} key={step.id}>{text(step.title)}</option>
           ))}
         </select>
         {errors.membershipInterest ? (

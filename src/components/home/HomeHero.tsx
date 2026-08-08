@@ -51,19 +51,19 @@ export default function HomeHero({ locale }: { locale: Locale }) {
           <div className="home-hero__title">
             <span className="home-hero__index">{text(content.index)}</span>
             <h1 id="home-heading">
-              <span data-home-title-line="one">{text(content.titleLines[0])}</span>
-              <span data-home-title-line="two">{text(content.titleLines[1])}</span>
+              <span data-home-title-line="one">{text(content.titleLines[0])}</span>{" "}
+              <span data-home-title-line="two">{text(content.titleLines[1])}</span>{" "}
               <span data-home-title-line="three">{text(content.titleLines[2])}</span>
             </h1>
           </div>
 
           <div className="home-hero__bottom" data-home-copy>
             <div className="home-hero__statement">
-              <Logo locale={locale} decorative priority />
-              <p>{text(site.description)}</p>
+              <Logo locale={locale} decorative priority sizes="74px" />
+              <p>{text(content.description)}</p>
             </div>
             <div className="home-hero__actions">
-              <MagneticButton href={localizePath(locale, "/membership")}>{text(content.joinLabel)}</MagneticButton>
+              <MagneticButton href={site.whatsappHref} target="_blank" rel="noreferrer">{text(content.joinLabel)}</MagneticButton>
               <MagneticButton href={localizePath(locale, "/facilities")} variant="outline">{text(content.facilitiesLabel)}</MagneticButton>
             </div>
           </div>

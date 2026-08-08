@@ -8,6 +8,7 @@ type LogoProps = {
   priority?: boolean;
   decorative?: boolean;
   locale: Locale;
+  sizes?: string;
 };
 
 export default function Logo({
@@ -15,6 +16,7 @@ export default function Logo({
   priority = false,
   decorative = false,
   locale,
+  sizes = "(max-width: 768px) 70vw, 420px",
 }: LogoProps) {
   return (
     <Image
@@ -24,7 +26,7 @@ export default function Logo({
       width={1233}
       height={865}
       priority={priority}
-      sizes="(max-width: 768px) 70vw, 420px"
+      sizes={sizes}
     />
   );
 }

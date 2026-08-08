@@ -691,8 +691,8 @@ export default function DumbbellModel({
     y: 0,
     z: 0,
     rx: 0.08,
-    ry: -0.4,
-    rz: -0.1,
+    ry: compact ? -0.14 : -0.4,
+    rz: compact ? -0.06 : -0.1,
     scale: compact ? 0.78 : 0.96,
     particlesX: 0,
     particlesY: 0,
@@ -996,8 +996,8 @@ export default function DumbbellModel({
 
       root.rotation.set(
         0.08,
-        -0.4,
-        -0.1,
+        compact ? -0.14 : -0.4,
+        compact ? -0.06 : -0.1,
       );
 
       root.scale.setScalar(
@@ -1193,7 +1193,7 @@ export default function DumbbellModel({
           pointerWeight;
 
     const targetRotationY = compact
-      ? -0.4 +
+      ? -0.14 +
         mobileContinuousSpin +
         mobileRotationY +
         touchX * 0.22 +
@@ -1205,7 +1205,7 @@ export default function DumbbellModel({
           pointerWeight;
 
     const targetRotationZ = compact
-      ? -0.1 +
+      ? -0.06 +
         mobileRotationZ -
         touchX * 0.17 +
         scrollImpulse * 0.19
@@ -1460,8 +1460,8 @@ export default function DumbbellModel({
         ]}
         rotation={[
           0.08,
-          -0.4,
-          -0.1,
+          compact ? -0.14 : -0.4,
+          compact ? -0.06 : -0.1,
         ]}
         scale={compact ? 0.78 : 0.96}
       >
@@ -1480,9 +1480,11 @@ export default function DumbbellModel({
           />
 
           <meshPhysicalMaterial
-            color={DARK_CHROME}
+            color={compact ? "#8C908A" : DARK_CHROME}
+            emissive={compact ? "#5B5E58" : "#000000"}
+            emissiveIntensity={compact ? 0.65 : 0}
             metalness={0.94}
-            roughness={0.3}
+            roughness={compact ? 0.24 : 0.3}
             bumpMap={knurlTexture}
             bumpScale={0.055}
             clearcoat={0.42}

@@ -1,6 +1,6 @@
 import { localized, type Facility } from "./types";
 
-// Categories came from the prior site; the owner must confirm category names and equipment before publication updates.
+// Only owner-confirmed training areas are published here.
 export const facilities = [
   {
     status: "confirmed",
@@ -77,24 +77,6 @@ export const facilities = [
     },
 
   },
-  {
-    status: "pending",
-    number: "04",
-    slug: "functional-training",
-    title: localized("Functional Training", "التدريب الوظيفي"),
-    shortTitle: localized("Personal Fitness", "اللياقة الشخصية"),
-    description: localized(
-      "A flexible category for movement-focused training.",
-      "فئة مرنة للتدريب الذي يركّز على الحركة.",
-    ),
-    detail: localized(
-      "A flexible area for movement-focused and personal fitness training.",
-      "مساحة مرنة للتدريب الحركي وتمارين اللياقة الشخصية.",
-    ),
-    icon: "zap",
-    image: null,
-
-  },
 ] as const satisfies readonly Facility[];
 
 // Demo marketing copy, including Arabic, requires final owner and native-speaker approval before launch.
@@ -120,8 +102,8 @@ export const facilitiesContent = {
   },
   section: {
     number: localized("03.1", "03.1"),
-    eyebrow: localized("Listed categories", "الفئات المدرجة"),
-    title: localized("Choose the work.", "اختر نوع التدريب."),
+    eyebrow: localized("Three dedicated zones", "ثلاث مناطق مخصصة"),
+    title: localized("Choose your training zone.", "اختر منطقة تدريبك."),
     description: localized(
       "Explore the main training areas available at Tiger Gym.",
       "استكشف مناطق التدريب الرئيسية المتاحة في Tiger Gym.",
@@ -129,9 +111,9 @@ export const facilitiesContent = {
     detailLabel: localized("Training focus", "محور التدريب"),
   },
   preview: {
-    number: localized("03", "03"),
+    number: localized("04", "04"),
     eyebrow: localized("Training areas", "مناطق التدريب"),
-    title: localized("Made for the work.", "مهيّأة للعمل."),
+    title: localized("Built for focused training.", "مهيّأة لتدريب مركّز."),
     linkLabel: localized("View all facilities", "عرض جميع مرافق التدريب"),
   },
   cta: {

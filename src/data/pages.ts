@@ -15,14 +15,18 @@ export const pageContent = {
       ),
     },
     hero: {
-      index: localized("01 / Strength protocol", "01 / منهج القوة"),
+      index: localized("01 / Tiger Gym Salmiya", "01 / Tiger Gym السالمية"),
       titleLines: [
         localized("Built", "صُمّم"),
         localized("For", "من أجل"),
         localized("Strength", "القوة"),
       ],
-      joinLabel: localized("Join Tiger Gym", "انضم إلى Tiger Gym"),
-      facilitiesLabel: localized("Explore facilities", "استكشف مرافق التدريب"),
+      description: localized(
+        "Strength, free weights and cardio in Salmiya, with extended opening hours.",
+        "تدريبات قوة وأوزان حرة وكارديو في السالمية، مع ساعات عمل ممتدة.",
+      ),
+      joinLabel: localized("WhatsApp the team", "راسلنا عبر واتساب"),
+      facilitiesLabel: localized("View the gym", "شاهد المرافق"),
       scrollLabel: localized("Scroll", "مرّر للأسفل"),
     },
     intro: {
@@ -45,46 +49,46 @@ export const pageContent = {
     },
     scrollStory: {
       number: localized("03", "03"),
-      eyebrow: localized("Scroll sequence", "تسلسل التمرين"),
-      kicker: localized("Cinematic training flow", "مسار تدريبي سينمائي"),
+      eyebrow: localized("Inside Tiger Gym", "داخل Tiger Gym"),
+      kicker: localized("Plan your session", "خطّط لحصتك"),
       ariaLabel: localized(
-        "Cinematic training sequence",
-        "تسلسل تدريبي سينمائي",
+        "Plan a session at Tiger Gym",
+        "خطّط لحصة في Tiger Gym",
       ),
       title: localized(
-        "A session told in motion.",
-        "حصة تدريب تُروى بالحركة.",
+        "Everything you need to start.",
+        "كل ما تحتاجه للبدء.",
       ),
       description: localized(
-        "A serious training session has a rhythm: arrive with a plan, move through the floor with intent, put in the work and leave ready for the next session.",
-        "للحصة الجادة إيقاع واضح: ادخل بخطة، وتحرك في مساحة التدريب بتركيز، وأنجز عملك، ثم اخرج جاهزًا للحصة التالية.",
+        "See the training floor, choose the area that fits your session and contact the team for current membership details.",
+        "شاهد مساحة التدريب، واختر المنطقة المناسبة لحصتك، ثم تواصل مع الفريق لمعرفة تفاصيل العضوية الحالية.",
       ),
       chapters: [
         {
           step: "01",
-          title: localized("Enter the floor", "ادخل مساحة التدريب"),
+          title: localized("Explore the floor", "استكشف مساحة التدريب"),
           description: localized(
-            "Step into a black-and-yellow training floor built around strength work, free weights, cardio and focused sessions.",
-            "ادخل مساحة تدريب باللونين الأسود والأصفر مهيأة لتدريبات القوة والأوزان الحرة والكارديو والحصص المركّزة.",
+            "View the real strength, free-weight and cardio areas before you arrive.",
+            "شاهد مناطق القوة والأوزان الحرة والكارديو الحقيقية قبل وصولك.",
           ),
         },
         {
           step: "02",
-          title: localized("Set the work", "حدّد العمل"),
+          title: localized("Choose your focus", "اختر تركيزك"),
           description: localized(
-            "Use the real facility photos and training-area details to plan the kind of session you want before you arrive.",
-            "استخدم صور المرافق الحقيقية وتفاصيل مناطق التدريب لتخطط لنوع الحصة التي تريدها قبل وصولك.",
+            "Plan a strength, free-weight or treadmill session around the confirmed training zones.",
+            "خطّط لحصة قوة أو أوزان حرة أو أجهزة مشي ضمن مناطق التدريب المؤكدة.",
           ),
         },
         {
           step: "03",
           title: localized(
-            "Leave ready for the next session",
-            "اخرج جاهزًا للحصة التالية",
+            "Contact the team",
+            "تواصل مع الفريق",
           ),
           description: localized(
-            "Finish with a clear next step: ask about membership, message the team on WhatsApp or plan your visit to Salmiya.",
-            "اختم بخطوة واضحة: استفسر عن العضوية أو راسل الفريق عبر واتساب أو خطط لزيارتك إلى السالمية.",
+            "Ask about current membership details on WhatsApp, then plan your visit to Salmiya.",
+            "استفسر عبر واتساب عن تفاصيل العضوية الحالية، ثم خطّط لزيارتك إلى السالمية.",
           ),
         },
       ],

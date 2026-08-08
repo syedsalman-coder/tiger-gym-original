@@ -21,6 +21,29 @@ export default function MobileActionBar({
   const dictionary = getDictionary(locale);
   const [footerVisible, setFooterVisible] =
     useState(false);
+  const [pastHero, setPastHero] =
+    useState(false);
+
+  useEffect(() => {
+    let frame = 0;
+
+    const update = () => {
+      window.cancelAnimationFrame(frame);
+      frame = window.requestAnimationFrame(() => {
+        setPastHero(window.scrollY > window.innerHeight * 0.9);
+      });
+    };
+
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update, { passive: true });
+
+    return () => {
+      window.cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+    };
+  }, []);
 
   useEffect(() => {
     const footer =
@@ -58,6 +81,10 @@ export default function MobileActionBar({
   return (
     <aside
       className={`mobile-action-bar ${
+        pastHero
+          ? "mobile-action-bar--ready"
+          : ""
+      } ${
         footerVisible
           ? "mobile-action-bar--footer-visible"
           : ""

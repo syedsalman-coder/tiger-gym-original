@@ -1,18 +1,18 @@
 import type { Metadata } from "next";
-import { MapPin, MessageCircle, Phone } from "lucide-react";
+import { Clock3, MapPin, MessageCircle, Phone } from "lucide-react";
 import MembershipForm from "@/components/contact/MembershipForm";
 
 import MagneticButton from "@/components/shared/MagneticButton";
 import PageHero from "@/components/shared/PageHero";
 import SectionHeading from "@/components/shared/SectionHeading";
-import { membershipContent, membershipOptions } from "@/data/membership-options";
+import { membershipContent, membershipEnquirySteps } from "@/data/membership-options";
 import { site } from "@/data/site";
 import { getLocalizedValue } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
 import { createLocalizedMetadata } from "@/i18n/metadata";
 import { requireLocale, type LocaleParams } from "@/i18n/server";
 
-const icons = { location: MapPin, message: MessageCircle, phone: Phone } as const;
+const icons = { clock: Clock3, location: MapPin, message: MessageCircle } as const;
 
 export async function generateMetadata({ params }: { params: LocaleParams }): Promise<Metadata> {
   const locale = await requireLocale(params);
@@ -32,11 +32,11 @@ export default async function MembershipPage({ params }: { params: LocaleParams 
         <div className="page-shell">
           <SectionHeading number={text(content.section.number)} eyebrow={text(content.section.eyebrow)} title={text(content.section.title)} />
           <div className="membership-options__grid">
-            {membershipOptions.map((option, index) => {
-              const Icon = icons[option.icon];
-              return <article className="membership-option" key={option.id} data-stagger-card>
+            {membershipEnquirySteps.map((step, index) => {
+              const Icon = icons[step.icon];
+              return <article className="membership-option" key={step.id} data-stagger-card>
                 <div><span>0{index + 1}</span><Icon size={24} strokeWidth={1.4} aria-hidden="true" /></div>
-                <h3>{text(option.title)}</h3><p>{text(option.description)}</p><strong>{option.price ? text(option.price) : text(option.priceLabel)}</strong>
+                <h3>{text(step.title)}</h3><p>{text(step.description)}</p><strong>{text(step.detailLabel)}</strong>
               </article>;
             })}
           </div>

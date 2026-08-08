@@ -29,7 +29,7 @@ describe("Customer-facing facilities and membership content", () => {
 
     expect(
       screen.getByRole("heading", {
-        name: "Choose the work.",
+        name: "Choose your training zone.",
       }),
     ).toBeInTheDocument();
 
@@ -50,6 +50,10 @@ describe("Customer-facing facilities and membership content", () => {
         /pending owner confirmation/i,
       ),
     ).not.toBeInTheDocument();
+
+    expect(
+      screen.queryByText("Functional Training"),
+    ).not.toBeInTheDocument();
   });
 
   it("shows Arabic membership content without a confirmation-status notice", async () => {
@@ -61,7 +65,7 @@ describe("Customer-facing facilities and membership content", () => {
 
     expect(
       screen.getByRole("heading", {
-        name: "تحدّث مع الفريق.",
+        name: "طريقة واضحة للبدء.",
       }),
     ).toBeInTheDocument();
 

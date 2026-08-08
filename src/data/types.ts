@@ -24,7 +24,7 @@ export type SocialLink = Readonly<{
   status: ContentStatus;
 }>;
 
-export type FacilityIconName = "activity" | "dumbbell" | "weight" | "zap";
+export type FacilityIconName = "activity" | "dumbbell" | "weight";
 
 export type Facility = Readonly<{
   status: ContentStatus;
@@ -42,15 +42,14 @@ export type Facility = Readonly<{
   }> | null;
 }>;
 
-export type MembershipIconName = "message" | "phone" | "location";
+export type MembershipIconName = "message" | "clock" | "location";
 
-export type MembershipOption = Readonly<{
-  status: ContentStatus;
+export type MembershipEnquiryStep = Readonly<{
+  status: "confirmed";
   id: string;
   title: LocalizedText;
   description: LocalizedText;
-  price: LocalizedText | null;
-  priceLabel: LocalizedText;
+  detailLabel: LocalizedText;
   icon: MembershipIconName;
 }>;
 

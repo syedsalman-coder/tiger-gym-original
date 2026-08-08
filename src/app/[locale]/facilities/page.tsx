@@ -4,7 +4,6 @@ import {
   Activity,
   BicepsFlexed,
   Dumbbell,
-  Zap,
 } from "lucide-react";
 
 import MagneticButton from "@/components/shared/MagneticButton";
@@ -29,7 +28,6 @@ const icons = {
   activity: Activity,
   dumbbell: Dumbbell,
   weight: BicepsFlexed,
-  zap: Zap,
 } as const;
 
 export async function generateMetadata({

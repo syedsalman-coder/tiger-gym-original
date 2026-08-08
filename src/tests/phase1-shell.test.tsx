@@ -35,11 +35,11 @@ describe("Phase 1 conversion shell", () => {
   it("publishes crawl routes and verified local-business structured data", () => {
     const urls = sitemap().map((entry) => entry.url);
 
-    expect(urls).toContain("https://tigergym.kw/en");
-    expect(urls).toContain("https://tigergym.kw/ar/contact");
+    expect(urls).toContain("https://tiger-gym-original.vercel.app/en");
+    expect(urls).toContain("https://tiger-gym-original.vercel.app/ar/contact");
     expect(robots()).toMatchObject({
       rules: { userAgent: "*", allow: "/" },
-      sitemap: "https://tigergym.kw/sitemap.xml",
+      sitemap: "https://tiger-gym-original.vercel.app/sitemap.xml",
     });
 
     const structuredData = createLocalBusinessJsonLd("en");

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import type { CSSProperties } from "react";
 
 import { pageContent } from "@/data/pages";
@@ -51,6 +52,14 @@ export default function HomeScrollStory({
             className="home-scroll-story__visual"
             aria-hidden="true"
           >
+            <Image
+              className="home-scroll-story__visual-image"
+              src="/images/tiger-gym-interior.webp"
+              alt=""
+              fill
+              sizes="(max-width: 767px) 78vw, (max-width: 1100px) 36vw, 24vw"
+            />
+            <span className="home-scroll-story__visual-shade" />
             <span className="home-scroll-story__orb home-scroll-story__orb--outer" />
             <span className="home-scroll-story__orb home-scroll-story__orb--inner" />
             <span className="home-scroll-story__sweep" />

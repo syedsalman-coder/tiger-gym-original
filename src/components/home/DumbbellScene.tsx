@@ -626,7 +626,7 @@ export default function DumbbellScene({
               },
             }}
             frameloop="demand"
-            shadows={!compact}
+            shadows={compact ? false : "basic"}
             camera={{
               position: [
                 0,

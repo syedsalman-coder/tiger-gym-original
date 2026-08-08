@@ -77,6 +77,7 @@ export default function Footer({
               <Logo
                 locale={locale}
                 decorative
+                sizes="(max-width: 767px) 180px, 220px"
               />
             </Link>
 

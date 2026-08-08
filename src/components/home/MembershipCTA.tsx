@@ -28,7 +28,7 @@ export default function MembershipCTA({
   const labels =
     locale === "ar"
       ? {
-          sectionNumber: "04",
+          sectionNumber: "05",
           sectionLabel: "بدء العضوية",
           pathway: "مسار الاستفسار",
           steps: [
@@ -55,7 +55,7 @@ export default function MembershipCTA({
           whatsapp: "تواصل عبر واتساب",          directContact: "تواصل مباشر مع فريق Tiger Gym",
         }
       : {
-          sectionNumber: "04",
+          sectionNumber: "05",
           sectionLabel: "Start membership",
           pathway: "Enquiry pathway",
           steps: [
@@ -132,7 +132,7 @@ export default function MembershipCTA({
               </span>
 
               <span>
-                TG / 04
+                TG / 05
               </span>
             </div>
 

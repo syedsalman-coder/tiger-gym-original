@@ -19,7 +19,7 @@ describe("HomeHero cinematic layer", () => {
     const { container } = render(<HomeHero locale="en" />);
 
     const hero = screen.getByRole("region", {
-      name: /builtforstrength/i,
+      name: /built\s+for\s+strength/i,
     });
 
     expect(hero).toHaveAttribute("data-home-hero");
