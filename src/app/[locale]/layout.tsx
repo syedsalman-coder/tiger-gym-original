@@ -6,7 +6,6 @@ import MobileActionBar from "@/components/layout/MobileActionBar";
 import Navigation from "@/components/layout/Navigation";
 import PageTransition from "@/components/layout/PageTransition";
 import CustomCursor from "@/components/shared/CustomCursor";
-import MobileRouteReset from "@/components/shared/MobileRouteReset";
 import RouteMotion from "@/components/shared/RouteMotion";
 import ScrollProgress from "@/components/shared/ScrollProgress";
 import SmoothScroll from "@/components/shared/SmoothScroll";
@@ -72,7 +71,6 @@ export default async function LocaleLayout({
         <noscript><style>{".home-loader{display:none!important}"}</style></noscript>
         <a className="skip-link" href="#main-content">{dictionary.accessibility.skipToContent}</a>
         <SmoothScroll />
-        <MobileRouteReset />
         <RouteMotion />
         <ScrollProgress />
         <CustomCursor />

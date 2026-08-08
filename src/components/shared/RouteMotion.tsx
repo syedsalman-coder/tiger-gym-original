@@ -26,10 +26,10 @@ export default function RouteMotion() {
       }
 
       reveals.forEach((element) => {
-        gsap.fromTo(element, { autoAlpha: 0, y: 42 }, {
+        gsap.fromTo(element, { autoAlpha: 0, y: 28 }, {
           autoAlpha: 1,
           y: 0,
-          duration: 0.8,
+          duration: 0.55,
           ease: "power3.out",
           scrollTrigger: { trigger: element, start: "top 89%", once: true },
         });
@@ -37,7 +37,7 @@ export default function RouteMotion() {
       lines.forEach((element) => {
         gsap.fromTo(element, { yPercent: 110 }, {
           yPercent: 0,
-          duration: 0.9,
+          duration: 0.62,
           ease: "power4.out",
           scrollTrigger: { trigger: element, start: "top 90%", once: true },
         });
@@ -45,17 +45,17 @@ export default function RouteMotion() {
       dividers.forEach((element) => {
         gsap.fromTo(element, { scaleX: 0, transformOrigin: inlineStart }, {
           scaleX: 1,
-          duration: 1,
+          duration: 0.65,
           ease: "power3.inOut",
           scrollTrigger: { trigger: element, start: "top 92%", once: true },
         });
       });
       if (cards.length) {
         cards.forEach((card) => {
-          gsap.fromTo(card, { autoAlpha: 0, y: 54 }, {
+          gsap.fromTo(card, { autoAlpha: 0, y: 34 }, {
             autoAlpha: 1,
             y: 0,
-            duration: 0.8,
+            duration: 0.55,
             ease: "power3.out",
             scrollTrigger: { trigger: card, start: "top 90%", once: true },
           });
@@ -65,12 +65,12 @@ export default function RouteMotion() {
       const homeHero = document.querySelector<HTMLElement>("[data-home-hero]");
       if (homeHero) {
         gsap.timeline({
-          scrollTrigger: { trigger: homeHero, start: "top top", end: "bottom top", scrub: 0.8 },
+          scrollTrigger: { trigger: homeHero, start: "top top", end: "bottom top", scrub: 0.35 },
         })
           .to("[data-home-title-line='one']", { xPercent: -10, autoAlpha: 0.22 }, 0)
           .to("[data-home-title-line='two']", { xPercent: 8, autoAlpha: 0.16 }, 0)
           .to("[data-home-title-line='three']", { xPercent: -6, autoAlpha: 0.12 }, 0)
-          .to("[data-home-scene]", { scale: 1.1, yPercent: -4 }, 0)
+          .to("[data-home-scene]", { scale: 1.04, yPercent: -3 }, 0)
           .to("[data-home-copy]", { yPercent: 35, autoAlpha: 0 }, 0.08);
       }
 
@@ -80,7 +80,7 @@ export default function RouteMotion() {
           yPercent: -8,
           rotate: 3,
           ease: "none",
-          scrollTrigger: { trigger: logo, start: "top bottom", end: "bottom top", scrub: 1 },
+          scrollTrigger: { trigger: logo, start: "top bottom", end: "bottom top", scrub: 0.4 },
         });
       }
     });

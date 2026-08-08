@@ -66,7 +66,7 @@ export default function HomeLoader({
     document.body.style.overflow = "hidden";
 
     const start = performance.now();
-    const duration = reduceMotion ? 80 : 480;
+    const duration = reduceMotion ? 60 : 220;
 
     let animationFrame = 0;
     let exitTimer = 0;
@@ -106,7 +106,7 @@ export default function HomeLoader({
           document.body.style.overflow =
             previousOverflow;
         },
-        reduceMotion ? 30 : 100,
+        reduceMotion ? 20 : 40,
       );
     };
 
@@ -142,7 +142,7 @@ export default function HomeLoader({
               : { y: "-100%" }
           }
           transition={{
-            duration: reduceMotion ? 0.12 : 0.5,
+            duration: reduceMotion ? 0.08 : 0.22,
             ease: [0.76, 0, 0.24, 1],
           }}
         >
@@ -177,10 +177,10 @@ export default function HomeLoader({
                 initial={{ scaleX: 0 }}
                 animate={{ scaleX: 1 }}
                 transition={{
-                  duration: reduceMotion ? 0 : 0.38,
+                  duration: reduceMotion ? 0 : 0.22,
                   delay: reduceMotion
                     ? 0
-                    : item * 0.08,
+                    : item * 0.04,
                 }}
               />
             ))}

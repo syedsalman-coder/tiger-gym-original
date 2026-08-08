@@ -720,7 +720,7 @@ export default function DumbbellModel({
 
     renderUntilRef.current = Math.max(
       renderUntilRef.current,
-      performance.now() + (compact ? 520 : 1300),
+      performance.now() + (compact ? 400 : 850),
     );
     firstFrameRenderedRef.current = false;
     invalidate();
@@ -734,7 +734,7 @@ export default function DumbbellModel({
     const requestPointerRender = () => {
       renderUntilRef.current = Math.max(
         renderUntilRef.current,
-        performance.now() + (compact ? 240 : 420),
+        performance.now() + 180,
       );
       invalidate();
     };
@@ -813,7 +813,7 @@ export default function DumbbellModel({
       if (active) {
         renderUntilRef.current = Math.max(
           renderUntilRef.current,
-          performance.now() + (compact ? 300 : 520),
+          performance.now() + (compact ? 220 : 280),
         );
         invalidate();
       }
@@ -893,7 +893,7 @@ export default function DumbbellModel({
 
       renderUntilRef.current = Math.max(
         renderUntilRef.current,
-        performance.now() + (compact ? 300 : 520),
+        performance.now() + 220,
       );
       invalidate();
     };
@@ -906,7 +906,7 @@ export default function DumbbellModel({
 
       renderUntilRef.current = Math.max(
         renderUntilRef.current,
-        performance.now() + (compact ? 240 : 420),
+        performance.now() + 180,
       );
       invalidate();
     };
@@ -1035,7 +1035,7 @@ export default function DumbbellModel({
     if (!firstFrameRenderedRef.current) {
       renderUntilRef.current = Math.max(
         renderUntilRef.current,
-        now + (compact ? 520 : 1300),
+        now + (compact ? 400 : 850),
       );
       firstFrameRenderedRef.current = true;
     }

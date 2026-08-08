@@ -4,17 +4,13 @@ import {
   useCallback,
   useEffect,
   useLayoutEffect,
-  useRef,
-  useState,
 } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { useReducedMotion } from "framer-motion";
-import Lenis from "lenis";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const HEADER_OFFSET = -90;
-const FORCE_SCROLL_TOP_KEY = "tiger-force-scroll-top";
 
 function findHashTarget(hash: string): HTMLElement | null {
   if (!hash || hash === "#") {
@@ -37,21 +33,15 @@ export default function SmoothScroll() {
   const router = useRouter();
   const reduceMotion = useReducedMotion();
 
-  const lenisRef = useRef<Lenis | null>(null);
-
-  const [useNativeScroll, setUseNativeScroll] =
-    useState<boolean | null>(null);
-
   /*
-   * Immediately resets both native scrolling and Lenis.
+   * Immediately resets native scrolling.
    */
   const scrollToTopImmediately = useCallback(() => {
-    if (lenisRef.current) {
-      lenisRef.current.scrollTo(0, {
-        immediate: true,
-        force: true,
-      });
-    }
+    const root = document.documentElement;
+    const previousScrollBehavior =
+      root.style.scrollBehavior;
+
+    root.style.scrollBehavior = "auto";
 
     window.scrollTo({
       top: 0,
@@ -59,8 +49,11 @@ export default function SmoothScroll() {
       behavior: "auto",
     });
 
-    document.documentElement.scrollTop = 0;
+    root.scrollTop = 0;
     document.body.scrollTop = 0;
+
+    root.style.scrollBehavior =
+      previousScrollBehavior;
   }, []);
 
   /*
@@ -71,20 +64,6 @@ export default function SmoothScroll() {
       const target = findHashTarget(window.location.hash);
 
       if (!target) {
-        return;
-      }
-
-      if (
-        lenisRef.current &&
-        useNativeScroll === false
-      ) {
-        lenisRef.current.scrollTo(target, {
-          offset: HEADER_OFFSET,
-          immediate: !smooth,
-          duration: smooth ? 0.9 : undefined,
-          force: true,
-        });
-
         return;
       }
 
@@ -102,7 +81,7 @@ export default function SmoothScroll() {
             : "auto",
       });
     },
-    [reduceMotion, useNativeScroll],
+    [reduceMotion],
   );
 
   /*
@@ -124,52 +103,6 @@ export default function SmoothScroll() {
         previousValue;
     };
   }, []);
-
-  /*
-   * Mobile devices use native scrolling.
-   * Desktop devices use Lenis.
-   */
-  useEffect(() => {
-    const coarsePointerQuery = window.matchMedia(
-      "(pointer: coarse)",
-    );
-
-    const mobileWidthQuery = window.matchMedia(
-      "(max-width: 900px)",
-    );
-
-    const updateScrollMode = () => {
-      setUseNativeScroll(
-        Boolean(reduceMotion) ||
-          coarsePointerQuery.matches ||
-          mobileWidthQuery.matches,
-      );
-    };
-
-    updateScrollMode();
-
-    coarsePointerQuery.addEventListener(
-      "change",
-      updateScrollMode,
-    );
-
-    mobileWidthQuery.addEventListener(
-      "change",
-      updateScrollMode,
-    );
-
-    return () => {
-      coarsePointerQuery.removeEventListener(
-        "change",
-        updateScrollMode,
-      );
-
-      mobileWidthQuery.removeEventListener(
-        "change",
-        updateScrollMode,
-      );
-    };
-  }, [reduceMotion]);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -298,23 +231,12 @@ export default function SmoothScroll() {
        */
       event.preventDefault();
 
-      if (changesPath) {
-        try {
-          window.sessionStorage.setItem(
-            FORCE_SCROLL_TOP_KEY,
-            "true",
-          );
-        } catch {
-          // Navigation still works when storage is blocked.
-        }
-      }
-
       scrollToTopImmediately();
 
       router.push(
         `${destination.pathname}${destination.search}`,
         {
-          scroll: true,
+          scroll: false,
         },
       );
     };
@@ -335,34 +257,17 @@ export default function SmoothScroll() {
   }, [router, scrollToTopImmediately]);
 
   /*
-   * Reconfirm the top position after the destination page
+   * Reconfirm the top position whenever the destination page
    * mounts. Multiple checks prevent Next.js, layout changes,
    * fonts or images from restoring an old scroll position.
    */
   useLayoutEffect(() => {
-    let forceTop = false;
-
-    try {
-      forceTop =
-        window.sessionStorage.getItem(
-          FORCE_SCROLL_TOP_KEY,
-        ) === "true";
-
-      if (forceTop) {
-        window.sessionStorage.removeItem(
-          FORCE_SCROLL_TOP_KEY,
-        );
-      }
-    } catch {
-      forceTop = false;
-    }
-
     let firstFrame = 0;
     let secondFrame = 0;
     let firstTimer = 0;
     let secondTimer = 0;
 
-    if (forceTop) {
+    if (!window.location.hash) {
       scrollToTopImmediately();
 
       firstFrame = window.requestAnimationFrame(() => {
@@ -381,8 +286,8 @@ export default function SmoothScroll() {
       secondTimer = window.setTimeout(() => {
         scrollToTopImmediately();
         ScrollTrigger.refresh();
-      }, 450);
-    } else if (window.location.hash) {
+      }, 500);
+    } else {
       firstFrame = window.requestAnimationFrame(() => {
         secondFrame =
           window.requestAnimationFrame(() => {
@@ -429,88 +334,14 @@ export default function SmoothScroll() {
   }, [scrollToCurrentLocation]);
 
   /*
-   * Enable Lenis smooth scrolling on desktop only.
-   */
-  useEffect(() => {
-    if (useNativeScroll !== false) {
-      if (lenisRef.current) {
-        lenisRef.current.destroy();
-        lenisRef.current = null;
-      }
-
-      return;
-    }
-
-    const lenis = new Lenis({
-      lerp: 0.1,
-      smoothWheel: true,
-      syncTouch: false,
-      wheelMultiplier: 0.92,
-    });
-
-    lenisRef.current = lenis;
-
-    const updateScrollTrigger = () => {
-      ScrollTrigger.update();
-    };
-
-    const tick = (time: number) => {
-      lenis.raf(time * 1000);
-    };
-
-    const refreshScrollTrigger = () => {
-      ScrollTrigger.refresh();
-    };
-
-    lenis.on("scroll", updateScrollTrigger);
-
-    gsap.ticker.add(tick);
-    gsap.ticker.lagSmoothing(0);
-
-    window.addEventListener(
-      "tiger-scene-ready",
-      refreshScrollTrigger,
-    );
-
-    const refreshTimer = window.setTimeout(
-      refreshScrollTrigger,
-      350,
-    );
-
-    return () => {
-      window.clearTimeout(refreshTimer);
-
-      window.removeEventListener(
-        "tiger-scene-ready",
-        refreshScrollTrigger,
-      );
-
-      gsap.ticker.remove(tick);
-      gsap.ticker.lagSmoothing(500, 33);
-
-      lenis.off(
-        "scroll",
-        updateScrollTrigger,
-      );
-
-      lenis.destroy();
-
-      if (lenisRef.current === lenis) {
-        lenisRef.current = null;
-      }
-    };
-  }, [useNativeScroll]);
-
-  /*
-   * Smooth intentional same-page hash links on desktop.
+   * Smooth intentional same-page hash links with the
+   * browser's native, compositor-friendly scrolling.
    */
   useEffect(() => {
     const handleHashAnchorClick = (
       event: MouseEvent,
     ) => {
       if (
-        useNativeScroll !== false ||
-        !lenisRef.current ||
         event.defaultPrevented ||
         event.button !== 0 ||
         event.metaKey ||
@@ -531,10 +362,16 @@ export default function SmoothScroll() {
         return;
       }
 
-      const destination = new URL(
-        anchor.href,
-        window.location.href,
-      );
+      let destination: URL;
+
+      try {
+        destination = new URL(
+          anchor.href,
+          window.location.href,
+        );
+      } catch {
+        return;
+      }
 
       const isSamePage =
         destination.origin ===
@@ -567,11 +404,7 @@ export default function SmoothScroll() {
         `${destination.pathname}${destination.search}${destination.hash}`,
       );
 
-      lenisRef.current.scrollTo(target, {
-        offset: HEADER_OFFSET,
-        duration: 0.9,
-        force: true,
-      });
+      scrollToCurrentLocation(true);
     };
 
     document.addEventListener(
@@ -587,7 +420,7 @@ export default function SmoothScroll() {
         true,
       );
     };
-  }, [useNativeScroll]);
+  }, [scrollToCurrentLocation]);
 
   return null;
 }

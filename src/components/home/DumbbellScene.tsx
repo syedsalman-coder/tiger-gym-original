@@ -343,10 +343,10 @@ function StudioScene({
         castShadow={!compact}
         shadow-bias={-0.00015}
         shadow-mapSize-width={
-          compact ? 256 : 1024
+          compact ? 256 : 512
         }
         shadow-mapSize-height={
-          compact ? 256 : 1024
+          compact ? 256 : 512
         }
       />
 
@@ -424,7 +424,7 @@ function StudioScene({
           blur={2.3}
           far={3.8}
           resolution={256}
-          frames={reducedMotion ? 1 : 55}
+          frames={reducedMotion ? 1 : 24}
           color="#000000"
         />
       )}
@@ -615,7 +615,7 @@ export default function DumbbellScene({
             style={{
               touchAction: "pan-y",
             }}
-            dpr={compact ? 0.78 : [1, 1.25]}
+            dpr={compact ? 0.7 : [0.85, 1.1]}
             resize={{
               scroll: false,
               debounce: {

@@ -159,7 +159,7 @@ export default function VerifiedFaq({
           <p>{labels.description}</p>
         </div>
 
-        <div className="responsive-grid">
+        <div className="faq-section__grid">
           {items.map((item) => (
             <article
               className="philosophy__card"
