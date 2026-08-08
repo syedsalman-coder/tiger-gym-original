@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Clock3, MapPin, MessageCircle, Phone } from "lucide-react";
 import MembershipForm from "@/components/contact/MembershipForm";
+import MembershipOffers from "@/components/membership/MembershipOffers";
 
 import MagneticButton from "@/components/shared/MagneticButton";
 import PageHero from "@/components/shared/PageHero";
@@ -28,6 +29,7 @@ export default async function MembershipPage({ params }: { params: LocaleParams 
   return (
     <main id="main-content">
       <PageHero index={text(content.hero.index)} eyebrow={text(content.hero.eyebrow)} title={text(content.hero.title)} description={text(content.hero.description)} nextLabel={text(content.hero.nextLabel)} nextHref={content.hero.nextHref} />
+      <MembershipOffers locale={locale} />
       <section className="membership-options section-space" id="membership-options">
         <div className="page-shell">
           <SectionHeading number={text(content.section.number)} eyebrow={text(content.section.eyebrow)} title={text(content.section.title)} />

@@ -81,4 +81,47 @@ describe("Customer-facing facilities and membership content", () => {
       ),
     ).not.toBeInTheDocument();
   });
+
+  it("publishes the supplied membership prices and freeze terms in both languages", async () => {
+    render(
+      await MembershipPage({
+        params: paramsFor("en"),
+      }),
+    );
+
+    const englishOffers = screen.getByRole("region", {
+      name: "Membership packages",
+    });
+
+    expect(englishOffers).toHaveTextContent("1 Year");
+    expect(englishOffers).toHaveTextContent("150 KD");
+    expect(englishOffers).toHaveTextContent("120");
+    expect(englishOffers).toHaveTextContent(
+      "1 month membership freeze",
+    );
+    expect(englishOffers).toHaveTextContent(
+      "15 days membership freeze",
+    );
+
+    cleanup();
+
+    render(
+      await MembershipPage({
+        params: paramsFor("ar"),
+      }),
+    );
+
+    const arabicOffers = screen.getByRole("region", {
+      name: "باقات الاشتراك",
+    });
+
+    expect(arabicOffers).toHaveTextContent("سنة واحدة");
+    expect(arabicOffers).toHaveTextContent("120");
+    expect(arabicOffers).toHaveTextContent(
+      "تجميد العضوية لمدة شهر واحد",
+    );
+    expect(arabicOffers).toHaveTextContent(
+      "تجميد العضوية لمدة 15 يومًا",
+    );
+  });
 });

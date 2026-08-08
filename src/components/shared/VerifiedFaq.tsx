@@ -38,9 +38,9 @@ export default function VerifiedFaq({
           },
           {
             question:
-              "كيف أعرف سعر اشتراك Tiger Gym الحالي؟",
+              "ما أسعار عروض عضوية Tiger Gym الحالية؟",
             answer:
-              `تواصل مباشرةً مع Tiger Gym عبر واتساب أو الهاتف على ${site.phoneDisplay} للاستفسار عن أسعار العضوية وخيارات الدخول الحالية.`,
+              `العروض المدرجة هي: شهر واحد بسعر 28 د.ك، و3 أشهر بسعر 48 د.ك، و6 أشهر بسعر 68 د.ك، وسنة واحدة بسعر 120 د.ك. تواصل مع Tiger Gym على ${site.phoneDisplay} لتأكيد توفر العرض قبل الدفع.`,
           },
           {
             question:
@@ -76,9 +76,9 @@ export default function VerifiedFaq({
           },
           {
             question:
-              "How do I check the current Tiger Gym membership price?",
+              "What are the current Tiger Gym membership offers?",
             answer:
-              `Contact Tiger Gym directly on WhatsApp or call ${site.phoneDisplay} to ask about current membership prices and access options.`,
+              `The listed offers are 1 month for KD 28, 3 months for KD 48, 6 months for KD 68 and 1 year for KD 120. Contact Tiger Gym on ${site.phoneDisplay} to confirm offer availability before payment.`,
           },
           {
             question:

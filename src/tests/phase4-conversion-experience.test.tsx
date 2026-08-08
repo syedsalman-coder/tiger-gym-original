@@ -160,13 +160,13 @@ describe("Phase 4 conversion experience", () => {
     fireEvent.change(screen.getByLabelText("Name"), { target: { value: "Dana" } });
     fireEvent.change(screen.getByLabelText("Phone"), { target: { value: "+965 5555 5555" } });
     fireEvent.change(screen.getByLabelText("Preferred training time"), { target: { value: "Evening" } });
-    fireEvent.change(screen.getByLabelText("What would you like to ask?"), { target: { value: "Message the team" } });
+    fireEvent.change(screen.getByLabelText("Which membership package interests you?"), { target: { value: "1 Year — 120 KD" } });
     fireEvent.change(screen.getByLabelText("Message"), { target: { value: "Please confirm current price." } });
     fireEvent.click(screen.getByRole("button", { name: /prepare membership enquiry/i }));
 
     const membershipUrl = new URL(openedUrls.at(-1) ?? "");
     expect(membershipUrl.origin + membershipUrl.pathname).toBe("https://wa.me/96569678350");
-    expect(membershipUrl.searchParams.get("text")).toContain("Message the team");
+    expect(membershipUrl.searchParams.get("text")).toContain("1 Year — 120 KD");
     expect(membershipUrl.searchParams.get("text")).toContain("Please confirm current price.");
     expect(trackMock).toHaveBeenLastCalledWith("Membership Form Submitted", {
       locale: "en",
